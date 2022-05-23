@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "1076532495228",
+    "project_id": "surveyrpg-prototype",
+    "storage_bucket": "surveyrpg-prototype.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1076532495228:android:d744e7e5c1679e03525af9",
+        "android_client_info": {
+          "package_name": "com.example.surveymonkey_prototype"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1076532495228-j1lep441jvmvap5nhitapdndstonrpte.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAuJvXx-RDsO4HAILnLXao_q4nrSp70CBk"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1076532495228-j1lep441jvmvap5nhitapdndstonrpte.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
