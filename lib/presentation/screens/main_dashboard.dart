@@ -46,7 +46,9 @@ class _DashboardState extends State<Dashboard> with IronSourceListener {
 
   @override
   void onOfferwallAdCredited(OfferwallCredit reward) {
-    print("onOfferwallAdCredited : $reward");
+    context
+        .read<AuthCubit>()
+        .addCoins(reward.credits!, "${reward.credits!} from offerwall");
   }
 
   void showRewardedAd() async {
@@ -62,6 +64,7 @@ class _DashboardState extends State<Dashboard> with IronSourceListener {
   @override
   void onRewardedVideoAdClosed() {
     print("onRewardedVideoAdClosed");
+    context.read<AuthCubit>().addCoins(10, "10 coins from rewarded ad");
   }
 
   @override

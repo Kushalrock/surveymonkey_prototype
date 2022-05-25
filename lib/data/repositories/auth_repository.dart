@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
 class AuthRepository {
@@ -69,5 +70,30 @@ class AuthRepository {
     } catch (e) {
       throw Exception(e);
     }
+  }
+
+  Future<void> addCoins(int coins, String purposeText) async {
+    final userData = FirebaseFirestore.instance.collection('/app-data');
+    int previousCoins = 0;
+    await userData
+        .doc(FirebaseAuth.instance.currentUser?.email)
+        .get()
+        .then((value) {
+      if (value.exists) {
+        previousCoins = value.data()!["coins"];
+      } else {
+        value.data()?.update("coins", (value) => value = 0, ifAbsent: () => 0);
+        previousCoins = 0;
+      }
+    });
+    var coinsData = {"coins": coins + previousCoins};
+    await userData
+        .doc(FirebaseAuth.instance.currentUser?.email)
+        .set(coinsData, SetOptions(merge: true));
+    FirebaseFirestore.instance
+        .collection('/transaction-history')
+        .doc(FirebaseAuth.instance.currentUser?.email)
+        .set({DateTime.now().millisecondsSinceEpoch.toString(): purposeText},
+            SetOptions(merge: true));
   }
 }

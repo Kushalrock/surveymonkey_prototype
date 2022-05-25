@@ -24,6 +24,7 @@ class _QuestionsScreenState extends State<QuestionsScreen> {
     });
     if (currentQuestion > 4) {
       context.read<QuestionCubit>().sendAnswersBack(finalList);
+      context.read<AuthCubit>().addCoins(10, "Questions for survey");
       Navigator.pop(context);
     }
   }

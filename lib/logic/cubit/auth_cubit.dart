@@ -52,4 +52,12 @@ class AuthCubit extends Cubit<AuthState> {
     print(change.currentState.toString());
     print(change.nextState.toString());
   }
+
+  Future<void> addCoins(int coins, String purposeText) async {
+    try {
+      await authRepository.addCoins(coins, purposeText);
+    } on Exception catch (e) {
+      throw Exception(e);
+    }
+  }
 }
