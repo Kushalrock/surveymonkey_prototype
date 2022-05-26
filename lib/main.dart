@@ -7,11 +7,14 @@ import 'package:flutter/material.dart';
 // Firebase Related Imports
 import 'package:firebase_core/firebase_core.dart';
 import 'package:surveymonkey_prototype/data/repositories/question_repository.dart';
+import 'package:surveymonkey_prototype/data/repositories/transaction_history_repository.dart';
 import 'package:surveymonkey_prototype/logic/cubit/question_cubit.dart';
+import 'package:surveymonkey_prototype/logic/cubit/transaction_history_cubit.dart';
 import 'package:surveymonkey_prototype/presentation/screens/adddata_questions_screen.dart';
 import 'package:surveymonkey_prototype/presentation/screens/main_dashboard.dart';
 import 'package:surveymonkey_prototype/presentation/screens/profile_page.dart';
 import 'package:surveymonkey_prototype/presentation/screens/signup_screen.dart';
+import 'package:surveymonkey_prototype/presentation/screens/transaction_history_screen.dart';
 
 import 'firebase_options.dart';
 
@@ -46,6 +49,9 @@ class MyApp extends StatelessWidget {
         RepositoryProvider(
           create: (context) => QuestionRepository(),
         ),
+        RepositoryProvider(
+          create: (context) => TransactionHistoryRepository(),
+        ),
       ],
       child: MultiBlocProvider(
         providers: [
@@ -56,6 +62,10 @@ class MyApp extends StatelessWidget {
           BlocProvider(
             create: (context) => QuestionCubit(
                 RepositoryProvider.of<QuestionRepository>(context)),
+          ),
+          BlocProvider(
+            create: (context) => TransactionHistoryCubit(
+                RepositoryProvider.of<TransactionHistoryRepository>(context)),
           ),
         ],
         child: MaterialApp(
@@ -78,6 +88,7 @@ class MyApp extends StatelessWidget {
             '/dashboard': (context) => Dashboard(),
             '/add-data': (context) => QuestionsScreen(),
             '/profile': (context) => ProfilePage(),
+            '/transaction-history': (context) => TransactionHistoryScreen(),
           },
         ),
       ),

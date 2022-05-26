@@ -4,6 +4,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_ironsource_x/ironsource.dart';
 import 'package:flutter_ironsource_x/models.dart';
 import 'package:surveymonkey_prototype/logic/cubit/question_cubit.dart';
+import 'package:surveymonkey_prototype/logic/cubit/transaction_history_cubit.dart';
 import 'package:surveymonkey_prototype/presentation/screens/Signin_screen.dart';
 
 import '../../logic/cubit/auth_cubit.dart';
@@ -164,6 +165,26 @@ class _DashboardState extends State<Dashboard> with IronSourceListener {
                     },
                     child: const Text(
                       'Rewarded Ad',
+                      style: TextStyle(
+                        fontSize: 24,
+                      ),
+                      textAlign: TextAlign.center,
+                    ),
+                  ),
+                  width: MediaQuery.of(context).size.width * 0.8,
+                  height: MediaQuery.of(context).size.height * 0.08,
+                ),
+                const SizedBox(height: 16),
+                SizedBox(
+                  child: OutlinedButton(
+                    onPressed: () {
+                      context
+                          .read<TransactionHistoryCubit>()
+                          .transactionHistoryRequested();
+                      Navigator.pushNamed(context, '/transaction-history');
+                    },
+                    child: const Text(
+                      'Transaction History',
                       style: TextStyle(
                         fontSize: 24,
                       ),
