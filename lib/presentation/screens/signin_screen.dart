@@ -28,6 +28,13 @@ class _SignInScreenState extends State<SignInScreen> {
   }
 
   @override
+  void dispose() {
+    // TODO: implement dispose
+    super.dispose();
+    overlayEntry?.dispose();
+  }
+
+  @override
   void initState() {
     super.initState();
     WidgetsBinding.instance?.addPostFrameCallback((_) => showOverlay());
@@ -101,7 +108,7 @@ class _SignInScreenState extends State<SignInScreen> {
                     icon: Icon(Icons.arrow_left),
                     label: Text(""),
                   ),
-                  SizedBox(
+                  const SizedBox(
                     width: 200,
                   ),
                   ElevatedButton.icon(
@@ -123,8 +130,8 @@ class _SignInScreenState extends State<SignInScreen> {
                         Overlay.of(context)?.insert(overlayEntry!);
                       }
                     },
-                    icon: Icon(Icons.arrow_right),
-                    label: Text(""),
+                    icon: const Icon(Icons.arrow_right),
+                    label: const Text(""),
                   )
                 ],
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,

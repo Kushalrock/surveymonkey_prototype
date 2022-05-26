@@ -19,7 +19,6 @@ class _DashboardState extends State<Dashboard> with IronSourceListener {
   bool offerWallAvailable = false;
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
     initIronSource();
   }
@@ -88,11 +87,11 @@ class _DashboardState extends State<Dashboard> with IronSourceListener {
               ),
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
-                children: const [
-                  Icon(Icons.balance),
+                children: [
+                  const Icon(Icons.balance),
                   Padding(
-                    padding: EdgeInsets.all(5.0),
-                    child: Text("200"),
+                    padding: const EdgeInsets.all(5.0),
+                    child: Text("0"),
                   ),
                 ],
               ),

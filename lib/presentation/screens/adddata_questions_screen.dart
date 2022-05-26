@@ -18,7 +18,7 @@ class _QuestionsScreenState extends State<QuestionsScreen> {
   List<Map<String, String>> answers = [];
   List<AnswerModel> finalList = [];
 
-  void UpdateQuestionAndSubmitAnswers() {
+  void updateQuestionAndSubmitAnswers() {
     setState(() {
       currentQuestion += 1;
     });
@@ -84,7 +84,7 @@ class _QuestionsScreenState extends State<QuestionsScreen> {
                                 finalAnswerModel: finalList,
                                 questionLoc: state.questions[currentQuestion]
                                     .locationInDatabase,
-                                updateQuestion: UpdateQuestionAndSubmitAnswers,
+                                updateQuestion: updateQuestionAndSubmitAnswers,
                               )
                             : QuestionLayout(
                                 questionText: state.questions[4].questionText,
@@ -94,7 +94,7 @@ class _QuestionsScreenState extends State<QuestionsScreen> {
                                 finalAnswerModel: finalList,
                                 questionLoc:
                                     state.questions[4].locationInDatabase,
-                                updateQuestion: UpdateQuestionAndSubmitAnswers,
+                                updateQuestion: updateQuestionAndSubmitAnswers,
                               ),
                       ),
                       SizedBox(
