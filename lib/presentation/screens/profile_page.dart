@@ -9,79 +9,235 @@ class ProfilePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: const Text('Profile')),
-      body: Center(
-        child: SingleChildScrollView(
-          child: Column(
-            children: [
-              const Icon(
-                Icons.account_circle_rounded,
-                size: 100,
-              ),
-              Text(
-                FirebaseAuth.instance.currentUser!.displayName
-                            .toString()
-                            .length >
-                        0
-                    ? FirebaseAuth.instance.currentUser!.displayName.toString()
-                    : FirebaseAuth.instance.currentUser!.email.toString(),
-                style: const TextStyle(
-                  fontSize: 20,
-                ),
-              ),
-              SizedBox(
-                height: MediaQuery.of(context).size.height * 0.02,
-              ),
-              SizedBox(
-                child: ElevatedButton(
-                  onPressed: () {
-                    Navigator.of(context).push(MaterialPageRoute(
-                        builder: (context) => UpdateData(
-                              currentData: FirebaseAuth
-                                  .instance.currentUser!.displayName
-                                  .toString(),
-                              typeOfData: 'Display Name',
-                              funcOnSuccess:
-                                  context.read<AuthCubit>().updateDisplayName,
-                            )));
-                  },
-                  child: const Text('Set Display Name'),
-                ),
-                width: MediaQuery.of(context).size.width * 0.7,
-              ),
-              SizedBox(
-                height: MediaQuery.of(context).size.height * 0.01,
-              ),
-              SizedBox(
-                child: ElevatedButton(
-                  onPressed: () {
-                    Navigator.of(context).push(MaterialPageRoute(
-                        builder: (context) => UpdateData(
-                              currentData: FirebaseAuth
-                                  .instance.currentUser!.displayName
-                                  .toString(),
-                              typeOfData: 'Password',
-                              funcOnSuccess:
-                                  context.read<AuthCubit>().updatePassword,
-                            )));
-                  },
-                  child: const Text('Update Password'),
-                ),
-                width: MediaQuery.of(context).size.width * 0.7,
-              ),
-              SizedBox(
-                height: MediaQuery.of(context).size.height * 0.01,
-              ),
-              SizedBox(
-                child: ElevatedButton(
-                  onPressed: () {},
-                  child: const Text('Delete Account'),
-                  style: ButtonStyle(
-                      backgroundColor: MaterialStateProperty.all(Colors.red)),
-                ),
-                width: MediaQuery.of(context).size.width * 0.7,
-              ),
+      appBar: AppBar(
+        title: const Text(''),
+        elevation: 0,
+        flexibleSpace: Container(
+          decoration: const BoxDecoration(
+            gradient: LinearGradient(
+              begin: const FractionalOffset(0.0, 0.0),
+              end: const FractionalOffset(1.0, 0.0),
+              colors: <Color>[
+                Color.fromARGB(255, 9, 32, 63),
+                Color.fromARGB(255, 83, 120, 149)
+              ],
+            ),
+          ),
+        ),
+      ),
+      body: Container(
+        decoration: const BoxDecoration(
+          gradient: LinearGradient(
+            colors: [
+              Color.fromARGB(255, 9, 32, 63),
+              Color.fromARGB(255, 83, 120, 149)
             ],
+            begin: const FractionalOffset(0.0, 0.0),
+            end: const FractionalOffset(1.0, 0.0),
+          ),
+        ),
+        child: Center(
+          child: SingleChildScrollView(
+            child: Column(
+              children: [
+                const Icon(
+                  Icons.account_circle_rounded,
+                  size: 100,
+                ),
+                Text(
+                  FirebaseAuth.instance.currentUser!.displayName
+                              .toString()
+                              .length >
+                          0
+                      ? FirebaseAuth.instance.currentUser!.displayName
+                          .toString()
+                      : "",
+                  style: const TextStyle(
+                    fontSize: 20,
+                    color: Color.fromARGB(222, 255, 255, 255),
+                  ),
+                ),
+                Text(
+                  FirebaseAuth.instance.currentUser!.email.toString(),
+                  style: const TextStyle(
+                    fontSize: 16,
+                    color: Color.fromARGB(168, 255, 255, 255),
+                  ),
+                ),
+                SizedBox(
+                  height: MediaQuery.of(context).size.height * 0.02,
+                ),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  children: [
+                    SizedBox(
+                      child: IconButton(
+                        onPressed: () {
+                          Navigator.of(context).push(MaterialPageRoute(
+                              builder: (context) => UpdateData(
+                                    currentData: FirebaseAuth
+                                        .instance.currentUser!.displayName
+                                        .toString(),
+                                    typeOfData: 'Display Name',
+                                    funcOnSuccess: context
+                                        .read<AuthCubit>()
+                                        .updateDisplayName,
+                                  )));
+                        },
+                        icon: Icon(Icons.assessment_outlined),
+                      ),
+                    ),
+                    SizedBox(
+                      child: IconButton(
+                        onPressed: () {
+                          Navigator.of(context).push(MaterialPageRoute(
+                              builder: (context) => UpdateData(
+                                    currentData: FirebaseAuth
+                                        .instance.currentUser!.displayName
+                                        .toString(),
+                                    typeOfData: 'Password',
+                                    funcOnSuccess: context
+                                        .read<AuthCubit>()
+                                        .updatePassword,
+                                  )));
+                        },
+                        icon: Icon(Icons.password_outlined),
+                        tooltip: "Change Password",
+                      ),
+                    ),
+                    SizedBox(
+                      child: IconButton(
+                        onPressed: () {},
+                        icon: Icon(Icons.delete_forever_outlined),
+                        tooltip: "Delete Account",
+                      ),
+                    ),
+                  ],
+                ),
+                Container(
+                  margin: EdgeInsets.only(top: 20),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: Container(
+                          decoration: BoxDecoration(
+                            border: Border.all(width: 0.5, color: Colors.black),
+                            borderRadius: BorderRadius.all(
+                              Radius.circular(20),
+                            ),
+                          ),
+                          child: Center(
+                            child: Column(
+                              children: [
+                                Padding(
+                                  padding: const EdgeInsets.all(10.0),
+                                  child: Icon(
+                                    Icons.web_asset_outlined,
+                                    size: 50,
+                                  ),
+                                ),
+                                SizedBox(
+                                  height:
+                                      MediaQuery.of(context).size.height * 0.03,
+                                ),
+                                Padding(
+                                  padding: const EdgeInsets.fromLTRB(
+                                      20, 10.0, 20, 10),
+                                  child: Text(
+                                    "Visit our website",
+                                    style: TextStyle(
+                                      fontSize: 18,
+                                      color: Colors.white70,
+                                    ),
+                                  ),
+                                ),
+                                Padding(
+                                  padding: const EdgeInsets.all(10.0),
+                                  child: Text(
+                                    "www.coinkick.com",
+                                    style: TextStyle(
+                                      fontSize: 14,
+                                      color: Colors.white60,
+                                    ),
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
+                        ),
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: Container(
+                          decoration: BoxDecoration(
+                            border: Border.all(width: 0.5, color: Colors.black),
+                            borderRadius: BorderRadius.all(
+                              Radius.circular(20),
+                            ),
+                          ),
+                          child: Center(
+                            child: Column(
+                              children: [
+                                Padding(
+                                  padding: const EdgeInsets.all(10.0),
+                                  child: Icon(
+                                    Icons.contact_page_outlined,
+                                    size: 50,
+                                  ),
+                                ),
+                                SizedBox(
+                                  height:
+                                      MediaQuery.of(context).size.height * 0.03,
+                                ),
+                                Padding(
+                                  padding: const EdgeInsets.fromLTRB(
+                                      20, 10.0, 20, 10),
+                                  child: Text(
+                                    "        Support       ",
+                                    style: TextStyle(
+                                      fontSize: 18,
+                                      color: Colors.white70,
+                                    ),
+                                  ),
+                                ),
+                                Padding(
+                                  padding: const EdgeInsets.all(10.0),
+                                  child: Text(
+                                    "  Drop a mail today  ",
+                                    style: TextStyle(
+                                      fontSize: 14,
+                                      color: Colors.white60,
+                                    ),
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+                Card(
+                  margin: EdgeInsets.only(
+                    top: 50,
+                  ),
+                  child: Padding(
+                    padding: const EdgeInsets.fromLTRB(60, 15, 60, 15),
+                    child: Column(
+                      children: [
+                        Text("To contact us, drop us a mail at"),
+                        Text("support@coinkick.com")
+                      ],
+                    ),
+                  ),
+                  color: Color.fromARGB(255, 2, 24, 35),
+                  elevation: 10,
+                )
+              ],
+            ),
           ),
         ),
       ),
