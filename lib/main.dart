@@ -71,7 +71,8 @@ class MyApp extends StatelessWidget {
         child: MaterialApp(
           title: 'Survey RPG',
           theme: ThemeData(
-            primarySwatch: Colors.blue,
+            primarySwatch: Colors.grey,
+            brightness: Brightness.dark,
           ),
           routes: {
             '/': (context) => StreamBuilder<User?>(

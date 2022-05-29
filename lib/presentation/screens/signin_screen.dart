@@ -73,71 +73,85 @@ class _SignInScreenState extends State<SignInScreen> {
       child: Card(
         elevation: 20,
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
-        child: Column(
-          children: [
-            cards[cardIndex],
-            Padding(
-              padding: const EdgeInsets.fromLTRB(20, 5, 20, 5),
-              child: Text(textFirstLine[cardIndex]),
-            ),
-            Padding(
-              padding: const EdgeInsets.fromLTRB(20, 5, 20, 5),
-              child: Text(textSecondLine[cardIndex]),
-            ),
-            Padding(
-              padding: const EdgeInsets.all(5.0),
-              child: Row(
-                children: [
-                  ElevatedButton.icon(
-                    onPressed: () {
-                      setState(() {
-                        if (cardIndex > 0) {
-                          setState(() {
-                            cardIndex -= 1;
-                            hideOverlay();
-                            overlayEntry = OverlayEntry(
-                              builder: (context) {
-                                return GetCardWidget();
-                              },
-                            );
-                            Overlay.of(context)?.insert(overlayEntry!);
-                          });
-                        }
-                      });
-                    },
-                    icon: Icon(Icons.arrow_left),
-                    label: Text(""),
-                  ),
-                  const SizedBox(
-                    width: 200,
-                  ),
-                  ElevatedButton.icon(
-                    onPressed: () {
-                      if (cardIndex >= lastIndex) {
-                        hideOverlay();
-                        print("Yes");
-                      } else {
-                        setState(() {
-                          cardIndex += 1;
-                        });
-                        print(cardIndex);
-                        hideOverlay();
-                        overlayEntry = OverlayEntry(
-                          builder: (context) {
-                            return GetCardWidget();
-                          },
-                        );
-                        Overlay.of(context)?.insert(overlayEntry!);
-                      }
-                    },
-                    icon: const Icon(Icons.arrow_right),
-                    label: const Text(""),
-                  )
+        child: Container(
+          decoration: const BoxDecoration(
+              gradient: LinearGradient(
+                colors: [
+                  Color.fromARGB(255, 163, 189, 237),
+                  Color.fromARGB(255, 105, 145, 199)
                 ],
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                begin: const FractionalOffset(1.0, 0.0),
+                end: const FractionalOffset(0.0, 0.0),
               ),
-            )
-          ],
+              borderRadius: BorderRadius.all(Radius.circular(20))),
+          child: Column(
+            children: [
+              cards[cardIndex],
+              Padding(
+                padding: const EdgeInsets.fromLTRB(20, 5, 20, 5),
+                child: Text(textFirstLine[cardIndex]),
+              ),
+              Padding(
+                padding: const EdgeInsets.fromLTRB(20, 5, 20, 5),
+                child: Text(textSecondLine[cardIndex]),
+              ),
+              Padding(
+                padding: const EdgeInsets.all(5.0),
+                child: Row(
+                  children: [
+                    IconButton(
+                      onPressed: () {
+                        setState(() {
+                          if (cardIndex > 0) {
+                            setState(() {
+                              cardIndex -= 1;
+                              hideOverlay();
+                              overlayEntry = OverlayEntry(
+                                builder: (context) {
+                                  return GetCardWidget();
+                                },
+                              );
+                              Overlay.of(context)?.insert(overlayEntry!);
+                            });
+                          }
+                        });
+                      },
+                      icon: Icon(Icons.arrow_left),
+                    ),
+                    Container(
+                      width: 200,
+                      alignment: Alignment.center,
+                      child: Text((cardIndex + 1).toString() +
+                          "/" +
+                          (lastIndex + 1).toString()),
+                    ),
+                    IconButton(
+                      onPressed: () {
+                        if (cardIndex >= lastIndex) {
+                          hideOverlay();
+                          print("Yes");
+                        } else {
+                          setState(() {
+                            cardIndex += 1;
+                          });
+                          print(cardIndex);
+                          hideOverlay();
+                          overlayEntry = OverlayEntry(
+                            builder: (context) {
+                              return GetCardWidget();
+                            },
+                          );
+                          Overlay.of(context)?.insert(overlayEntry!);
+                        }
+                      },
+                      icon: const Icon(Icons.arrow_right),
+                    )
+                  ],
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                ),
+              )
+            ],
+          ),
         ),
       ),
       left: MediaQuery.of(context).size.width * 0.08,
@@ -163,9 +177,7 @@ class _SignInScreenState extends State<SignInScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: const Text("Survey RPG"),
-      ),
+      appBar: null,
       body: BlocListener<AuthCubit, AuthState>(
         listener: (context, state) {
           if (state is Authenticated) {
@@ -181,115 +193,148 @@ class _SignInScreenState extends State<SignInScreen> {
               return const Center(child: CircularProgressIndicator());
             }
             if (state is UnAuthenticated) {
-              return Center(
-                  child: Padding(
-                padding: const EdgeInsets.all(18.0),
-                child: SingleChildScrollView(
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      const Icon(Icons.adb_rounded, size: 150),
-                      const Text(
-                        'Survey RPG',
-                        style: TextStyle(
-                          fontWeight: FontWeight.bold,
-                          fontSize: 40,
-                        ),
-                      ),
-                      const SizedBox(
-                        height: 18,
-                      ),
-                      Center(
-                        child: Form(
-                          child: Column(
-                            children: [
-                              Padding(
-                                padding: const EdgeInsets.fromLTRB(
-                                    15.0, 10.0, 15.0, 10.0),
-                                child: TextFormField(
-                                  keyboardType: TextInputType.emailAddress,
-                                  controller: _emailController,
-                                  decoration: const InputDecoration(
-                                    hintText: "Email",
-                                    border: OutlineInputBorder(),
-                                  ),
-                                  autovalidateMode:
-                                      AutovalidateMode.onUserInteraction,
-                                  validator: (value) {
-                                    return value != null &&
-                                            !EmailValidator.validate(value)
-                                        ? 'Enter a valid email'
-                                        : null;
-                                  },
-                                ),
-                              ),
-                              Padding(
-                                padding: const EdgeInsets.fromLTRB(
-                                    15.0, 10.0, 15.0, 10.0),
-                                child: TextFormField(
-                                  keyboardType: TextInputType.text,
-                                  controller: _passwordController,
-                                  decoration: const InputDecoration(
-                                    hintText: "Password",
-                                    border: OutlineInputBorder(),
-                                  ),
-                                  autovalidateMode:
-                                      AutovalidateMode.onUserInteraction,
-                                  validator: (value) {
-                                    return value != null && value.length < 6
-                                        ? "Enter min. 6 characters"
-                                        : null;
-                                  },
-                                ),
-                              ),
-                              SizedBox(
-                                width: MediaQuery.of(context).size.width * 0.7,
-                                child: ElevatedButton(
-                                  onPressed: () {
-                                    _authenticateWithEmailAndPassword(context);
-                                  },
-                                  child: const Text('Sign In'),
-                                ),
-                              ),
-                              const SizedBox(
-                                height: 12,
-                              ),
-                              Row(
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                children: [
-                                  const Text(
-                                    "Don't have an account? ",
-                                    style: TextStyle(
-                                      fontWeight: FontWeight.bold,
-                                      fontSize: 18,
-                                    ),
-                                  ),
-                                  SizedBox(
-                                    width:
-                                        MediaQuery.of(context).size.width * 0.1,
-                                  ),
-                                  SizedBox(
-                                    width:
-                                        MediaQuery.of(context).size.width * 0.3,
-                                    child: ElevatedButton(
-                                      onPressed: () {
-                                        Navigator.pushReplacementNamed(
-                                            context, '/sign-up');
-                                      },
-                                      child: const Text('Sign Up'),
-                                    ),
-                                  ),
-                                ],
-                              ),
-                            ],
-                          ),
-                          key: _formKey,
-                        ),
-                      )
+              return Container(
+                decoration: const BoxDecoration(
+                  gradient: LinearGradient(
+                    colors: [
+                      Color.fromARGB(255, 9, 32, 63),
+                      Color.fromARGB(255, 83, 120, 149),
                     ],
+                    begin: const FractionalOffset(0.0, 0.0),
+                    end: const FractionalOffset(1.0, 0.0),
                   ),
                 ),
-              ));
+                child: Center(
+                    child: Padding(
+                  padding: const EdgeInsets.all(18.0),
+                  child: SingleChildScrollView(
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        const Icon(Icons.adb_rounded, size: 150),
+                        const Text(
+                          'Coinkick',
+                          style: TextStyle(
+                            fontSize: 40,
+                          ),
+                        ),
+                        SizedBox(
+                          height: (MediaQuery.of(context).size.height * 0.05),
+                        ),
+                        Center(
+                          child: Form(
+                            child: Column(
+                              children: [
+                                Padding(
+                                  padding: const EdgeInsets.fromLTRB(
+                                      15.0, 10.0, 15.0, 10.0),
+                                  child: Container(
+                                    child: TextFormField(
+                                      keyboardType: TextInputType.emailAddress,
+                                      controller: _emailController,
+                                      decoration: const InputDecoration(
+                                        hintText: "Email",
+                                        prefixIcon: Icon(Icons.email_outlined),
+                                      ),
+                                      autovalidateMode:
+                                          AutovalidateMode.onUserInteraction,
+                                      validator: (value) {
+                                        return value != null &&
+                                                !EmailValidator.validate(value)
+                                            ? 'Enter a valid email'
+                                            : null;
+                                      },
+                                    ),
+                                  ),
+                                ),
+                                Padding(
+                                  padding: const EdgeInsets.fromLTRB(
+                                      15.0, 10.0, 15.0, 10.0),
+                                  child: Container(
+                                    child: TextFormField(
+                                      keyboardType: TextInputType.text,
+                                      controller: _passwordController,
+                                      decoration: const InputDecoration(
+                                        hintText: "Password",
+                                        prefixIcon:
+                                            Icon(Icons.password_outlined),
+                                      ),
+                                      autovalidateMode:
+                                          AutovalidateMode.onUserInteraction,
+                                      validator: (value) {
+                                        return value != null && value.length < 6
+                                            ? "Enter min. 6 characters"
+                                            : null;
+                                      },
+                                    ),
+                                  ),
+                                ),
+                                SizedBox(
+                                  width:
+                                      MediaQuery.of(context).size.width * 0.7,
+                                  child: ElevatedButton(
+                                    onPressed: () {
+                                      _authenticateWithEmailAndPassword(
+                                          context);
+                                    },
+                                    style: ElevatedButton.styleFrom(
+                                        primary: Colors.black12),
+                                    child: const Padding(
+                                      padding: const EdgeInsets.only(
+                                          top: 12, bottom: 12),
+                                      child: const Text(
+                                        'Sign In',
+                                        style: TextStyle(color: Colors.white70),
+                                      ),
+                                    ),
+                                  ),
+                                ),
+                                Container(
+                                  child: TextButton(
+                                    onPressed: () {},
+                                    child: const Text(
+                                      "Forgot your password?",
+                                      style: TextStyle(color: Colors.white60),
+                                    ),
+                                  ),
+                                ),
+                                Row(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: [
+                                    const Text(
+                                      "Don't have an account?",
+                                      style: TextStyle(
+                                        fontSize: 14,
+                                        color: Colors.white60,
+                                      ),
+                                    ),
+                                    SizedBox(
+                                      width: MediaQuery.of(context).size.width *
+                                          0.25,
+                                      child: TextButton(
+                                        onPressed: () {
+                                          Navigator.pushReplacementNamed(
+                                              context, '/sign-up');
+                                        },
+                                        child: const Text(
+                                          'Create One',
+                                          style:
+                                              TextStyle(color: Colors.white70),
+                                        ),
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              ],
+                            ),
+                            key: _formKey,
+                          ),
+                        )
+                      ],
+                    ),
+                  ),
+                )),
+              );
             }
             return Container();
           },
