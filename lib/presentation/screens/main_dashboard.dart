@@ -72,34 +72,7 @@ class _DashboardState extends State<Dashboard> with IronSourceListener {
     // Getting the user from the FirebaseAuth Instance
     final user = FirebaseAuth.instance.currentUser!;
     return Scaffold(
-      appBar: AppBar(
-        title: Row(children: [
-          IconButton(
-            onPressed: () {
-              Navigator.pushNamed(context, '/profile');
-            },
-            icon: const Icon(Icons.account_circle_rounded),
-          ),
-          const Text("Survey RPG"),
-          Row(
-            children: [
-              SizedBox(
-                width: MediaQuery.of(context).size.width * 0.35,
-              ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  const Icon(Icons.balance),
-                  Padding(
-                    padding: const EdgeInsets.all(5.0),
-                    child: Text("0"),
-                  ),
-                ],
-              ),
-            ],
-          )
-        ]),
-      ),
+      appBar: null,
       body: BlocListener<AuthCubit, AuthState>(
         listener: (context, state) {
           if (state is UnAuthenticated) {
@@ -112,100 +85,199 @@ class _DashboardState extends State<Dashboard> with IronSourceListener {
             );
           }
         },
-        child: Center(
-          child: SingleChildScrollView(
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                const Text(
-                  'Welcome',
-                  style: TextStyle(fontSize: 40),
-                  textAlign: TextAlign.center,
-                ),
-                const SizedBox(height: 16),
-                SizedBox(
-                  child: OutlinedButton(
-                    onPressed: () {
-                      context.read<QuestionCubit>().getQuestionRequested();
-                      Navigator.of(context).pushNamed('/add-data');
-                    },
-                    child: const Text(
-                      'Add Data',
-                      style: TextStyle(
-                        fontSize: 24,
-                      ),
-                      textAlign: TextAlign.center,
-                    ),
-                  ),
-                  width: MediaQuery.of(context).size.width * 0.8,
-                  height: MediaQuery.of(context).size.height * 0.08,
-                ),
-                const SizedBox(height: 16),
-                SizedBox(
-                  child: OutlinedButton(
-                    onPressed: () {
-                      showOfferwall();
-                    },
-                    child: const Text(
-                      'Offerwall',
-                      style: TextStyle(
-                        fontSize: 24,
-                      ),
-                      textAlign: TextAlign.center,
-                    ),
-                  ),
-                  width: MediaQuery.of(context).size.width * 0.8,
-                  height: MediaQuery.of(context).size.height * 0.08,
-                ),
-                const SizedBox(height: 16),
-                SizedBox(
-                  child: OutlinedButton(
-                    onPressed: () {
-                      showRewardedAd();
-                    },
-                    child: const Text(
-                      'Rewarded Ad',
-                      style: TextStyle(
-                        fontSize: 24,
-                      ),
-                      textAlign: TextAlign.center,
-                    ),
-                  ),
-                  width: MediaQuery.of(context).size.width * 0.8,
-                  height: MediaQuery.of(context).size.height * 0.08,
-                ),
-                const SizedBox(height: 16),
-                SizedBox(
-                  child: OutlinedButton(
-                    onPressed: () {
-                      context
-                          .read<TransactionHistoryCubit>()
-                          .transactionHistoryRequested();
-                      Navigator.pushNamed(context, '/transaction-history');
-                    },
-                    child: const Text(
-                      'Transaction History',
-                      style: TextStyle(
-                        fontSize: 24,
-                      ),
-                      textAlign: TextAlign.center,
-                    ),
-                  ),
-                  width: MediaQuery.of(context).size.width * 0.8,
-                  height: MediaQuery.of(context).size.height * 0.08,
-                ),
-                const SizedBox(height: 16),
-                ElevatedButton(
-                  child: const Text('Sign Out'),
-                  onPressed: () {
-                    // Signing out the user
-                    context.read<AuthCubit>().signOutRequested();
-                  },
-                ),
+        child: Container(
+          decoration: const BoxDecoration(
+            gradient: LinearGradient(
+              colors: [
+                Color.fromARGB(255, 9, 32, 63),
+                Color.fromARGB(255, 83, 120, 149),
               ],
+              begin: const FractionalOffset(0.0, 0.0),
+              end: const FractionalOffset(1.0, 0.0),
+            ),
+          ),
+          child: Center(
+            child: SingleChildScrollView(
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Container(
+                    height: 280,
+                    child: Stack(
+                      children: [
+                        Container(
+                          child: Column(
+                            children: const [
+                              Padding(
+                                padding: EdgeInsets.all(8.0),
+                                child: Text(
+                                  "Welcome Mike,",
+                                  style: TextStyle(fontSize: 30),
+                                ),
+                              ),
+                              Padding(
+                                padding: EdgeInsets.all(8.0),
+                                child: Text(
+                                  "Your account balance is: ",
+                                  style: TextStyle(
+                                    fontSize: 25,
+                                  ),
+                                ),
+                              ),
+                              Text(
+                                "300 coins",
+                                style: TextStyle(
+                                  fontSize: 20,
+                                ),
+                              ),
+                            ],
+                          ),
+                          height: 200,
+                        ),
+                        Positioned(
+                          child: Container(
+                            height: 140,
+                            width: MediaQuery.of(context).size.width * 0.7,
+                            child: Center(
+                              child: Column(
+                                children: [
+                                  const Padding(
+                                    padding: const EdgeInsets.all(8.0),
+                                    child: Text(
+                                      "Today's survey is available!",
+                                      style: TextStyle(
+                                        fontSize: 20,
+                                      ),
+                                    ),
+                                  ),
+                                  const Padding(
+                                    padding: const EdgeInsets.all(8.0),
+                                    child: Text(
+                                      "Answer questions",
+                                      style: TextStyle(
+                                        fontSize: 18,
+                                      ),
+                                    ),
+                                  ),
+                                  ElevatedButton(
+                                    onPressed: () {
+                                      context
+                                          .read<QuestionCubit>()
+                                          .getQuestionRequested();
+                                      Navigator.of(context)
+                                          .pushNamed('/add-data');
+                                    },
+                                    child: Text("Take the survey"),
+                                    style: ElevatedButton.styleFrom(
+                                      shape: RoundedRectangleBorder(
+                                        borderRadius: BorderRadius.circular(20),
+                                      ),
+                                      primary: Color.fromARGB(255, 149, 83, 87),
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ),
+                            decoration: const BoxDecoration(
+                              borderRadius: BorderRadius.all(
+                                Radius.circular(20),
+                              ),
+                              color: Color.fromARGB(255, 149, 112, 83),
+                            ),
+                          ),
+                          bottom: 0,
+                        ),
+                      ],
+                      clipBehavior: Clip.none,
+                      alignment: Alignment.topCenter,
+                    ),
+                  ),
+                  const SizedBox(height: 16),
+                  SizedBox(
+                    child: OutlinedButton(
+                      onPressed: () {
+                        showOfferwall();
+                      },
+                      child: const Text(
+                        'Offerwall',
+                        style: TextStyle(
+                          fontSize: 24,
+                        ),
+                        textAlign: TextAlign.center,
+                      ),
+                    ),
+                    width: MediaQuery.of(context).size.width * 0.8,
+                    height: MediaQuery.of(context).size.height * 0.08,
+                  ),
+                  const SizedBox(height: 16),
+                  SizedBox(
+                    child: OutlinedButton(
+                      onPressed: () {
+                        showRewardedAd();
+                      },
+                      child: const Text(
+                        'Rewarded Ad',
+                        style: TextStyle(
+                          fontSize: 24,
+                        ),
+                        textAlign: TextAlign.center,
+                      ),
+                    ),
+                    width: MediaQuery.of(context).size.width * 0.8,
+                    height: MediaQuery.of(context).size.height * 0.08,
+                  ),
+                  const SizedBox(height: 16),
+                  SizedBox(
+                    child: OutlinedButton(
+                      onPressed: () {
+                        context
+                            .read<TransactionHistoryCubit>()
+                            .transactionHistoryRequested();
+                        Navigator.pushNamed(context, '/transaction-history');
+                      },
+                      child: const Text(
+                        'Transaction History',
+                        style: TextStyle(
+                          fontSize: 24,
+                        ),
+                        textAlign: TextAlign.center,
+                      ),
+                    ),
+                    width: MediaQuery.of(context).size.width * 0.8,
+                    height: MediaQuery.of(context).size.height * 0.08,
+                  ),
+                  const SizedBox(height: 16),
+                  ElevatedButton(
+                    child: const Text('Sign Out'),
+                    onPressed: () {
+                      // Signing out the user
+                      context.read<AuthCubit>().signOutRequested();
+                    },
+                  ),
+                ],
+              ),
             ),
           ),
         ),
+      ),
+      bottomNavigationBar: BottomNavigationBar(
+        items: const <BottomNavigationBarItem>[
+          BottomNavigationBarItem(
+            icon: Icon(Icons.home),
+            label: "",
+            backgroundColor: Colors.black,
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.money_outlined),
+            label: "",
+            backgroundColor: Colors.green,
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.school),
+            backgroundColor: Colors.purple,
+            label: "",
+          ),
+        ],
       ),
     );
   }
