@@ -75,7 +75,8 @@ class _DashboardState extends State<Dashboard> with IronSourceListener {
   }
 
   Container GetDashboardCard(
-      String headingText, String buttonText, funcOnPressed) {
+      String headingText, String buttonText, funcOnPressed,
+      {Color cardColor = const Color.fromARGB(255, 149, 83, 87)}) {
     return Container(
       height: 100,
       width: MediaQuery.of(context).size.width * 0.4,
@@ -100,7 +101,7 @@ class _DashboardState extends State<Dashboard> with IronSourceListener {
                 shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(20),
                 ),
-                primary: Color.fromARGB(255, 149, 83, 87),
+                primary: cardColor,
               ),
             ),
           ],
