@@ -101,17 +101,17 @@ class _DashboardState extends State<Dashboard> with IronSourceListener {
                 shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(20),
                 ),
-                primary: cardColor,
+                primary: Color.fromARGB(255, 255, 0, 0),
               ),
             ),
           ],
         ),
       ),
-      decoration: const BoxDecoration(
+      decoration: BoxDecoration(
         borderRadius: BorderRadius.all(
           Radius.circular(20),
         ),
-        color: Color.fromARGB(255, 149, 112, 83),
+        color: cardColor,
       ),
     );
   }
