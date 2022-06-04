@@ -61,10 +61,58 @@ class _DashboardState extends State<Dashboard> with IronSourceListener {
     }
   }
 
+  void showSurvey() {
+    context.read<QuestionCubit>().getQuestionRequested();
+    Navigator.of(context).pushNamed('/add-data');
+  }
+
+  void showCashout() {}
+
   @override
   void onRewardedVideoAdClosed() {
     print("onRewardedVideoAdClosed");
     context.read<AuthCubit>().addCoins(10, "10 coins from rewarded ad");
+  }
+
+  Container GetDashboardCard(
+      String headingText, String buttonText, funcOnPressed) {
+    return Container(
+      height: 100,
+      width: MediaQuery.of(context).size.width * 0.4,
+      child: Center(
+        child: Column(
+          children: [
+            Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: Text(
+                headingText,
+                style: TextStyle(
+                  fontSize: 18,
+                ),
+              ),
+            ),
+            ElevatedButton(
+              onPressed: () {
+                funcOnPressed();
+              },
+              child: Text(buttonText),
+              style: ElevatedButton.styleFrom(
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(20),
+                ),
+                primary: Color.fromARGB(255, 149, 83, 87),
+              ),
+            ),
+          ],
+        ),
+      ),
+      decoration: const BoxDecoration(
+        borderRadius: BorderRadius.all(
+          Radius.circular(20),
+        ),
+        color: Color.fromARGB(255, 149, 112, 83),
+      ),
+    );
   }
 
   @override
@@ -101,158 +149,71 @@ class _DashboardState extends State<Dashboard> with IronSourceListener {
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  Container(
-                    height: 280,
-                    child: Stack(
+                  Padding(
+                    padding: EdgeInsets.all(8.0),
+                    child: Align(
+                      alignment: Alignment.centerLeft,
+                      child: Text(
+                        "Account Balance: ",
+                        style: TextStyle(
+                          fontSize: 25,
+                        ),
+                        textAlign: TextAlign.left,
+                      ),
+                    ),
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.fromLTRB(8, 8, 8, 8),
+                    child: Align(
+                      alignment: Alignment.centerLeft,
+                      child: Text(
+                        "300 coins",
+                        style: TextStyle(
+                          fontSize: 20,
+                        ),
+                      ),
+                    ),
+                  ),
+                  Padding(
+                    padding: EdgeInsets.only(left: 20, right: 20),
+                    child: Divider(
+                      color: Colors.white70,
+                    ),
+                  ),
+                  const SizedBox(height: 10),
+                  Padding(
+                    padding: const EdgeInsets.only(left: 30, bottom: 10),
+                    child: Align(
+                      alignment: Alignment.centerLeft,
+                      child: Text(
+                        "Welcome Michael,",
+                        style: TextStyle(
+                          fontSize: 20,
+                        ),
+                      ),
+                    ),
+                  ),
+                  Padding(
+                    padding: EdgeInsets.only(
+                      bottom: 10.0,
+                    ),
+                    child: Row(
                       children: [
-                        Container(
-                          child: Column(
-                            children: const [
-                              Padding(
-                                padding: EdgeInsets.all(8.0),
-                                child: Text(
-                                  "Welcome Mike,",
-                                  style: TextStyle(fontSize: 30),
-                                ),
-                              ),
-                              Padding(
-                                padding: EdgeInsets.all(8.0),
-                                child: Text(
-                                  "Your account balance is: ",
-                                  style: TextStyle(
-                                    fontSize: 25,
-                                  ),
-                                ),
-                              ),
-                              Text(
-                                "300 coins",
-                                style: TextStyle(
-                                  fontSize: 20,
-                                ),
-                              ),
-                            ],
-                          ),
-                          height: 200,
-                        ),
-                        Positioned(
-                          child: Container(
-                            height: 140,
-                            width: MediaQuery.of(context).size.width * 0.7,
-                            child: Center(
-                              child: Column(
-                                children: [
-                                  const Padding(
-                                    padding: const EdgeInsets.all(8.0),
-                                    child: Text(
-                                      "Today's survey is available!",
-                                      style: TextStyle(
-                                        fontSize: 20,
-                                      ),
-                                    ),
-                                  ),
-                                  const Padding(
-                                    padding: const EdgeInsets.all(8.0),
-                                    child: Text(
-                                      "Answer questions",
-                                      style: TextStyle(
-                                        fontSize: 18,
-                                      ),
-                                    ),
-                                  ),
-                                  ElevatedButton(
-                                    onPressed: () {
-                                      context
-                                          .read<QuestionCubit>()
-                                          .getQuestionRequested();
-                                      Navigator.of(context)
-                                          .pushNamed('/add-data');
-                                    },
-                                    child: Text("Take the survey"),
-                                    style: ElevatedButton.styleFrom(
-                                      shape: RoundedRectangleBorder(
-                                        borderRadius: BorderRadius.circular(20),
-                                      ),
-                                      primary: Color.fromARGB(255, 149, 83, 87),
-                                    ),
-                                  ),
-                                ],
-                              ),
-                            ),
-                            decoration: const BoxDecoration(
-                              borderRadius: BorderRadius.all(
-                                Radius.circular(20),
-                              ),
-                              color: Color.fromARGB(255, 149, 112, 83),
-                            ),
-                          ),
-                          bottom: 0,
-                        ),
+                        GetDashboardCard(
+                            "Survey Available", "Take the survey", showSurvey),
+                        GetDashboardCard(
+                            "Offerwall", "Show Offerwall", showOfferwall)
                       ],
-                      clipBehavior: Clip.none,
-                      alignment: Alignment.topCenter,
+                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                     ),
                   ),
-                  const SizedBox(height: 16),
-                  SizedBox(
-                    child: OutlinedButton(
-                      onPressed: () {
-                        showOfferwall();
-                      },
-                      child: const Text(
-                        'Offerwall',
-                        style: TextStyle(
-                          fontSize: 24,
-                        ),
-                        textAlign: TextAlign.center,
-                      ),
-                    ),
-                    width: MediaQuery.of(context).size.width * 0.8,
-                    height: MediaQuery.of(context).size.height * 0.08,
-                  ),
-                  const SizedBox(height: 16),
-                  SizedBox(
-                    child: OutlinedButton(
-                      onPressed: () {
-                        showRewardedAd();
-                      },
-                      child: const Text(
-                        'Rewarded Ad',
-                        style: TextStyle(
-                          fontSize: 24,
-                        ),
-                        textAlign: TextAlign.center,
-                      ),
-                    ),
-                    width: MediaQuery.of(context).size.width * 0.8,
-                    height: MediaQuery.of(context).size.height * 0.08,
-                  ),
-                  const SizedBox(height: 16),
-                  SizedBox(
-                    child: OutlinedButton(
-                      onPressed: () {
-                        context
-                            .read<TransactionHistoryCubit>()
-                            .transactionHistoryRequested();
-                        Navigator.pushNamed(context, '/transaction-history');
-                      },
-                      child: const Text(
-                        'Transaction History',
-                        style: TextStyle(
-                          fontSize: 24,
-                        ),
-                        textAlign: TextAlign.center,
-                      ),
-                    ),
-                    width: MediaQuery.of(context).size.width * 0.8,
-                    height: MediaQuery.of(context).size.height * 0.08,
-                  ),
-                  const SizedBox(height: 16),
-                  ElevatedButton(
-                    child: const Text('Sign Out'),
-                    onPressed: () {
-                      // Signing out the user
-                      context.read<AuthCubit>().signOutRequested();
-                    },
+                  Row(
+                    children: [
+                      GetDashboardCard("Video Available", "Show Rewarded Ad",
+                          showRewardedAd),
+                      GetDashboardCard("Cashout", "Cashout Money", showCashout)
+                    ],
+                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   ),
                 ],
               ),
@@ -264,20 +225,32 @@ class _DashboardState extends State<Dashboard> with IronSourceListener {
         items: const <BottomNavigationBarItem>[
           BottomNavigationBarItem(
             icon: Icon(Icons.home),
-            label: "",
-            backgroundColor: Colors.black,
+            label: "Home",
+            backgroundColor: Colors.white70,
           ),
           BottomNavigationBarItem(
-            icon: Icon(Icons.money_outlined),
-            label: "",
+            icon: Icon(Icons.account_balance_outlined),
+            label: "Transactions",
             backgroundColor: Colors.green,
           ),
           BottomNavigationBarItem(
-            icon: Icon(Icons.school),
+            icon: Icon(Icons.money_outlined),
             backgroundColor: Colors.purple,
-            label: "",
+            label: "Cashout",
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.account_circle_rounded),
+            backgroundColor: Colors.purple,
+            label: "Profile",
           ),
         ],
+        onTap: (int index) {
+          if (index == 1) {
+            Navigator.of(context).pushNamed("/transaction-history");
+          } else if (index == 3) {
+            Navigator.of(context).pushNamed("/profile");
+          }
+        },
       ),
     );
   }
