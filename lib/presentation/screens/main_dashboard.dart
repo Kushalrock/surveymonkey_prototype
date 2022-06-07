@@ -52,6 +52,7 @@ class _DashboardState extends State<Dashboard> with IronSourceListener {
     context
         .read<AuthCubit>()
         .addCoins(reward.credits!, "${reward.credits!} from offerwall");
+    context.read<GetCoinsCubit>().getCoins();
   }
 
   void showRewardedAd() async {
@@ -75,6 +76,7 @@ class _DashboardState extends State<Dashboard> with IronSourceListener {
   void onRewardedVideoAdClosed() {
     print("onRewardedVideoAdClosed");
     context.read<AuthCubit>().addCoins(10, "10 coins from rewarded ad");
+    context.read<GetCoinsCubit>().getCoins();
   }
 
   Container GetDashboardCard(

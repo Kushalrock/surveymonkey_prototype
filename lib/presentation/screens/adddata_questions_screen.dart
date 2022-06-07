@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:surveymonkey_prototype/data/models/question_model.dart';
 import 'package:surveymonkey_prototype/logic/cubit/auth_cubit.dart';
+import 'package:surveymonkey_prototype/logic/cubit/get_coins_cubit.dart';
 import 'package:surveymonkey_prototype/logic/cubit/question_cubit.dart';
 import 'package:surveymonkey_prototype/presentation/components/QuestionScreenComponents/questionlayout.dart';
 
@@ -25,6 +26,7 @@ class _QuestionsScreenState extends State<QuestionsScreen> {
     if (currentQuestion > 4) {
       context.read<QuestionCubit>().sendAnswersBack(finalList);
       context.read<AuthCubit>().addCoins(10, "Questions for survey");
+      context.read<GetCoinsCubit>().getCoins();
       Navigator.pop(context);
     }
   }

@@ -1,5 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:surveymonkey_prototype/data/models/cashout_request_model.dart';
 
 class GetCoinsRepository {
   Future<int> getCoins() async {
@@ -17,5 +18,19 @@ class GetCoinsRepository {
       }
     });
     return coinsToReturn;
+  }
+
+  Future<void> makeACashoutRequest(
+      CashoutRequestModel cashoutRequestModel) async {
+    final userData = FirebaseFirestore.instance.collection('/cashout-requests');
+    await userData.add(
+      {
+        "coins": cashoutRequestModel.moneyToBeGiven,
+        "paypalAddress": cashoutRequestModel.paypalEmail,
+        "officialEmail": cashoutRequestModel.userEmail,
+        "DateTime": DateTime.now().toString(),
+        "purpose": cashoutRequestModel.purpose
+      },
+    );
   }
 }
