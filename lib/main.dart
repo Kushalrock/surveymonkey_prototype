@@ -6,8 +6,10 @@ import 'package:flutter/material.dart';
 
 // Firebase Related Imports
 import 'package:firebase_core/firebase_core.dart';
+import 'package:surveymonkey_prototype/data/repositories/get_coins_repository.dart';
 import 'package:surveymonkey_prototype/data/repositories/question_repository.dart';
 import 'package:surveymonkey_prototype/data/repositories/transaction_history_repository.dart';
+import 'package:surveymonkey_prototype/logic/cubit/get_coins_cubit.dart';
 import 'package:surveymonkey_prototype/logic/cubit/question_cubit.dart';
 import 'package:surveymonkey_prototype/logic/cubit/transaction_history_cubit.dart';
 import 'package:surveymonkey_prototype/presentation/screens/adddata_questions_screen.dart';
@@ -52,6 +54,9 @@ class MyApp extends StatelessWidget {
         RepositoryProvider(
           create: (context) => TransactionHistoryRepository(),
         ),
+        RepositoryProvider(
+          create: (context) => GetCoinsRepository(),
+        )
       ],
       child: MultiBlocProvider(
         providers: [
@@ -66,6 +71,10 @@ class MyApp extends StatelessWidget {
           BlocProvider(
             create: (context) => TransactionHistoryCubit(
                 RepositoryProvider.of<TransactionHistoryRepository>(context)),
+          ),
+          BlocProvider(
+            create: (context) => GetCoinsCubit(
+                RepositoryProvider.of<GetCoinsRepository>(context)),
           ),
         ],
         child: MaterialApp(

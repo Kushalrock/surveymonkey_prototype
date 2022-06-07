@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_ironsource_x/ironsource.dart';
 import 'package:flutter_ironsource_x/models.dart';
+import 'package:surveymonkey_prototype/logic/cubit/get_coins_cubit.dart';
 import 'package:surveymonkey_prototype/logic/cubit/question_cubit.dart';
 import 'package:surveymonkey_prototype/logic/cubit/transaction_history_cubit.dart';
 import 'package:surveymonkey_prototype/presentation/screens/Signin_screen.dart';
@@ -22,6 +23,8 @@ class _DashboardState extends State<Dashboard> with IronSourceListener {
   void initState() {
     super.initState();
     initIronSource();
+    WidgetsBinding.instance
+        ?.addPostFrameCallback((_) => context.read<GetCoinsCubit>().getCoins());
   }
 
   Future<void> initIronSource() async {
@@ -154,12 +157,14 @@ class _DashboardState extends State<Dashboard> with IronSourceListener {
                     padding: EdgeInsets.all(8.0),
                     child: Align(
                       alignment: Alignment.centerLeft,
-                      child: Text(
-                        "Account Balance: ",
-                        style: TextStyle(
-                          fontSize: 25,
+                      child: BlocBuilder<GetCoinsCubit, GetCoinsState>(
+                        builder: (context, state) => Text(
+                          "Account Balance: ",
+                          style: TextStyle(
+                            fontSize: 25,
+                          ),
+                          textAlign: TextAlign.left,
                         ),
-                        textAlign: TextAlign.left,
                       ),
                     ),
                   ),
@@ -167,12 +172,30 @@ class _DashboardState extends State<Dashboard> with IronSourceListener {
                     padding: const EdgeInsets.fromLTRB(8, 8, 8, 8),
                     child: Align(
                       alignment: Alignment.centerLeft,
-                      child: Text(
-                        "300 coins",
-                        style: TextStyle(
-                          fontSize: 20,
-                        ),
-                      ),
+                      child: BlocBuilder<GetCoinsCubit, GetCoinsState>(
+                          builder: (context, state) {
+                        if (state is CoinsLoading) {
+                          return Text(
+                            "NaN",
+                            style: TextStyle(
+                              fontSize: 20,
+                            ),
+                          );
+                        } else if (state is CoinsFetched) {
+                          return Text(
+                            "${state.userCoins} coins",
+                            style: TextStyle(
+                              fontSize: 20,
+                            ),
+                          );
+                        }
+                        return Text(
+                          "Error",
+                          style: TextStyle(
+                            fontSize: 20,
+                          ),
+                        );
+                      }),
                     ),
                   ),
                   Padding(
