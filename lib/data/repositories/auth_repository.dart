@@ -97,20 +97,28 @@ class AuthRepository {
             SetOptions(merge: true));
   }
 
-  Future<int> getCoins() async {
+  Future<void> subtractCoins(int coins, String purposeText) async {
     final userData = FirebaseFirestore.instance.collection('/app-data');
-    int coinsToReturn = 0;
+    int previousCoins = 0;
     await userData
         .doc(FirebaseAuth.instance.currentUser?.email)
         .get()
         .then((value) {
       if (value.exists) {
-        if (value.data()!["coins"] != null) {
-          print(int.parse(value.data()!["coins"].toString()));
-          coinsToReturn = int.parse(value.data()!["coins"].toString());
-        }
+        previousCoins = value.data()!["coins"];
+      } else {
+        value.data()?.update("coins", (value) => value = 0, ifAbsent: () => 0);
+        previousCoins = 0;
       }
     });
-    return coinsToReturn;
+    var coinsData = {"coins": previousCoins - coins};
+    await userData
+        .doc(FirebaseAuth.instance.currentUser?.email)
+        .set(coinsData, SetOptions(merge: true));
+    FirebaseFirestore.instance
+        .collection('/transaction-history')
+        .doc(FirebaseAuth.instance.currentUser?.email)
+        .set({DateTime.now().millisecondsSinceEpoch.toString(): purposeText},
+            SetOptions(merge: true));
   }
 }

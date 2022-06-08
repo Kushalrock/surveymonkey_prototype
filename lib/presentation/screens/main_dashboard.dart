@@ -70,7 +70,9 @@ class _DashboardState extends State<Dashboard> with IronSourceListener {
     Navigator.of(context).pushNamed('/add-data');
   }
 
-  void showCashout() {}
+  void showCashout() {
+    Navigator.of(context).pushNamed('/cashout');
+  }
 
   @override
   void onRewardedVideoAdClosed() {
@@ -275,6 +277,8 @@ class _DashboardState extends State<Dashboard> with IronSourceListener {
             Navigator.of(context).pushNamed("/transaction-history");
           } else if (index == 3) {
             Navigator.of(context).pushNamed("/profile");
+          } else if (index == 2) {
+            showCashout();
           }
         },
       ),

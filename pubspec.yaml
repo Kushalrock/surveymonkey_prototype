@@ -43,6 +43,8 @@ dependencies:
   dots_indicator: ^2.1.0
   flutter_ironsource_x: ^2.7.1
   intl: ^0.17.0
+  font_awesome_flutter: ^10.1.0
+  rflutter_alert: ^2.0.4
 
 dev_dependencies:
   flutter_test:

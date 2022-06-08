@@ -1,7 +1,7 @@
 class CashoutRequestModel {
-  final String paypalEmail;
+  final String? paypalEmail;
   final int moneyToBeGiven;
-  final String userEmail;
+  final String? userEmail;
   final String purpose;
   CashoutRequestModel(
       {required this.userEmail,

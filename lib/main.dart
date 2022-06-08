@@ -13,6 +13,7 @@ import 'package:surveymonkey_prototype/logic/cubit/get_coins_cubit.dart';
 import 'package:surveymonkey_prototype/logic/cubit/question_cubit.dart';
 import 'package:surveymonkey_prototype/logic/cubit/transaction_history_cubit.dart';
 import 'package:surveymonkey_prototype/presentation/screens/adddata_questions_screen.dart';
+import 'package:surveymonkey_prototype/presentation/screens/cashout_screen.dart';
 import 'package:surveymonkey_prototype/presentation/screens/main_dashboard.dart';
 import 'package:surveymonkey_prototype/presentation/screens/profile_page.dart';
 import 'package:surveymonkey_prototype/presentation/screens/signup_screen.dart';
@@ -99,6 +100,7 @@ class MyApp extends StatelessWidget {
             '/add-data': (context) => QuestionsScreen(),
             '/profile': (context) => ProfilePage(),
             '/transaction-history': (context) => TransactionHistoryScreen(),
+            '/cashout': (context) => CashoutScreen(),
           },
         ),
       ),
