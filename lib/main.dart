@@ -16,6 +16,7 @@ import 'package:surveymonkey_prototype/presentation/screens/adddata_questions_sc
 import 'package:surveymonkey_prototype/presentation/screens/cashout_screen.dart';
 import 'package:surveymonkey_prototype/presentation/screens/main_dashboard.dart';
 import 'package:surveymonkey_prototype/presentation/screens/profile_page.dart';
+import 'package:surveymonkey_prototype/presentation/screens/roulette_screen.dart';
 import 'package:surveymonkey_prototype/presentation/screens/signup_screen.dart';
 import 'package:surveymonkey_prototype/presentation/screens/transaction_history_screen.dart';
 
@@ -79,7 +80,7 @@ class MyApp extends StatelessWidget {
           ),
         ],
         child: MaterialApp(
-          title: 'Survey RPG',
+          title: 'Coinkick',
           theme: ThemeData(
             primarySwatch: Colors.grey,
             brightness: Brightness.dark,
@@ -101,6 +102,7 @@ class MyApp extends StatelessWidget {
             '/profile': (context) => ProfilePage(),
             '/transaction-history': (context) => TransactionHistoryScreen(),
             '/cashout': (context) => CashoutScreen(),
+            '/roulette': (context) => RouletteScreen(),
           },
         ),
       ),

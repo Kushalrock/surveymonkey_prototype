@@ -74,6 +74,10 @@ class _DashboardState extends State<Dashboard> with IronSourceListener {
     Navigator.of(context).pushNamed('/cashout');
   }
 
+  void showRoulette() {
+    Navigator.of(context).pushNamed('/roulette');
+  }
+
   @override
   void onRewardedVideoAdClosed() {
     print("onRewardedVideoAdClosed");
@@ -239,7 +243,8 @@ class _DashboardState extends State<Dashboard> with IronSourceListener {
                     children: [
                       GetDashboardCard("Video Available", "Show Rewarded Ad",
                           showRewardedAd),
-                      GetDashboardCard("Cashout", "Cashout Money", showCashout)
+                      GetDashboardCard(
+                          "Roulette", "Try your luck", showRoulette)
                     ],
                     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   ),
@@ -274,6 +279,9 @@ class _DashboardState extends State<Dashboard> with IronSourceListener {
         ],
         onTap: (int index) {
           if (index == 1) {
+            context
+                .read<TransactionHistoryCubit>()
+                .transactionHistoryRequested();
             Navigator.of(context).pushNamed("/transaction-history");
           } else if (index == 3) {
             Navigator.of(context).pushNamed("/profile");
