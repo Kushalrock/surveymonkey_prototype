@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 class UpdateData extends StatefulWidget {
   final String currentData;
@@ -41,114 +42,142 @@ class _UpdateDataState extends State<UpdateData> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: const Text('Profile')),
-      body: SingleChildScrollView(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.start,
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Padding(
-              padding: const EdgeInsets.all(5.0),
-              child: Text(
-                'Current ' + widget.typeOfData,
-                style: const TextStyle(
-                  fontSize: 22,
-                ),
-                textAlign: TextAlign.left,
-              ),
+      appBar: AppBar(
+        title: const Text(''),
+        elevation: 0,
+        flexibleSpace: Container(
+          decoration: const BoxDecoration(
+            gradient: LinearGradient(
+              begin: FractionalOffset(0.0, 0.0),
+              end: FractionalOffset(1.0, 0.0),
+              colors: <Color>[
+                Color.fromARGB(255, 9, 32, 63),
+                Color.fromARGB(255, 83, 120, 149)
+              ],
             ),
-            Padding(
-              padding: const EdgeInsets.all(5.0),
-              child: SizedBox(
-                width: MediaQuery.of(context).size.width * 0.98,
-                child: DecoratedBox(
-                  decoration: BoxDecoration(
-                      color: const Color.fromARGB(255, 232, 232, 232),
-                      border: Border.all(
-                        color: const Color.fromARGB(255, 0, 77, 113),
+          ),
+        ),
+      ),
+      body: Container(
+        decoration: const BoxDecoration(
+          gradient: LinearGradient(
+            colors: [
+              Color.fromARGB(255, 9, 32, 63),
+              Color.fromARGB(255, 83, 120, 149),
+            ],
+            begin: FractionalOffset(0.0, 0.0),
+            end: FractionalOffset(1.0, 0.0),
+          ),
+        ),
+        child: Center(
+          child: SingleChildScrollView(
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.start,
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Padding(
+                  padding: const EdgeInsets.all(10.0),
+                  child: Text(
+                    'Current ' + widget.typeOfData,
+                    style: const TextStyle(
+                      fontSize: 22,
+                    ),
+                    textAlign: TextAlign.left,
+                  ),
+                ),
+                Padding(
+                  padding: const EdgeInsets.all(10.0),
+                  child: SizedBox(
+                    width: MediaQuery.of(context).size.width * 0.98,
+                    child: DecoratedBox(
+                      decoration: BoxDecoration(
+                          border: Border.all(
                         width: 0.5,
                       )),
-                  child: Padding(
-                    padding: const EdgeInsets.all(15.0),
-                    child: Text(
-                      widget.typeOfData == "Password"
-                          ? "Can't be displayed due to security reasons"
-                          : widget.currentData,
-                      style: const TextStyle(
-                        fontSize: 18,
+                      child: Padding(
+                        padding: const EdgeInsets.all(15.0),
+                        child: Text(
+                          widget.typeOfData == "Password"
+                              ? "Can't be displayed due to security reasons"
+                              : widget.currentData,
+                          style: const TextStyle(
+                            fontSize: 18,
+                          ),
+                        ),
                       ),
                     ),
                   ),
                 ),
-              ),
-            ),
-            Padding(
-              padding: const EdgeInsets.all(5.0),
-              child: Text(
-                'Updated ' + widget.typeOfData,
-                style: const TextStyle(
-                  fontSize: 22,
-                ),
-                textAlign: TextAlign.left,
-              ),
-            ),
-            Form(
-              key: _formKey,
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: [
-                  widget.typeOfData == "Password"
-                      ? Padding(
-                          padding: const EdgeInsets.all(5.0),
-                          child: TextFormField(
-                            controller: controllerForOtherField,
-                            decoration: const InputDecoration(
-                                border: OutlineInputBorder(),
-                                hintText: "Old Password"),
-                            validator: (value) {
-                              return value == null
-                                  ? 'Enter a valid ' + widget.typeOfData
-                                  : null;
-                            },
-                            autovalidateMode:
-                                AutovalidateMode.onUserInteraction,
-                          ),
-                        )
-                      : const SizedBox(
-                          width: 0,
-                          height: 0,
-                        ),
-                  Padding(
-                    padding: const EdgeInsets.all(5.0),
-                    child: TextFormField(
-                      controller: controllerForField,
-                      decoration:
-                          const InputDecoration(border: OutlineInputBorder()),
-                      validator: (value) {
-                        return value == null
-                            ? 'Enter a valid ' + widget.typeOfData
-                            : null;
-                      },
-                      autovalidateMode: AutovalidateMode.onUserInteraction,
+                Padding(
+                  padding: const EdgeInsets.all(10.0),
+                  child: Text(
+                    'Updated ' + widget.typeOfData,
+                    style: const TextStyle(
+                      fontSize: 22,
                     ),
+                    textAlign: TextAlign.left,
                   ),
-                  OutlinedButton(
-                    onPressed: () {
-                      !_formKey.currentState!.validate()
-                          ? ScaffoldMessenger.of(context).showSnackBar(
-                              SnackBar(
-                                content:
-                                    Text('Enter a valid ' + widget.typeOfData),
+                ),
+                Form(
+                  key: _formKey,
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: [
+                      widget.typeOfData == "Password"
+                          ? Padding(
+                              padding: const EdgeInsets.all(10.0),
+                              child: TextFormField(
+                                controller: controllerForOtherField,
+                                decoration: const InputDecoration(
+                                    border: OutlineInputBorder(),
+                                    hintText: "Old Password"),
+                                validator: (value) {
+                                  return value == null
+                                      ? 'Enter a valid ' + widget.typeOfData
+                                      : null;
+                                },
+                                autovalidateMode:
+                                    AutovalidateMode.onUserInteraction,
                               ),
                             )
-                          : onSuccessfulVerification();
-                    },
-                    child: Text("Change " + widget.typeOfData),
-                  )
-                ],
-              ),
-            )
-          ],
+                          : const SizedBox(
+                              width: 0,
+                              height: 0,
+                            ),
+                      Padding(
+                        padding: const EdgeInsets.all(10.0),
+                        child: TextFormField(
+                          controller: controllerForField,
+                          decoration: const InputDecoration(
+                              border: OutlineInputBorder()),
+                          validator: (value) {
+                            return value == null
+                                ? 'Enter a valid ' + widget.typeOfData
+                                : null;
+                          },
+                          autovalidateMode: AutovalidateMode.onUserInteraction,
+                        ),
+                      ),
+                      TextButton.icon(
+                        icon: FaIcon(Icons.send_outlined),
+                        onPressed: () {
+                          !_formKey.currentState!.validate()
+                              ? ScaffoldMessenger.of(context).showSnackBar(
+                                  SnackBar(
+                                    content: Text(
+                                        'Enter a valid ' + widget.typeOfData),
+                                  ),
+                                )
+                              : onSuccessfulVerification();
+                        },
+                        label: Text("Change " + widget.typeOfData),
+                      )
+                    ],
+                  ),
+                )
+              ],
+            ),
+          ),
         ),
       ),
     );

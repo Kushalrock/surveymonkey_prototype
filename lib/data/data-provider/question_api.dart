@@ -8,7 +8,10 @@ class QuestionAPI {
   final answerCollection = FirebaseFirestore.instance.collection('/user-data');
 
   Future<List<Map<String, dynamic>>> getQuestions() async {
-    final returnList = await questionCollection.get();
+    final lastDocRef = await questionCollection.doc("question-group-1-4").get();
+
+    final returnList =
+        await questionCollection.startAtDocument(lastDocRef).limit(5).get();
     final allData = returnList.docs.map((e) => e.data()).toList();
     print(allData);
     return allData;

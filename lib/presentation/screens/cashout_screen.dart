@@ -172,6 +172,8 @@ class _CashoutScreenState extends State<CashoutScreen> {
                                   }
                                 : null,
                             child: Card(
+                              shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(10)),
                               child: Padding(
                                 padding: const EdgeInsets.all(8.0),
                                 child: Row(
@@ -214,6 +216,8 @@ class _CashoutScreenState extends State<CashoutScreen> {
                                   }
                                 : null,
                             child: Card(
+                              shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(10)),
                               child: Padding(
                                 padding: const EdgeInsets.all(8.0),
                                 child: Row(
@@ -271,6 +275,8 @@ class _CashoutScreenState extends State<CashoutScreen> {
                                   }
                                 : null,
                             child: Card(
+                              shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(10)),
                               child: Padding(
                                 padding: const EdgeInsets.all(8.0),
                                 child: Row(
@@ -313,6 +319,8 @@ class _CashoutScreenState extends State<CashoutScreen> {
                                   }
                                 : null,
                             child: Card(
+                              shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(10)),
                               child: Padding(
                                 padding: const EdgeInsets.all(8.0),
                                 child: Row(
@@ -360,6 +368,8 @@ class _CashoutScreenState extends State<CashoutScreen> {
                                   }
                                 : null,
                             child: Card(
+                              shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(10)),
                               child: Padding(
                                 padding: const EdgeInsets.all(8.0),
                                 child: Row(

@@ -152,8 +152,8 @@ class _DashboardState extends State<Dashboard> with IronSourceListener {
                 Color.fromARGB(255, 9, 32, 63),
                 Color.fromARGB(255, 83, 120, 149),
               ],
-              begin: const FractionalOffset(0.0, 0.0),
-              end: const FractionalOffset(1.0, 0.0),
+              begin: FractionalOffset(0.0, 0.0),
+              end: FractionalOffset(1.0, 0.0),
             ),
           ),
           child: Center(
