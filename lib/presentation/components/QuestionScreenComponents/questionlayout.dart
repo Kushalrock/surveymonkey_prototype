@@ -1,13 +1,16 @@
+import 'dart:html';
+
 import 'package:flutter/material.dart';
 import 'package:surveymonkey_prototype/data/models/question_model.dart';
 
-class QuestionLayout extends StatelessWidget {
+class QuestionLayout extends StatefulWidget {
   final String questionText;
   final int? numberOfOptions;
   final List<String>? options;
   final List<AnswerModel> finalAnswerModel;
   final String questionLoc;
   final updateQuestion;
+  final String questionType;
   const QuestionLayout(
       {Key? key,
       required this.questionText,
@@ -15,13 +18,52 @@ class QuestionLayout extends StatelessWidget {
       required this.options,
       required this.finalAnswerModel,
       required this.questionLoc,
-      this.updateQuestion})
+      this.updateQuestion,
+      this.questionType = "options"})
       : super(key: key);
 
+  @override
+  State<QuestionLayout> createState() => _QuestionLayoutState();
+}
+
+class _QuestionLayoutState extends State<QuestionLayout> {
   void addDataToAnswerList(String questionLoc, String answer) {
     print(answer + "The Answer");
-    finalAnswerModel.add(AnswerModel(questionLoc, answer));
-    updateQuestion();
+    widget.finalAnswerModel.add(AnswerModel(questionLoc, answer));
+    widget.updateQuestion();
+  }
+
+  final TextEditingController inputField = new TextEditingController();
+  String dropDownVal = "--";
+
+  Widget getDropDownWidget() {
+    if (widget.questionType == "dropdown") {
+      return Column(
+        children: [
+          DropdownButton(
+              items: widget.options
+                  ?.map((e) => DropdownMenuItem(
+                        child: Text(e),
+                        value: e,
+                      ))
+                  .toList(),
+              onChanged: (String? newVal) {
+                setState(() {
+                  dropDownVal = newVal.toString();
+                });
+              }),
+          OutlinedButton(
+            onPressed: () {
+              addDataToAnswerList(widget.questionLoc, dropDownVal);
+            },
+            child: Text("Next Question"),
+          ),
+        ],
+      );
+    }
+    return SizedBox(
+      height: 0,
+    );
   }
 
   @override
@@ -34,7 +76,7 @@ class QuestionLayout extends StatelessWidget {
               child: Padding(
             padding: const EdgeInsets.all(8.0),
             child: Text(
-              questionText,
+              widget.questionText,
               style: const TextStyle(
                 fontSize: 25,
                 fontWeight: FontWeight.bold,
@@ -45,103 +87,138 @@ class QuestionLayout extends StatelessWidget {
           SizedBox(
             height: MediaQuery.of(context).size.height * 0.04,
           ),
-          numberOfOptions! > 2
-              ? Column(
-                  children: [
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        SizedBox(
-                          width: MediaQuery.of(context).size.width * 0.3,
-                          child: OutlinedButton(
-                            onPressed: () {
-                              addDataToAnswerList(questionLoc, options![0]);
-                            },
-                            child: Text(options![0]),
-                          ),
-                        ),
-                        SizedBox(
-                          width: MediaQuery.of(context).size.width * 0.05,
-                        ),
-                        SizedBox(
-                          width: MediaQuery.of(context).size.width * 0.3,
-                          child: OutlinedButton(
-                            onPressed: () {
-                              addDataToAnswerList(questionLoc, options![1]);
-                            },
-                            child: Text(options![1]),
-                          ),
-                        ),
-                      ],
-                    ),
-                    numberOfOptions! <= 3
-                        ? SizedBox(
-                            width: MediaQuery.of(context).size.width * 0.65,
+          if (widget.questionType == "options")
+            widget.numberOfOptions! > 2
+                ? Column(
+                    children: [
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          SizedBox(
+                            width: MediaQuery.of(context).size.width * 0.3,
                             child: OutlinedButton(
                               onPressed: () {
-                                addDataToAnswerList(questionLoc, options![2]);
+                                addDataToAnswerList(
+                                    widget.questionLoc, widget.options![0]);
+                              },
+                              child: Text(widget.options![0]),
+                            ),
+                          ),
+                          SizedBox(
+                            width: MediaQuery.of(context).size.width * 0.05,
+                          ),
+                          SizedBox(
+                            width: MediaQuery.of(context).size.width * 0.3,
+                            child: OutlinedButton(
+                              onPressed: () {
+                                addDataToAnswerList(
+                                    widget.questionLoc, widget.options![1]);
                               },
                               child: Text(
-                                options![2],
+                                widget.options![1],
+                                style: TextStyle(color: Colors.black87),
                               ),
                             ),
-                          )
-                        : Row(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              SizedBox(
-                                width: MediaQuery.of(context).size.width * 0.3,
-                                child: OutlinedButton(
-                                  onPressed: () {
-                                    addDataToAnswerList(
-                                        questionLoc, options![2]);
-                                  },
-                                  child: Text(options![2]),
-                                ),
-                              ),
-                              SizedBox(
-                                width: MediaQuery.of(context).size.width * 0.05,
-                              ),
-                              SizedBox(
-                                width: MediaQuery.of(context).size.width * 0.3,
-                                child: OutlinedButton(
-                                  onPressed: () {
-                                    addDataToAnswerList(
-                                        questionLoc, options![3]);
-                                  },
-                                  child: Text(options![3]),
-                                ),
-                              ),
-                            ],
                           ),
-                  ],
-                )
-              : Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    SizedBox(
-                      width: MediaQuery.of(context).size.width * 0.3,
-                      child: OutlinedButton(
-                        onPressed: () {
-                          addDataToAnswerList(questionLoc, options![0]);
-                        },
-                        child: Text(options![0]),
+                        ],
                       ),
-                    ),
-                    SizedBox(
-                      width: MediaQuery.of(context).size.width * 0.05,
-                    ),
-                    SizedBox(
-                      width: MediaQuery.of(context).size.width * 0.3,
-                      child: OutlinedButton(
-                        onPressed: () {
-                          addDataToAnswerList(questionLoc, options![1]);
-                        },
-                        child: Text(options![1]),
+                      widget.numberOfOptions! <= 3
+                          ? SizedBox(
+                              width: MediaQuery.of(context).size.width * 0.65,
+                              child: OutlinedButton(
+                                onPressed: () {
+                                  addDataToAnswerList(
+                                      widget.questionLoc, widget.options![2]);
+                                },
+                                child: Text(
+                                  widget.options![2],
+                                ),
+                              ),
+                            )
+                          : Row(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                SizedBox(
+                                  width:
+                                      MediaQuery.of(context).size.width * 0.3,
+                                  child: OutlinedButton(
+                                    onPressed: () {
+                                      addDataToAnswerList(widget.questionLoc,
+                                          widget.options![2]);
+                                    },
+                                    child: Text(widget.options![2]),
+                                  ),
+                                ),
+                                SizedBox(
+                                  width:
+                                      MediaQuery.of(context).size.width * 0.05,
+                                ),
+                                SizedBox(
+                                  width:
+                                      MediaQuery.of(context).size.width * 0.3,
+                                  child: OutlinedButton(
+                                    onPressed: () {
+                                      addDataToAnswerList(widget.questionLoc,
+                                          widget.options![3]);
+                                    },
+                                    child: Text(widget.options![3]),
+                                  ),
+                                ),
+                              ],
+                            ),
+                    ],
+                  )
+                : Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      SizedBox(
+                        width: MediaQuery.of(context).size.width * 0.3,
+                        child: OutlinedButton(
+                          onPressed: () {
+                            addDataToAnswerList(
+                                widget.questionLoc, widget.options![0]);
+                          },
+                          child: Text(widget.options![0]),
+                        ),
                       ),
+                      SizedBox(
+                        width: MediaQuery.of(context).size.width * 0.05,
+                      ),
+                      SizedBox(
+                        width: MediaQuery.of(context).size.width * 0.3,
+                        child: OutlinedButton(
+                          onPressed: () {
+                            addDataToAnswerList(
+                                widget.questionLoc, widget.options![1]);
+                          },
+                          child: Text(widget.options![1]),
+                        ),
+                      ),
+                    ],
+                  )
+          else if (widget.questionType == "inputfield")
+            Column(
+              children: [
+                Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: TextField(
+                    autofocus: true,
+                    controller: inputField,
+                    decoration: InputDecoration(
+                      icon: Icon(Icons.question_answer_outlined),
+                      labelText: 'Answer',
                     ),
-                  ],
-                )
+                  ),
+                ),
+                OutlinedButton(
+                  onPressed: () {
+                    addDataToAnswerList(widget.questionLoc, inputField.text);
+                  },
+                  child: Text("Next Question"),
+                ),
+              ],
+            ),
+          getDropDownWidget()
         ],
       ),
     );
