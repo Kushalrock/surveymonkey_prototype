@@ -53,8 +53,19 @@ class _QuestionsScreenState extends State<QuestionsScreen> {
               child: BlocListener<QuestionCubit, QuestionState>(
                 listener: (context, state) {
                   if (state is QuestionGetError) {
+                    if (state.error == "Limit Reached") {
+                      ScaffoldMessenger.of(context).showSnackBar(
+                          const SnackBar(content: Text("Come back Tomorrow!")));
+                    } else if (state.error == "NoMore") {
+                      ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+                          content:
+                              Text("We are trying to add more questions")));
+                    } else {
+                      ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+                          content:
+                              Text("Some error occured. Try after some time")));
+                    }
                     Navigator.pop(context);
-                    print(state.error);
                   }
                 },
                 child: BlocBuilder<QuestionCubit, QuestionState>(

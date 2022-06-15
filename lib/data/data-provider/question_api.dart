@@ -8,19 +8,39 @@ class QuestionAPI {
   final answerCollection = FirebaseFirestore.instance.collection('/user-data');
 
   final appDataCollection = FirebaseFirestore.instance.collection('/app-data');
+  final globalAppDataCollection =
+      FirebaseFirestore.instance.collection('/global-app-data');
 
   Future<List<Map<String, dynamic>>> getQuestions() async {
     final lastDocRefNameDoc = await appDataCollection
         .doc(FirebaseAuth.instance.currentUser?.email)
         .get();
+    final globalAppDataCheck =
+        await globalAppDataCollection.doc("question-groups-data").get();
+
     var lastDocRefName = "question-group-1-1";
+
+    if (lastDocRefNameDoc.data()!.containsKey("lastTimeAnswerSubmitted")) {
+      DateTime lastTimeSubmitted =
+          DateTime.parse(lastDocRefNameDoc.data()!["lastTimeAnswerSubmitted"]);
+      if (!(lastTimeSubmitted.year > DateTime.now().year ||
+          lastTimeSubmitted.month > DateTime.now().month ||
+          lastTimeSubmitted.day > DateTime.now().day)) {
+        throw Exception("Limit Reached");
+      }
+    }
+
     if (lastDocRefNameDoc.data()!.containsKey("lastTimeOnQuestionGroup")) {
       lastDocRefName = lastDocRefNameDoc.data()!["lastTimeOnQuestionGroup"];
+    }
+    if (globalAppDataCheck.data()!["profilingquestionlastquestion"] ==
+        lastDocRefName) {
+      throw Exception("NoMore");
     }
     final lastDocRef = await questionCollection.doc(lastDocRefName).get();
 
     final returnList =
-        await questionCollection.startAtDocument(lastDocRef).limit(5).get();
+        await questionCollection.startAfterDocument(lastDocRef).limit(5).get();
     final allData = returnList.docs.map((e) => e.data()).toList();
     print(allData);
     return allData;
