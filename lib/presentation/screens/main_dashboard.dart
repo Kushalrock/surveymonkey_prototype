@@ -98,7 +98,7 @@ class _DashboardState extends State<Dashboard> with IronSourceListener {
               padding: const EdgeInsets.all(8.0),
               child: Text(
                 headingText,
-                style: TextStyle(
+                style: const TextStyle(
                   fontSize: 18,
                 ),
               ),
@@ -112,14 +112,14 @@ class _DashboardState extends State<Dashboard> with IronSourceListener {
                 shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(20),
                 ),
-                primary: Color.fromARGB(255, 255, 0, 0),
+                primary: const Color.fromARGB(255, 255, 0, 0),
               ),
             ),
           ],
         ),
       ),
       decoration: BoxDecoration(
-        borderRadius: BorderRadius.all(
+        borderRadius: const BorderRadius.all(
           Radius.circular(20),
         ),
         color: cardColor,
@@ -130,7 +130,7 @@ class _DashboardState extends State<Dashboard> with IronSourceListener {
   @override
   Widget build(BuildContext context) {
     // Getting the user from the FirebaseAuth Instance
-    final user = FirebaseAuth.instance.currentUser!;
+
     return Scaffold(
       appBar: null,
       body: BlocListener<AuthCubit, AuthState>(
@@ -139,7 +139,7 @@ class _DashboardState extends State<Dashboard> with IronSourceListener {
             // Navigate to the sign in screen when the user Signs Out
             Navigator.of(context).pushAndRemoveUntil(
               MaterialPageRoute(
-                builder: (BuildContext context) => SignInScreen(),
+                builder: (BuildContext context) => const SignInScreen(),
               ),
               ModalRoute.withName('/'),
             );
@@ -162,11 +162,11 @@ class _DashboardState extends State<Dashboard> with IronSourceListener {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   Padding(
-                    padding: EdgeInsets.all(8.0),
+                    padding: const EdgeInsets.all(8.0),
                     child: Align(
                       alignment: Alignment.centerLeft,
                       child: BlocBuilder<GetCoinsCubit, GetCoinsState>(
-                        builder: (context, state) => Text(
+                        builder: (context, state) => const Text(
                           "Account Balance: ",
                           style: TextStyle(
                             fontSize: 25,
@@ -183,7 +183,7 @@ class _DashboardState extends State<Dashboard> with IronSourceListener {
                       child: BlocBuilder<GetCoinsCubit, GetCoinsState>(
                           builder: (context, state) {
                         if (state is CoinsLoading) {
-                          return Text(
+                          return const Text(
                             "NaN",
                             style: TextStyle(
                               fontSize: 20,
@@ -192,12 +192,12 @@ class _DashboardState extends State<Dashboard> with IronSourceListener {
                         } else if (state is CoinsFetched) {
                           return Text(
                             "${state.userCoins} coins",
-                            style: TextStyle(
+                            style: const TextStyle(
                               fontSize: 20,
                             ),
                           );
                         }
-                        return Text(
+                        return const Text(
                           "Error",
                           style: TextStyle(
                             fontSize: 20,
@@ -206,15 +206,15 @@ class _DashboardState extends State<Dashboard> with IronSourceListener {
                       }),
                     ),
                   ),
-                  Padding(
+                  const Padding(
                     padding: EdgeInsets.only(left: 20, right: 20),
                     child: Divider(
                       color: Colors.white70,
                     ),
                   ),
                   const SizedBox(height: 10),
-                  Padding(
-                    padding: const EdgeInsets.only(left: 30, bottom: 10),
+                  const Padding(
+                    padding: EdgeInsets.only(left: 30, bottom: 10),
                     child: Align(
                       alignment: Alignment.centerLeft,
                       child: Text(
@@ -226,7 +226,7 @@ class _DashboardState extends State<Dashboard> with IronSourceListener {
                     ),
                   ),
                   Padding(
-                    padding: EdgeInsets.only(
+                    padding: const EdgeInsets.only(
                       bottom: 10.0,
                     ),
                     child: Row(

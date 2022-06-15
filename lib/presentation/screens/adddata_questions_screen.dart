@@ -19,7 +19,8 @@ class _QuestionsScreenState extends State<QuestionsScreen> {
   List<Map<String, String>> answers = [];
   List<AnswerModel> finalList = [];
 
-  void updateQuestionAndSubmitAnswers() {
+  void updateQuestionAndSubmitAnswers(
+      {String questionGroup = "question-group-1-1"}) {
     setState(() {
       currentQuestion += 1;
     });
@@ -59,7 +60,7 @@ class _QuestionsScreenState extends State<QuestionsScreen> {
                 child: BlocBuilder<QuestionCubit, QuestionState>(
                   builder: (context, state) {
                     if (state is Loading) {
-                      return (CircularProgressIndicator(
+                      return (const CircularProgressIndicator(
                         color: Colors.red,
                       ));
                     } else if (state is QuestionLoaded) {
@@ -120,17 +121,18 @@ class _QuestionsScreenState extends State<QuestionsScreen> {
                                           state.questions[4].locationInDatabase,
                                       updateQuestion:
                                           updateQuestionAndSubmitAnswers,
-                                      questionType: state
-                                          .questions[currentQuestion]
-                                          .questionType),
+                                      questionType:
+                                          state.questions[4].questionType),
                             ),
                             SizedBox(
                               height: MediaQuery.of(context).size.height * 0.1,
                             ),
                             Center(
                               child: ElevatedButton(
-                                onPressed: () =>
-                                    updateQuestionAndSubmitAnswers(),
+                                onPressed: () => updateQuestionAndSubmitAnswers(
+                                    questionGroup: state
+                                        .questions[4].locationInDatabase
+                                        .split("/")[1]),
                                 child: const Text("Skip Question"),
                               ),
                             )

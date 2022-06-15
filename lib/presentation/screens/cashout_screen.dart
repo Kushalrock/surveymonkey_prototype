@@ -16,7 +16,7 @@ class CashoutScreen extends StatefulWidget {
 }
 
 class _CashoutScreenState extends State<CashoutScreen> {
-  TextEditingController _textEditingController = new TextEditingController();
+  final TextEditingController _textEditingController = TextEditingController();
   void showPaypalAddressBox(
       BuildContext context, int coins, String purpose) async {
     if (purpose == "charity") {
@@ -41,7 +41,7 @@ class _CashoutScreenState extends State<CashoutScreen> {
           children: [
             TextField(
               controller: _textEditingController,
-              decoration: InputDecoration(
+              decoration: const InputDecoration(
                 icon: Icon(Icons.account_circle),
                 labelText: 'Paypal Email',
               ),
@@ -178,17 +178,17 @@ class _CashoutScreenState extends State<CashoutScreen> {
                                 padding: const EdgeInsets.all(8.0),
                                 child: Row(
                                   children: [
-                                    FaIcon(
+                                    const FaIcon(
                                       Icons.paypal_outlined,
                                       size: 80,
                                     ),
-                                    SizedBox(
+                                    const SizedBox(
                                       width: 2,
                                     ),
                                     Column(
                                       mainAxisAlignment:
                                           MainAxisAlignment.center,
-                                      children: [
+                                      children: const [
                                         Text(
                                           "5000 coins",
                                           style: TextStyle(
@@ -281,17 +281,17 @@ class _CashoutScreenState extends State<CashoutScreen> {
                                 padding: const EdgeInsets.all(8.0),
                                 child: Row(
                                   children: [
-                                    FaIcon(
+                                    const FaIcon(
                                       Icons.handshake_outlined,
                                       size: 80,
                                     ),
-                                    SizedBox(
+                                    const SizedBox(
                                       width: 2,
                                     ),
                                     Column(
                                       mainAxisAlignment:
                                           MainAxisAlignment.center,
-                                      children: [
+                                      children: const [
                                         Text(
                                           "2000 coins",
                                           style: TextStyle(
@@ -409,7 +409,7 @@ class _CashoutScreenState extends State<CashoutScreen> {
                     ],
                   );
                 } else if (state is CoinsLoading) {
-                  return CircularProgressIndicator();
+                  return const CircularProgressIndicator();
                 }
                 return Container();
               },

@@ -19,7 +19,7 @@ class TransactionHistoryScreen extends StatelessWidget {
             padding: const EdgeInsets.all(5),
             child: Text(
               item.transactionText,
-              style: TextStyle(
+              style: const TextStyle(
                 fontWeight: FontWeight.bold,
                 fontSize: 18,
               ),
@@ -29,7 +29,7 @@ class TransactionHistoryScreen extends StatelessWidget {
             padding: const EdgeInsets.only(bottom: 5),
             child: Text(
               item.date,
-              style: TextStyle(color: Colors.grey),
+              style: const TextStyle(color: Colors.grey),
             ),
           ),
         ]),
@@ -72,7 +72,7 @@ class TransactionHistoryScreen extends StatelessWidget {
         child: BlocListener<TransactionHistoryCubit, TransactionHistoryState>(
           listener: (context, state) {
             if (state is TransactionHistoryError) {
-              ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+              ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
                   content: Text(
                       "Error occured while fetching transaction history")));
               // Navigate to the sign in screen when the user Signs Out
@@ -82,13 +82,14 @@ class TransactionHistoryScreen extends StatelessWidget {
           child: BlocBuilder<TransactionHistoryCubit, TransactionHistoryState>(
             builder: (context, state) {
               if (state is TransactionHistoryLoading) {
-                return (CircularProgressIndicator());
+                return (const CircularProgressIndicator());
               } else if (state is TransactionHistoryLoaded) {
                 return state.transactionHistoryModel.isNotEmpty
                     ? ListView(
                         children: cardWidgetList(state.transactionHistoryModel),
                       )
-                    : Text("No available transactions, Start earning now!");
+                    : const Text(
+                        "No available transactions, Start earning now!");
               }
               return Container();
             },

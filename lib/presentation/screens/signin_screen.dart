@@ -29,7 +29,6 @@ class _SignInScreenState extends State<SignInScreen> {
 
   @override
   void dispose() {
-    // TODO: implement dispose
     super.dispose();
     overlayEntry?.dispose();
   }
@@ -68,7 +67,7 @@ class _SignInScreenState extends State<SignInScreen> {
     "guyij",
   ];
 
-  Widget GetCardWidget() {
+  Widget getCardWidget() {
     return Positioned(
       child: Card(
         elevation: 20,
@@ -80,8 +79,8 @@ class _SignInScreenState extends State<SignInScreen> {
                   Color.fromARGB(255, 163, 189, 237),
                   Color.fromARGB(255, 105, 145, 199)
                 ],
-                begin: const FractionalOffset(1.0, 0.0),
-                end: const FractionalOffset(0.0, 0.0),
+                begin: FractionalOffset(1.0, 0.0),
+                end: FractionalOffset(0.0, 0.0),
               ),
               borderRadius: BorderRadius.all(Radius.circular(20))),
           child: Column(
@@ -108,7 +107,7 @@ class _SignInScreenState extends State<SignInScreen> {
                               hideOverlay();
                               overlayEntry = OverlayEntry(
                                 builder: (context) {
-                                  return GetCardWidget();
+                                  return getCardWidget();
                                 },
                               );
                               Overlay.of(context)?.insert(overlayEntry!);
@@ -116,7 +115,7 @@ class _SignInScreenState extends State<SignInScreen> {
                           }
                         });
                       },
-                      icon: Icon(Icons.arrow_left),
+                      icon: const Icon(Icons.arrow_left),
                     ),
                     Container(
                       width: 200,
@@ -138,7 +137,7 @@ class _SignInScreenState extends State<SignInScreen> {
                           hideOverlay();
                           overlayEntry = OverlayEntry(
                             builder: (context) {
-                              return GetCardWidget();
+                              return getCardWidget();
                             },
                           );
                           Overlay.of(context)?.insert(overlayEntry!);
@@ -162,7 +161,7 @@ class _SignInScreenState extends State<SignInScreen> {
   void showOverlay() {
     overlayEntry = OverlayEntry(
       builder: (context) {
-        return GetCardWidget();
+        return getCardWidget();
       },
     );
     final overlay = Overlay.of(context);
@@ -200,8 +199,8 @@ class _SignInScreenState extends State<SignInScreen> {
                       Color.fromARGB(255, 9, 32, 63),
                       Color.fromARGB(255, 83, 120, 149),
                     ],
-                    begin: const FractionalOffset(0.0, 0.0),
-                    end: const FractionalOffset(1.0, 0.0),
+                    begin: FractionalOffset(0.0, 0.0),
+                    end: FractionalOffset(1.0, 0.0),
                   ),
                 ),
                 child: Center(
@@ -280,9 +279,9 @@ class _SignInScreenState extends State<SignInScreen> {
                                     style: ElevatedButton.styleFrom(
                                         primary: Colors.black12),
                                     child: const Padding(
-                                      padding: const EdgeInsets.only(
-                                          top: 12, bottom: 12),
-                                      child: const Text(
+                                      padding:
+                                          EdgeInsets.only(top: 12, bottom: 12),
+                                      child: Text(
                                         'Sign In',
                                         style: TextStyle(color: Colors.white70),
                                       ),

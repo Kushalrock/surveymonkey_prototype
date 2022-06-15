@@ -31,7 +31,7 @@ class _QuestionLayoutState extends State<QuestionLayout> {
     widget.updateQuestion();
   }
 
-  final TextEditingController inputField = new TextEditingController();
+  final TextEditingController inputField = TextEditingController();
   String dropDownVal = "--";
 
   Widget getDropDownWidget() {
@@ -54,12 +54,12 @@ class _QuestionLayoutState extends State<QuestionLayout> {
             onPressed: () {
               addDataToAnswerList(widget.questionLoc, dropDownVal);
             },
-            child: Text("Next Question"),
+            child: const Text("Next Question"),
           ),
         ],
       );
     }
-    return SizedBox(
+    return const SizedBox(
       height: 0,
     );
   }
@@ -114,7 +114,7 @@ class _QuestionLayoutState extends State<QuestionLayout> {
                               },
                               child: Text(
                                 widget.options![1],
-                                style: TextStyle(color: Colors.black87),
+                                style: const TextStyle(color: Colors.black87),
                               ),
                             ),
                           ),
@@ -202,7 +202,7 @@ class _QuestionLayoutState extends State<QuestionLayout> {
                   child: TextField(
                     autofocus: true,
                     controller: inputField,
-                    decoration: InputDecoration(
+                    decoration: const InputDecoration(
                       icon: Icon(Icons.question_answer_outlined),
                       labelText: 'Answer',
                     ),
@@ -212,7 +212,7 @@ class _QuestionLayoutState extends State<QuestionLayout> {
                   onPressed: () {
                     addDataToAnswerList(widget.questionLoc, inputField.text);
                   },
-                  child: Text("Next Question"),
+                  child: const Text("Next Question"),
                 ),
               ],
             ),

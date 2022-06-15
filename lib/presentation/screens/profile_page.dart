@@ -15,8 +15,8 @@ class ProfilePage extends StatelessWidget {
         flexibleSpace: Container(
           decoration: const BoxDecoration(
             gradient: LinearGradient(
-              begin: const FractionalOffset(0.0, 0.0),
-              end: const FractionalOffset(1.0, 0.0),
+              begin: FractionalOffset(0.0, 0.0),
+              end: FractionalOffset(1.0, 0.0),
               colors: <Color>[
                 Color.fromARGB(255, 9, 32, 63),
                 Color.fromARGB(255, 83, 120, 149)
@@ -32,8 +32,8 @@ class ProfilePage extends StatelessWidget {
               Color.fromARGB(255, 9, 32, 63),
               Color.fromARGB(255, 83, 120, 149)
             ],
-            begin: const FractionalOffset(0.0, 0.0),
-            end: const FractionalOffset(1.0, 0.0),
+            begin: FractionalOffset(0.0, 0.0),
+            end: FractionalOffset(1.0, 0.0),
           ),
         ),
         child: Center(
@@ -84,7 +84,7 @@ class ProfilePage extends StatelessWidget {
                                         .updateDisplayName,
                                   )));
                         },
-                        icon: Icon(Icons.assessment_outlined),
+                        icon: const Icon(Icons.assessment_outlined),
                       ),
                     ),
                     SizedBox(
@@ -101,21 +101,21 @@ class ProfilePage extends StatelessWidget {
                                         .updatePassword,
                                   )));
                         },
-                        icon: Icon(Icons.password_outlined),
+                        icon: const Icon(Icons.password_outlined),
                         tooltip: "Change Password",
                       ),
                     ),
                     SizedBox(
                       child: IconButton(
                         onPressed: () {},
-                        icon: Icon(Icons.delete_forever_outlined),
+                        icon: const Icon(Icons.delete_forever_outlined),
                         tooltip: "Delete Account",
                       ),
                     ),
                   ],
                 ),
                 Container(
-                  margin: EdgeInsets.only(top: 20),
+                  margin: const EdgeInsets.only(top: 20),
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
@@ -124,15 +124,15 @@ class ProfilePage extends StatelessWidget {
                         child: Container(
                           decoration: BoxDecoration(
                             border: Border.all(width: 0.5, color: Colors.black),
-                            borderRadius: BorderRadius.all(
+                            borderRadius: const BorderRadius.all(
                               Radius.circular(20),
                             ),
                           ),
                           child: Center(
                             child: Column(
                               children: [
-                                Padding(
-                                  padding: const EdgeInsets.all(10.0),
+                                const Padding(
+                                  padding: EdgeInsets.all(10.0),
                                   child: Icon(
                                     Icons.web_asset_outlined,
                                     size: 50,
@@ -142,9 +142,9 @@ class ProfilePage extends StatelessWidget {
                                   height:
                                       MediaQuery.of(context).size.height * 0.03,
                                 ),
-                                Padding(
-                                  padding: const EdgeInsets.fromLTRB(
-                                      20, 10.0, 20, 10),
+                                const Padding(
+                                  padding:
+                                      EdgeInsets.fromLTRB(20, 10.0, 20, 10),
                                   child: Text(
                                     "Visit our website",
                                     style: TextStyle(
@@ -153,8 +153,8 @@ class ProfilePage extends StatelessWidget {
                                     ),
                                   ),
                                 ),
-                                Padding(
-                                  padding: const EdgeInsets.all(10.0),
+                                const Padding(
+                                  padding: EdgeInsets.all(10.0),
                                   child: Text(
                                     "www.coinkick.com",
                                     style: TextStyle(
@@ -173,15 +173,15 @@ class ProfilePage extends StatelessWidget {
                         child: Container(
                           decoration: BoxDecoration(
                             border: Border.all(width: 0.5, color: Colors.black),
-                            borderRadius: BorderRadius.all(
+                            borderRadius: const BorderRadius.all(
                               Radius.circular(20),
                             ),
                           ),
                           child: Center(
                             child: Column(
                               children: [
-                                Padding(
-                                  padding: const EdgeInsets.all(10.0),
+                                const Padding(
+                                  padding: EdgeInsets.all(10.0),
                                   child: Icon(
                                     Icons.contact_page_outlined,
                                     size: 50,
@@ -191,9 +191,9 @@ class ProfilePage extends StatelessWidget {
                                   height:
                                       MediaQuery.of(context).size.height * 0.03,
                                 ),
-                                Padding(
-                                  padding: const EdgeInsets.fromLTRB(
-                                      20, 10.0, 20, 10),
+                                const Padding(
+                                  padding:
+                                      EdgeInsets.fromLTRB(20, 10.0, 20, 10),
                                   child: Text(
                                     "        Support       ",
                                     style: TextStyle(
@@ -202,8 +202,8 @@ class ProfilePage extends StatelessWidget {
                                     ),
                                   ),
                                 ),
-                                Padding(
-                                  padding: const EdgeInsets.all(10.0),
+                                const Padding(
+                                  padding: EdgeInsets.all(10.0),
                                   child: Text(
                                     "  Drop a mail today  ",
                                     style: TextStyle(
@@ -221,19 +221,19 @@ class ProfilePage extends StatelessWidget {
                   ),
                 ),
                 Card(
-                  margin: EdgeInsets.only(
+                  margin: const EdgeInsets.only(
                     top: 50,
                   ),
                   child: Padding(
                     padding: const EdgeInsets.fromLTRB(60, 15, 60, 15),
                     child: Column(
-                      children: [
+                      children: const [
                         Text("To contact us, drop us a mail at"),
                         Text("support@coinkick.com")
                       ],
                     ),
                   ),
-                  color: Color.fromARGB(255, 2, 24, 35),
+                  color: const Color.fromARGB(255, 2, 24, 35),
                   elevation: 10,
                 )
               ],

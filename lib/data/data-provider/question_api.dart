@@ -7,8 +7,17 @@ class QuestionAPI {
       FirebaseFirestore.instance.collection('/questions-group-1');
   final answerCollection = FirebaseFirestore.instance.collection('/user-data');
 
+  final appDataCollection = FirebaseFirestore.instance.collection('/app-data');
+
   Future<List<Map<String, dynamic>>> getQuestions() async {
-    final lastDocRef = await questionCollection.doc("question-group-1-4").get();
+    final lastDocRefNameDoc = await appDataCollection
+        .doc(FirebaseAuth.instance.currentUser?.email)
+        .get();
+    var lastDocRefName = "question-group-1-1";
+    if (lastDocRefNameDoc.data()!.containsKey("lastTimeOnQuestionGroup")) {
+      lastDocRefName = lastDocRefNameDoc.data()!["lastTimeOnQuestionGroup"];
+    }
+    final lastDocRef = await questionCollection.doc(lastDocRefName).get();
 
     final returnList =
         await questionCollection.startAtDocument(lastDocRef).limit(5).get();
@@ -17,9 +26,16 @@ class QuestionAPI {
     return allData;
   }
 
-  Future<void> answerGroupSubmit(Map<String, String> answerList) async {
+  Future<void> answerGroupSubmit(Map<String, String> answerList,
+      {String questionGroup = "question-group-1-1",
+      String profileQuestionGroup = "profiling-questions-1"}) async {
     await answerCollection
         .doc(FirebaseAuth.instance.currentUser?.email)
         .set(answerList, SetOptions(merge: true));
+    await appDataCollection.doc(FirebaseAuth.instance.currentUser?.email).set({
+      "lastTimeAnswerSubmitted": DateTime.now().toString(),
+      "lastTimeOnQuestionGroup": questionGroup,
+      "lastTimeOnProfileGroup": profileQuestionGroup
+    }, SetOptions(merge: true));
   }
 }

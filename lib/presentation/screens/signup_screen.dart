@@ -54,8 +54,8 @@ class _SignUpScreenState extends State<SignUpScreen> {
                       Color.fromARGB(255, 9, 32, 63),
                       Color.fromARGB(255, 83, 120, 149),
                     ],
-                    begin: const FractionalOffset(0.0, 0.0),
-                    end: const FractionalOffset(1.0, 0.0),
+                    begin: FractionalOffset(0.0, 0.0),
+                    end: FractionalOffset(1.0, 0.0),
                   ),
                 ),
                 child: Center(
@@ -159,10 +159,10 @@ class _SignUpScreenState extends State<SignUpScreen> {
                                           },
                                     style: ElevatedButton.styleFrom(
                                         primary: Colors.black12),
-                                    child: Padding(
-                                      padding: const EdgeInsets.only(
-                                          top: 12, bottom: 12),
-                                      child: const Text('Sign Up',
+                                    child: const Padding(
+                                      padding:
+                                          EdgeInsets.only(top: 12, bottom: 12),
+                                      child: Text('Sign Up',
                                           style:
                                               TextStyle(color: Colors.white70)),
                                     ),
