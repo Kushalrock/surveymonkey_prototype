@@ -78,6 +78,7 @@ class _DashboardState extends State<Dashboard> with IronSourceListener {
     Navigator.of(context).pushNamed('/roulette');
   }
 
+  void showPollfish() {}
   @override
   void onRewardedVideoAdClosed() {
     print("onRewardedVideoAdClosed");
@@ -90,7 +91,7 @@ class _DashboardState extends State<Dashboard> with IronSourceListener {
       {Color cardColor = const Color.fromARGB(255, 149, 83, 87)}) {
     return Container(
       height: 100,
-      width: MediaQuery.of(context).size.width * 0.4,
+      width: MediaQuery.of(context).size.width * 0.45,
       child: Center(
         child: Column(
           children: [
@@ -111,8 +112,9 @@ class _DashboardState extends State<Dashboard> with IronSourceListener {
               style: ElevatedButton.styleFrom(
                 shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(20),
+                  side: BorderSide(color: Colors.blue),
                 ),
-                primary: const Color.fromARGB(255, 255, 0, 0),
+                primary: const Color.fromARGB(255, 174, 198, 207),
               ),
             ),
           ],
@@ -120,8 +122,9 @@ class _DashboardState extends State<Dashboard> with IronSourceListener {
       ),
       decoration: BoxDecoration(
         borderRadius: const BorderRadius.all(
-          Radius.circular(20),
+          Radius.circular(15),
         ),
+        border: Border.all(color: Colors.white),
         color: cardColor,
       ),
     );
@@ -156,26 +159,12 @@ class _DashboardState extends State<Dashboard> with IronSourceListener {
               end: FractionalOffset(1.0, 0.0),
             ),
           ),
-          child: Center(
+          child: Align(
+            alignment: Alignment.topLeft,
             child: SingleChildScrollView(
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: Align(
-                      alignment: Alignment.centerLeft,
-                      child: BlocBuilder<GetCoinsCubit, GetCoinsState>(
-                        builder: (context, state) => const Text(
-                          "Account Balance: ",
-                          style: TextStyle(
-                            fontSize: 25,
-                          ),
-                          textAlign: TextAlign.left,
-                        ),
-                      ),
-                    ),
-                  ),
                   Padding(
                     padding: const EdgeInsets.fromLTRB(8, 8, 8, 8),
                     child: Align(
@@ -190,10 +179,13 @@ class _DashboardState extends State<Dashboard> with IronSourceListener {
                             ),
                           );
                         } else if (state is CoinsFetched) {
-                          return Text(
-                            "${state.userCoins} coins",
-                            style: const TextStyle(
-                              fontSize: 20,
+                          return Padding(
+                            padding: EdgeInsets.only(top: 35.0, left: 20),
+                            child: Text(
+                              "Coins: ${state.userCoins}",
+                              style: const TextStyle(
+                                fontSize: 20,
+                              ),
                             ),
                           );
                         }
@@ -212,15 +204,29 @@ class _DashboardState extends State<Dashboard> with IronSourceListener {
                       color: Colors.white70,
                     ),
                   ),
-                  const SizedBox(height: 10),
-                  const Padding(
-                    padding: EdgeInsets.only(left: 30, bottom: 10),
+                  SizedBox(height: MediaQuery.of(context).size.width * .1),
+                  Padding(
+                    padding: EdgeInsets.only(left: 15, bottom: 10),
                     child: Align(
                       alignment: Alignment.centerLeft,
-                      child: Text(
-                        "Welcome Michael,",
-                        style: TextStyle(
-                          fontSize: 20,
+                      child: Container(
+                        width: MediaQuery.of(context).size.width * 0.93,
+                        height: MediaQuery.of(context).size.height * 0.15,
+                        decoration: BoxDecoration(
+                          color: Color.fromARGB(255, 14, 36, 51),
+                          border: Border.all(color: Colors.white),
+                          borderRadius: const BorderRadius.all(
+                            Radius.circular(15),
+                          ),
+                        ),
+                        child: Align(
+                          alignment: Alignment.center,
+                          child: Text(
+                            "Welcome Michael,",
+                            style: TextStyle(
+                              fontSize: 20,
+                            ),
+                          ),
                         ),
                       ),
                     ),
@@ -232,21 +238,51 @@ class _DashboardState extends State<Dashboard> with IronSourceListener {
                     child: Row(
                       children: [
                         GetDashboardCard(
-                            "Survey Available", "Take the survey", showSurvey),
+                          "Survey Available",
+                          "Take the survey",
+                          showSurvey,
+                          cardColor: Color.fromARGB(255, 14, 36, 51),
+                        ),
                         GetDashboardCard(
-                            "Offerwall", "Show Offerwall", showOfferwall)
+                          "Offerwall",
+                          "Show Offerwall",
+                          showOfferwall,
+                          cardColor: Color.fromARGB(255, 14, 36, 51),
+                        )
                       ],
                       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                     ),
                   ),
                   Row(
                     children: [
-                      GetDashboardCard("Video Available", "Show Rewarded Ad",
-                          showRewardedAd),
                       GetDashboardCard(
-                          "Roulette", "Try your luck", showRoulette)
+                        "Video Available",
+                        "Show Rewarded Ad",
+                        showRewardedAd,
+                        cardColor: Color.fromARGB(255, 14, 36, 51),
+                      ),
+                      GetDashboardCard(
+                        "Roulette",
+                        "Try your luck",
+                        showRoulette,
+                        cardColor: Color.fromARGB(255, 14, 36, 51),
+                      )
                     ],
                     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.all(10.0),
+                    child: Row(
+                      children: [
+                        GetDashboardCard(
+                          "Extra Surveys",
+                          "Take Survey",
+                          showPollfish,
+                          cardColor: Color.fromARGB(255, 14, 36, 51),
+                        ),
+                      ],
+                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    ),
                   ),
                 ],
               ),
