@@ -110,19 +110,18 @@ class _CashoutScreenState extends State<CashoutScreen> {
                   return Column(
                     children: [
                       Container(
-                        width: MediaQuery.of(context).size.width * 0.7,
+                        decoration: BoxDecoration(
+                          color: Color.fromARGB(255, 14, 36, 51),
+                          borderRadius: const BorderRadius.all(
+                            Radius.circular(15),
+                          ),
+                          border: Border.all(color: Colors.white),
+                        ),
+                        width: MediaQuery.of(context).size.width * 0.93,
+                        height: MediaQuery.of(context).size.height * 0.2,
                         child: Column(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
-                            const Padding(
-                              padding: EdgeInsets.all(8.0),
-                              child: Text(
-                                "You have",
-                                style: TextStyle(
-                                  fontSize: 40,
-                                ),
-                              ),
-                            ),
                             BlocBuilder<GetCoinsCubit, GetCoinsState>(
                               builder: (context, state) {
                                 if (state is CoinsLoading) {
