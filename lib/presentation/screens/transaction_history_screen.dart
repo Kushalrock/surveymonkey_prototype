@@ -12,7 +12,7 @@ class TransactionHistoryScreen extends StatelessWidget {
     for (var item in transactionModelList) {
       returnList.add(Card(
         elevation: 90,
-        color: Colors.transparent,
+        color: Color.fromARGB(255, 14, 36, 51),
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
         child: Column(children: [
           Padding(

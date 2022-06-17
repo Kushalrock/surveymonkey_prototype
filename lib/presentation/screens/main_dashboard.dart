@@ -238,14 +238,14 @@ class _DashboardState extends State<Dashboard> with IronSourceListener {
                     child: Row(
                       children: [
                         GetDashboardCard(
-                          "Survey Available",
-                          "Take the survey",
+                          "CoinKick Surveys",
+                          "Add Data",
                           showSurvey,
                           cardColor: Color.fromARGB(255, 14, 36, 51),
                         ),
                         GetDashboardCard(
-                          "Offerwall",
-                          "Show Offerwall",
+                          "Play Games",
+                          "Earn Coin",
                           showOfferwall,
                           cardColor: Color.fromARGB(255, 14, 36, 51),
                         )
@@ -256,9 +256,9 @@ class _DashboardState extends State<Dashboard> with IronSourceListener {
                   Row(
                     children: [
                       GetDashboardCard(
-                        "Video Available",
-                        "Show Rewarded Ad",
-                        showRewardedAd,
+                        "Third-Party Surveys",
+                        "Earn Coin",
+                        showPollfish,
                         cardColor: Color.fromARGB(255, 14, 36, 51),
                       ),
                       GetDashboardCard(
@@ -275,11 +275,17 @@ class _DashboardState extends State<Dashboard> with IronSourceListener {
                     child: Row(
                       children: [
                         GetDashboardCard(
-                          "Extra Surveys",
-                          "Take Survey",
-                          showPollfish,
+                          "Rewarded Ads",
+                          "Play Video",
+                          showRewardedAd,
                           cardColor: Color.fromARGB(255, 14, 36, 51),
                         ),
+                        GetDashboardCard(
+                          "Roulette",
+                          "Try your luck",
+                          showRoulette,
+                          cardColor: Color.fromARGB(255, 14, 36, 51),
+                        )
                       ],
                       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                     ),
@@ -298,17 +304,17 @@ class _DashboardState extends State<Dashboard> with IronSourceListener {
             backgroundColor: Colors.white70,
           ),
           BottomNavigationBarItem(
-            icon: Icon(Icons.account_balance_outlined),
+            icon: Icon(Icons.account_balance_sharp),
             label: "Transactions",
             backgroundColor: Colors.green,
           ),
           BottomNavigationBarItem(
-            icon: Icon(Icons.money_outlined),
+            icon: Icon(Icons.account_balance_wallet_sharp),
             backgroundColor: Colors.purple,
             label: "Cashout",
           ),
           BottomNavigationBarItem(
-            icon: Icon(Icons.account_circle_rounded),
+            icon: Icon(Icons.dashboard),
             backgroundColor: Colors.purple,
             label: "Profile",
           ),
