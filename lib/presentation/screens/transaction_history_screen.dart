@@ -39,11 +39,15 @@ class TransactionHistoryScreen extends StatelessWidget {
     return returnList;
   }
 
+  void showCashout(BuildContext context) {
+    Navigator.of(context).pushNamed('/cashout');
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text(''),
+        title: const Text('Coinkick'),
         elevation: 0,
         flexibleSpace: Container(
           decoration: const BoxDecoration(
@@ -95,6 +99,40 @@ class TransactionHistoryScreen extends StatelessWidget {
             },
           ),
         ),
+      ),
+      bottomNavigationBar: BottomNavigationBar(
+        items: const <BottomNavigationBarItem>[
+          BottomNavigationBarItem(
+            icon: Icon(Icons.home),
+            label: "Home",
+            backgroundColor: Colors.white70,
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.account_balance_sharp),
+            label: "Transactions",
+            backgroundColor: Colors.white70,
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.account_balance_wallet_sharp),
+            backgroundColor: Colors.white70,
+            label: "Cashout",
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.dashboard),
+            backgroundColor: Colors.white70,
+            label: "Profile",
+          ),
+        ],
+        currentIndex: 1,
+        onTap: (int index) {
+          if (index == 0) {
+            Navigator.of(context).pushNamed("/dashboard");
+          } else if (index == 3) {
+            Navigator.of(context).pushNamed("/profile");
+          } else if (index == 2) {
+            showCashout(context);
+          }
+        },
       ),
     );
   }

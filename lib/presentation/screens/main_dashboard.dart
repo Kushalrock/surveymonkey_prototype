@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_ironsource_x/ironsource.dart';
 import 'package:flutter_ironsource_x/models.dart';
+import 'package:flutter_pollfish/flutter_pollfish.dart';
 import 'package:surveymonkey_prototype/logic/cubit/get_coins_cubit.dart';
 import 'package:surveymonkey_prototype/logic/cubit/question_cubit.dart';
 import 'package:surveymonkey_prototype/logic/cubit/transaction_history_cubit.dart';
@@ -23,8 +24,16 @@ class _DashboardState extends State<Dashboard> with IronSourceListener {
   void initState() {
     super.initState();
     initIronSource();
+    initPollfish();
     WidgetsBinding.instance
         ?.addPostFrameCallback((_) => context.read<GetCoinsCubit>().getCoins());
+  }
+
+  @override
+  void dispose() {
+    FlutterPollfish.instance.removeListeners();
+
+    super.dispose();
   }
 
   Future<void> initIronSource() async {
@@ -37,6 +46,18 @@ class _DashboardState extends State<Dashboard> with IronSourceListener {
         ccpaConsent: false,
         listener: this);
     offerWallAvailable = await IronSource.isOfferwallAvailable();
+  }
+
+  Future<void> initPollfish() async {
+    FlutterPollfish.instance.init(
+        androidApiKey: "feadb6a1-4534-4a5f-959e-3173c680bde3",
+        iosApiKey: null,
+        indicatorPosition: Position.topLeft,
+        rewardMode: true,
+        releaseMode: false,
+        offerwallMode: false);
+    FlutterPollfish.instance
+        .setPollfishSurveyCompletedListener(onPollfishSurveyCompleted);
   }
 
   void showOfferwall() async {
@@ -53,6 +74,10 @@ class _DashboardState extends State<Dashboard> with IronSourceListener {
         .read<AuthCubit>()
         .addCoins(reward.credits!, "${reward.credits!} from offerwall");
     context.read<GetCoinsCubit>().getCoins();
+  }
+
+  void onPollfishSurveyCompleted(SurveyInfo? surveyInfo) {
+    print(surveyInfo);
   }
 
   void showRewardedAd() async {
@@ -78,7 +103,10 @@ class _DashboardState extends State<Dashboard> with IronSourceListener {
     Navigator.of(context).pushNamed('/roulette');
   }
 
-  void showPollfish() {}
+  void showPollfish() async {
+    await FlutterPollfish.instance.show();
+  }
+
   @override
   void onRewardedVideoAdClosed() {
     print("onRewardedVideoAdClosed");
@@ -135,7 +163,22 @@ class _DashboardState extends State<Dashboard> with IronSourceListener {
     // Getting the user from the FirebaseAuth Instance
 
     return Scaffold(
-      appBar: null,
+      appBar: AppBar(
+        title: const Text('Coinkick'),
+        elevation: 0,
+        flexibleSpace: Container(
+          decoration: const BoxDecoration(
+            gradient: LinearGradient(
+              begin: FractionalOffset(0.0, 0.0),
+              end: FractionalOffset(1.0, 0.0),
+              colors: <Color>[
+                Color.fromARGB(255, 9, 32, 63),
+                Color.fromARGB(255, 83, 120, 149)
+              ],
+            ),
+          ),
+        ),
+      ),
       body: BlocListener<AuthCubit, AuthState>(
         listener: (context, state) {
           if (state is UnAuthenticated) {
@@ -182,7 +225,7 @@ class _DashboardState extends State<Dashboard> with IronSourceListener {
                           return Padding(
                             padding: EdgeInsets.only(top: 35.0, left: 20),
                             child: Text(
-                              "Coins: ${state.userCoins}",
+                              "${state.userCoins} Coins",
                               style: const TextStyle(
                                 fontSize: 20,
                               ),
@@ -213,20 +256,28 @@ class _DashboardState extends State<Dashboard> with IronSourceListener {
                         width: MediaQuery.of(context).size.width * 0.93,
                         height: MediaQuery.of(context).size.height * 0.15,
                         decoration: BoxDecoration(
-                          color: Color.fromARGB(255, 14, 36, 51),
+                          color: const Color.fromARGB(255, 14, 36, 51),
                           border: Border.all(color: Colors.white),
                           borderRadius: const BorderRadius.all(
                             Radius.circular(15),
                           ),
                         ),
-                        child: Align(
-                          alignment: Alignment.center,
-                          child: Text(
-                            "Welcome Michael,",
-                            style: TextStyle(
-                              fontSize: 20,
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: const [
+                            Text(
+                              "Welcome, Michael",
+                              style: TextStyle(
+                                fontSize: 20,
+                              ),
                             ),
-                          ),
+                            Text(
+                              "Login Streak: 1 day",
+                              style: TextStyle(
+                                fontSize: 18,
+                              ),
+                            ),
+                          ],
                         ),
                       ),
                     ),
@@ -262,7 +313,7 @@ class _DashboardState extends State<Dashboard> with IronSourceListener {
                         cardColor: Color.fromARGB(255, 14, 36, 51),
                       ),
                       GetDashboardCard(
-                        "Roulette",
+                        "Weekly Roulette",
                         "Try your luck",
                         showRoulette,
                         cardColor: Color.fromARGB(255, 14, 36, 51),
@@ -314,7 +365,7 @@ class _DashboardState extends State<Dashboard> with IronSourceListener {
             label: "Cashout",
           ),
           BottomNavigationBarItem(
-            icon: Icon(Icons.dashboard),
+            icon: Icon(Icons.account_circle_outlined),
             backgroundColor: Colors.purple,
             label: "Profile",
           ),

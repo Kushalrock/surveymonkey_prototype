@@ -8,6 +8,8 @@ import 'package:surveymonkey_prototype/logic/cubit/auth_cubit.dart';
 import '../../logic/cubit/get_coins_cubit.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
+import '../../logic/cubit/transaction_history_cubit.dart';
+
 class CashoutScreen extends StatefulWidget {
   const CashoutScreen({Key? key}) : super(key: key);
 
@@ -76,7 +78,7 @@ class _CashoutScreenState extends State<CashoutScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text(''),
+        title: const Text('Coinkick'),
         elevation: 0,
         flexibleSpace: Container(
           decoration: const BoxDecoration(
@@ -171,15 +173,17 @@ class _CashoutScreenState extends State<CashoutScreen> {
                                   }
                                 : null,
                             child: Card(
+                              color: Color.fromARGB(255, 14, 36, 51),
                               shape: RoundedRectangleBorder(
                                   borderRadius: BorderRadius.circular(10)),
                               child: Padding(
                                 padding: const EdgeInsets.all(8.0),
                                 child: Row(
                                   children: [
-                                    const FaIcon(
-                                      Icons.paypal_outlined,
-                                      size: 80,
+                                    Image.asset(
+                                      'assets/paypal.png',
+                                      width: 80,
+                                      height: 80,
                                     ),
                                     const SizedBox(
                                       width: 2,
@@ -215,15 +219,17 @@ class _CashoutScreenState extends State<CashoutScreen> {
                                   }
                                 : null,
                             child: Card(
+                              color: Color.fromARGB(255, 14, 36, 51),
                               shape: RoundedRectangleBorder(
                                   borderRadius: BorderRadius.circular(10)),
                               child: Padding(
                                 padding: const EdgeInsets.all(8.0),
                                 child: Row(
                                   children: [
-                                    const FaIcon(
-                                      Icons.paypal_outlined,
-                                      size: 80,
+                                    Image.asset(
+                                      'assets/paypal.png',
+                                      width: 80,
+                                      height: 80,
                                     ),
                                     const SizedBox(
                                       width: 2,
@@ -274,15 +280,17 @@ class _CashoutScreenState extends State<CashoutScreen> {
                                   }
                                 : null,
                             child: Card(
+                              color: Color.fromARGB(255, 14, 36, 51),
                               shape: RoundedRectangleBorder(
                                   borderRadius: BorderRadius.circular(10)),
                               child: Padding(
                                 padding: const EdgeInsets.all(8.0),
                                 child: Row(
                                   children: [
-                                    const FaIcon(
-                                      Icons.handshake_outlined,
-                                      size: 80,
+                                    Image.asset(
+                                      'assets/charity_1.png',
+                                      width: 80,
+                                      height: 80,
                                     ),
                                     const SizedBox(
                                       width: 2,
@@ -318,15 +326,17 @@ class _CashoutScreenState extends State<CashoutScreen> {
                                   }
                                 : null,
                             child: Card(
+                              color: Color.fromARGB(255, 14, 36, 51),
                               shape: RoundedRectangleBorder(
                                   borderRadius: BorderRadius.circular(10)),
                               child: Padding(
                                 padding: const EdgeInsets.all(8.0),
                                 child: Row(
                                   children: [
-                                    const FaIcon(
-                                      Icons.health_and_safety_outlined,
-                                      size: 80,
+                                    Image.asset(
+                                      'assets/charity_2.png',
+                                      width: 80,
+                                      height: 80,
                                     ),
                                     const SizedBox(
                                       width: 2,
@@ -369,13 +379,15 @@ class _CashoutScreenState extends State<CashoutScreen> {
                             child: Card(
                               shape: RoundedRectangleBorder(
                                   borderRadius: BorderRadius.circular(10)),
+                              color: Color.fromARGB(255, 14, 36, 51),
                               child: Padding(
                                 padding: const EdgeInsets.all(8.0),
                                 child: Row(
                                   children: [
-                                    const FaIcon(
-                                      Icons.child_care_outlined,
-                                      size: 80,
+                                    Image.asset(
+                                      'assets/charity_3.png',
+                                      width: 80,
+                                      height: 80,
                                     ),
                                     const SizedBox(
                                       width: 2,
@@ -415,6 +427,43 @@ class _CashoutScreenState extends State<CashoutScreen> {
             ),
           ),
         ),
+      ),
+      bottomNavigationBar: BottomNavigationBar(
+        items: const <BottomNavigationBarItem>[
+          BottomNavigationBarItem(
+            icon: Icon(Icons.home),
+            label: "Home",
+            backgroundColor: Colors.white70,
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.account_balance_sharp),
+            label: "Transactions",
+            backgroundColor: Colors.white70,
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.account_balance_wallet_sharp),
+            backgroundColor: Colors.white70,
+            label: "Cashout",
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.dashboard),
+            backgroundColor: Colors.white70,
+            label: "Profile",
+          ),
+        ],
+        currentIndex: 2,
+        onTap: (int index) {
+          if (index == 1) {
+            context
+                .read<TransactionHistoryCubit>()
+                .transactionHistoryRequested();
+            Navigator.of(context).pushNamed("/transaction-history");
+          } else if (index == 3) {
+            Navigator.of(context).pushNamed("/profile");
+          } else if (index == 0) {
+            Navigator.of(context).pushNamed("/dashboard");
+          }
+        },
       ),
     );
   }

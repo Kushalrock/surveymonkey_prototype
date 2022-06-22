@@ -4,13 +4,15 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:surveymonkey_prototype/logic/cubit/auth_cubit.dart';
 import 'package:surveymonkey_prototype/presentation/screens/updatedata_screen.dart';
 
+import '../../logic/cubit/transaction_history_cubit.dart';
+
 class ProfilePage extends StatelessWidget {
   const ProfilePage({Key? key}) : super(key: key);
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text(''),
+        title: const Text('Coinkick'),
         elevation: 0,
         flexibleSpace: Container(
           decoration: const BoxDecoration(
@@ -240,6 +242,43 @@ class ProfilePage extends StatelessWidget {
             ),
           ),
         ),
+      ),
+      bottomNavigationBar: BottomNavigationBar(
+        items: const <BottomNavigationBarItem>[
+          BottomNavigationBarItem(
+            icon: Icon(Icons.home),
+            label: "Home",
+            backgroundColor: Colors.white70,
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.account_balance_sharp),
+            label: "Transactions",
+            backgroundColor: Colors.white70,
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.account_balance_wallet_sharp),
+            backgroundColor: Colors.white70,
+            label: "Cashout",
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.dashboard),
+            backgroundColor: Colors.white70,
+            label: "Profile",
+          ),
+        ],
+        currentIndex: 3,
+        onTap: (int index) {
+          if (index == 0) {
+            Navigator.of(context).pushNamed("/dashboard");
+          } else if (index == 1) {
+            context
+                .read<TransactionHistoryCubit>()
+                .transactionHistoryRequested();
+            Navigator.of(context).pushNamed("/transaction-history");
+          } else if (index == 2) {
+            Navigator.of(context).pushNamed("/cashout");
+          }
+        },
       ),
     );
   }

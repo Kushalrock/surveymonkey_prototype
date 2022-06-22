@@ -33,12 +33,18 @@ class _RouletteScreenState extends State<RouletteScreen> {
   }
 
   Map<double, String> ringValues = {
-    6 / 6: "Violet",
-    5 / 6: "Purple",
-    4 / 6: "Red",
-    3 / 6: "Orange",
-    2 / 6: "Deep Yellow",
-    1 / 6: "Yellow"
+    12 / 12: "1",
+    11 / 12: "10",
+    10 / 12: "1",
+    9 / 12: "2",
+    8 / 12: "3",
+    7 / 12: "5",
+    6 / 12: "7",
+    5 / 12: "9",
+    4 / 12: "7",
+    3 / 12: "5",
+    2 / 12: "3",
+    1 / 12: "2",
   };
 
   void printColor() {
@@ -86,11 +92,17 @@ class _RouletteScreenState extends State<RouletteScreen> {
           child: SingleChildScrollView(
             child: Column(
               children: [
-                AnimatedRotation(
-                  turns: turns,
-                  duration: const Duration(seconds: 1),
-                  child: Image.asset('assets/roulette_wheel.png'),
-                  onEnd: printColor,
+                Stack(
+                  alignment: Alignment.center,
+                  children: [
+                    AnimatedRotation(
+                      turns: turns,
+                      duration: const Duration(seconds: 1),
+                      child: Image.asset('assets/roulette_wheel.png'),
+                      onEnd: printColor,
+                    ),
+                    Image.asset('assets/roulette_pointer.png'),
+                  ],
                 ),
                 ElevatedButton(
                   onPressed: _changeRotation,

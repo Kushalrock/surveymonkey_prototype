@@ -45,6 +45,8 @@ dependencies:
   intl: ^0.17.0
   font_awesome_flutter: ^10.1.0
   rflutter_alert: ^2.0.4
+  flutter_pollfish: ^4.0.7
+  flutter_local_notifications: ^9.5.3+1
 
 dev_dependencies:
   flutter_test:
@@ -70,6 +72,11 @@ flutter:
   assets:
       - assets/img_five.png
       - assets/roulette_wheel.png
+      - assets/roulette_pointer.png
+      - assets/paypal.png
+      - assets/charity_1.png
+      - assets/charity_2.png
+      - assets/charity_3.png
 
   # To add assets to your application, add an assets section, like this:
   # assets:
