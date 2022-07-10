@@ -42,4 +42,21 @@ class QuestionRepository {
       throw Exception(e.toString());
     }
   }
+
+  Future<void> rouletteTimeSubmit() async {
+    try {
+      await questionAPI.rouletteTimeSubmit();
+    } on Exception catch (e) {
+      throw Exception(e.toString());
+    }
+  }
+
+  Future<bool> canPlayRoulette() async {
+    try {
+      bool canPlayRoulette = await questionAPI.canPlayRoulette();
+      return canPlayRoulette;
+    } on Exception catch (e) {
+      throw Exception(e.toString());
+    }
+  }
 }

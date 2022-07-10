@@ -58,4 +58,36 @@ class QuestionAPI {
       "lastTimeOnProfileGroup": profileQuestionGroup
     }, SetOptions(merge: true));
   }
+
+  Future<void> rouletteTimeSubmit() async {
+    await appDataCollection.doc(FirebaseAuth.instance.currentUser?.email).set({
+      "lastTimeDailyRoulettePlayed": DateTime.now().toString(),
+    }, SetOptions(merge: true));
+  }
+
+  Future<bool> canPlayRoulette() async {
+    final returnList = await appDataCollection
+        .doc(FirebaseAuth.instance.currentUser?.email)
+        .get();
+    if (returnList.data() == null) {
+      return true;
+    }
+    final returnListDateTimeRouletteData =
+        returnList.data()!["lastTimeDailyRoulettePlayed"];
+    if (returnListDateTimeRouletteData == null ||
+        returnListDateTimeRouletteData == "") {
+      return true;
+    }
+
+    DateTime lastTimeRoulettePlayed =
+        DateTime.parse(returnListDateTimeRouletteData.toString());
+
+    if (lastTimeRoulettePlayed
+            .add(const Duration(days: 1))
+            .compareTo(DateTime.now()) <=
+        0) {
+      return true;
+    }
+    return false;
+  }
 }

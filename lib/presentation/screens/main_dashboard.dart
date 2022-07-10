@@ -1,4 +1,3 @@
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_ironsource_x/ironsource.dart';
@@ -99,8 +98,16 @@ class _DashboardState extends State<Dashboard> with IronSourceListener {
     Navigator.of(context).pushNamed('/cashout');
   }
 
-  void showRoulette() {
-    Navigator.of(context).pushNamed('/roulette');
+  Future<void> showRoulette() async {
+    bool canPlayRoulette =
+        await context.read<QuestionCubit>().canPlayRoulette();
+    if (canPlayRoulette) {
+      Navigator.of(context).pushNamed('/roulette');
+    } else {
+      ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+          content:
+              Text("You have played Roulette recently. Come back later!")));
+    }
   }
 
   void showPollfish() async {

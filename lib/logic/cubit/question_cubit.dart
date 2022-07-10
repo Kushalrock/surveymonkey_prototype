@@ -26,4 +26,21 @@ class QuestionCubit extends Cubit<QuestionState> {
         questionGroup: questionGroup,
         profileQuestionGroup: profileQuestionGroup);
   }
+
+  Future<void> rouletteTimeSubmit() async {
+    try {
+      await questionRepository.rouletteTimeSubmit();
+    } on Exception catch (e) {
+      throw Exception(e.toString());
+    }
+  }
+
+  Future<bool> canPlayRoulette() async {
+    try {
+      bool canPlayRoulette = await questionRepository.canPlayRoulette();
+      return canPlayRoulette;
+    } on Exception catch (e) {
+      throw Exception(e.toString());
+    }
+  }
 }

@@ -1,6 +1,10 @@
 import 'dart:math';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:surveymonkey_prototype/logic/cubit/auth_cubit.dart';
+import 'package:surveymonkey_prototype/logic/cubit/get_coins_cubit.dart';
+import 'package:surveymonkey_prototype/logic/cubit/question_cubit.dart';
 
 class RouletteScreen extends StatefulWidget {
   const RouletteScreen({Key? key}) : super(key: key);
@@ -47,7 +51,7 @@ class _RouletteScreenState extends State<RouletteScreen> {
     1 / 12: "2",
   };
 
-  void printColor() {
+  void printColor() async {
     String color = "";
     ringValues.forEach((key, value) {
       if (key >= turns - turns.truncate()) {
@@ -55,7 +59,13 @@ class _RouletteScreenState extends State<RouletteScreen> {
         return;
       }
     });
-    print("Color " + color);
+    await context.read<QuestionCubit>().rouletteTimeSubmit();
+    await context
+        .read<AuthCubit>()
+        .addCoins(int.parse(color), "Won $color coins in roulette");
+    await context.read<GetCoinsCubit>().getCoins();
+    print(color);
+    Navigator.of(context).pop();
   }
 
   @override
