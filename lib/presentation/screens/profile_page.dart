@@ -12,7 +12,7 @@ class ProfilePage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Coinkick'),
+        title: const Text('CoinKick'),
         elevation: 0,
         flexibleSpace: Container(
           decoration: const BoxDecoration(
@@ -73,27 +73,35 @@ class ProfilePage extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   children: [
                     SizedBox(
-                      child: IconButton(
-                        onPressed: () {
-                          Navigator.of(context).push(MaterialPageRoute(
-                              builder: (context) => UpdateData(
-                                    currentData: FirebaseAuth
-                                        .instance.currentUser!.displayName
-                                        .toString(),
-                                    typeOfData: 'Display Name',
-                                    funcOnSuccess: context
-                                        .read<AuthCubit>()
-                                        .updateDisplayName,
-                                  )));
-                        },
-                        icon: const Icon(Icons.assessment_outlined),
+                      child: Column(
+                        children: [
+                          IconButton(
+                            onPressed: () {
+                              Navigator.of(context).push(MaterialPageRoute(
+                                  builder: (context) => UpdateData(
+                                        currentData: FirebaseAuth
+                                            .instance.currentUser!.displayName
+                                            .toString(),
+                                        typeOfData: 'Display Name',
+                                        funcOnSuccess: context
+                                            .read<AuthCubit>()
+                                            .updateDisplayName,
+                                      )));
+                            },
+                            icon: const Icon(Icons.assessment_outlined),
+                          ),
+                          Text("Change Name"),
+                        ],
                       ),
                     ),
                     SizedBox(
-                      child: IconButton(
-                        onPressed: () {
-                          Navigator.of(context).push(MaterialPageRoute(
-                              builder: (context) => UpdateData(
+                      child: Column(
+                        children: [
+                          IconButton(
+                            onPressed: () {
+                              Navigator.of(context).push(
+                                MaterialPageRoute(
+                                  builder: (context) => UpdateData(
                                     currentData: FirebaseAuth
                                         .instance.currentUser!.displayName
                                         .toString(),
@@ -101,17 +109,27 @@ class ProfilePage extends StatelessWidget {
                                     funcOnSuccess: context
                                         .read<AuthCubit>()
                                         .updatePassword,
-                                  )));
-                        },
-                        icon: const Icon(Icons.password_outlined),
-                        tooltip: "Change Password",
+                                  ),
+                                ),
+                              );
+                            },
+                            icon: const Icon(Icons.password_outlined),
+                            tooltip: "Change Password",
+                          ),
+                          Text("Change Password"),
+                        ],
                       ),
                     ),
                     SizedBox(
-                      child: IconButton(
-                        onPressed: () {},
-                        icon: const Icon(Icons.delete_forever_outlined),
-                        tooltip: "Delete Account",
+                      child: Column(
+                        children: [
+                          IconButton(
+                            onPressed: () {},
+                            icon: const Icon(Icons.delete_forever_outlined),
+                            tooltip: "Delete Account",
+                          ),
+                          Text("Delete Account"),
+                        ],
                       ),
                     ),
                   ],
@@ -261,7 +279,7 @@ class ProfilePage extends StatelessWidget {
             label: "Cashout",
           ),
           BottomNavigationBarItem(
-            icon: Icon(Icons.dashboard),
+            icon: Icon(Icons.account_circle_outlined),
             backgroundColor: Colors.white70,
             label: "Profile",
           ),

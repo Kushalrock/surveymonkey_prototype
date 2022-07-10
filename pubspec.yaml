@@ -70,13 +70,15 @@ flutter:
   # the material Icons class.
   uses-material-design: true
   assets:
-      - assets/img_five.png
       - assets/roulette_wheel.png
       - assets/roulette_pointer.png
       - assets/paypal.png
       - assets/charity_1.png
       - assets/charity_2.png
       - assets/charity_3.png
+      - assets/sign_in_screen_1.png
+      - assets/sign_in_screen_2.png
+      - assets/sign_in_screen_3.png
 
   # To add assets to your application, add an assets section, like this:
   # assets:

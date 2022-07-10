@@ -27,6 +27,18 @@ class _SignInScreenState extends State<SignInScreen> {
     }
   }
 
+  void _forgotPassword(context, String email) {
+    if (EmailValidator.validate(email) && email.isNotEmpty) {
+      BlocProvider.of<AuthCubit>(context).forgotPassword(email);
+      ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+          content: Text("Your password reset mail has been sent!")));
+      _emailController.text = "";
+    } else {
+      ScaffoldMessenger.of(context)
+          .showSnackBar(const SnackBar(content: Text("Enter a valid email!")));
+    }
+  }
+
   @override
   void dispose() {
     super.dispose();
@@ -41,30 +53,30 @@ class _SignInScreenState extends State<SignInScreen> {
 
   List<Image> cards = [
     Image.asset(
-      "assets/img_five.png",
+      "assets/sign_in_screen_1.png",
       width: 200,
       height: 200,
     ),
     Image.asset(
-      "assets/img_five.png",
+      "assets/sign_in_screen_2.png",
       width: 200,
       height: 200,
     ),
     Image.asset(
-      "assets/img_five.png",
+      "assets/sign_in_screen_3.png",
       width: 200,
       height: 200,
     ),
   ];
   List<String> textFirstLine = [
     "Only 5 questions a day, and receive loads of points",
-    "guyij",
-    "guyij",
+    "Play Games, Answer Questions, Have Fun",
+    "Fun is rewarding, Earn points",
   ];
   List<String> textSecondLine = [
     "Redeem them for real money",
-    "guyij",
-    "guyij",
+    "Have a good time",
+    "Redeem it for paypal or donate it to charity",
   ];
 
   Widget getCardWidget() {
@@ -73,6 +85,8 @@ class _SignInScreenState extends State<SignInScreen> {
         elevation: 20,
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
         child: Container(
+          width: MediaQuery.of(context).size.width * 0.88,
+          height: MediaQuery.of(context).size.height * 0.47,
           decoration: const BoxDecoration(
               gradient: LinearGradient(
                 colors: [
@@ -153,7 +167,7 @@ class _SignInScreenState extends State<SignInScreen> {
           ),
         ),
       ),
-      left: MediaQuery.of(context).size.width * 0.08,
+      left: MediaQuery.of(context).size.width * 0.05,
       top: MediaQuery.of(context).size.height * 0.3,
     );
   }
@@ -290,7 +304,10 @@ class _SignInScreenState extends State<SignInScreen> {
                                 ),
                                 Container(
                                   child: TextButton(
-                                    onPressed: () {},
+                                    onPressed: () {
+                                      _forgotPassword(
+                                          context, _emailController.text);
+                                    },
                                     child: const Text(
                                       "Forgot your password?",
                                       style: TextStyle(color: Colors.white60),

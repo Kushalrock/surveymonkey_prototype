@@ -78,7 +78,7 @@ class _CashoutScreenState extends State<CashoutScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Coinkick'),
+        title: const Text('CoinKick'),
         elevation: 0,
         flexibleSpace: Container(
           decoration: const BoxDecoration(
@@ -446,7 +446,7 @@ class _CashoutScreenState extends State<CashoutScreen> {
             label: "Cashout",
           ),
           BottomNavigationBarItem(
-            icon: Icon(Icons.dashboard),
+            icon: Icon(Icons.account_circle_outlined),
             backgroundColor: Colors.white70,
             label: "Profile",
           ),

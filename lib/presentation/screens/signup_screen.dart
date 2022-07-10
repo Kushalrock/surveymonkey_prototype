@@ -67,7 +67,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                       children: [
                         const Icon(Icons.adb_rounded, size: 150),
                         const Text(
-                          'Coinkick',
+                          'CoinKick',
                           style: TextStyle(
                             fontSize: 40,
                           ),

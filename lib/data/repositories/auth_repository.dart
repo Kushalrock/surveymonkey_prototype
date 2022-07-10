@@ -121,4 +121,12 @@ class AuthRepository {
         .set({DateTime.now().millisecondsSinceEpoch.toString(): purposeText},
             SetOptions(merge: true));
   }
+
+  Future<void> forgotPassword(String email) async {
+    try {
+      await FirebaseAuth.instance.sendPasswordResetEmail(email: email);
+    } catch (e) {
+      throw Exception(e);
+    }
+  }
 }

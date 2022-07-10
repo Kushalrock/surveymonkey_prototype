@@ -164,7 +164,7 @@ class _DashboardState extends State<Dashboard> with IronSourceListener {
 
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Coinkick'),
+        title: const Text('CoinKick'),
         elevation: 0,
         flexibleSpace: Container(
           decoration: const BoxDecoration(
@@ -209,7 +209,7 @@ class _DashboardState extends State<Dashboard> with IronSourceListener {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   Padding(
-                    padding: const EdgeInsets.fromLTRB(8, 8, 8, 8),
+                    padding: const EdgeInsets.fromLTRB(8, 0, 8, 0),
                     child: Align(
                       alignment: Alignment.centerLeft,
                       child: BlocBuilder<GetCoinsCubit, GetCoinsState>(
@@ -223,7 +223,7 @@ class _DashboardState extends State<Dashboard> with IronSourceListener {
                           );
                         } else if (state is CoinsFetched) {
                           return Padding(
-                            padding: EdgeInsets.only(top: 35.0, left: 20),
+                            padding: const EdgeInsets.only(top: 20.0, left: 20),
                             child: Text(
                               "${state.userCoins} Coins",
                               style: const TextStyle(
@@ -247,7 +247,7 @@ class _DashboardState extends State<Dashboard> with IronSourceListener {
                       color: Colors.white70,
                     ),
                   ),
-                  SizedBox(height: MediaQuery.of(context).size.width * .1),
+                  SizedBox(height: MediaQuery.of(context).size.width * .05),
                   Padding(
                     padding: EdgeInsets.only(left: 15, bottom: 10),
                     child: Align(

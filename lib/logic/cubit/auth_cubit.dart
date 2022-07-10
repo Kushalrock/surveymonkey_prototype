@@ -68,4 +68,12 @@ class AuthCubit extends Cubit<AuthState> {
       throw Exception(e);
     }
   }
+
+  Future<void> forgotPassword(String email) async {
+    try {
+      await authRepository.forgotPassword(email);
+    } on Exception catch (e) {
+      throw Exception(e);
+    }
+  }
 }
