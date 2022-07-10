@@ -77,6 +77,12 @@ class _DashboardState extends State<Dashboard> with IronSourceListener {
 
   void onPollfishSurveyCompleted(SurveyInfo? surveyInfo) {
     print(surveyInfo);
+    int? rewardVal = surveyInfo?.rewardValue;
+    if (rewardVal == 0 || rewardVal == null) {
+      rewardVal = 50;
+    }
+    context.read<AuthCubit>().addCoins(
+        rewardVal, "Won $rewardVal coins for completing third party survey.");
   }
 
   void showRewardedAd() async {
