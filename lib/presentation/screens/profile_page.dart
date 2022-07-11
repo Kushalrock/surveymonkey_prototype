@@ -3,11 +3,17 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:surveymonkey_prototype/logic/cubit/auth_cubit.dart';
 import 'package:surveymonkey_prototype/presentation/screens/updatedata_screen.dart';
+import 'package:url_launcher/url_launcher_string.dart';
 
 import '../../logic/cubit/transaction_history_cubit.dart';
 
 class ProfilePage extends StatelessWidget {
   const ProfilePage({Key? key}) : super(key: key);
+
+  void _launchUrl(String urlStringVal) {
+    launchUrlString(urlStringVal);
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -163,8 +169,7 @@ class ProfilePage extends StatelessWidget {
                                       MediaQuery.of(context).size.height * 0.03,
                                 ),
                                 const Padding(
-                                  padding:
-                                      EdgeInsets.fromLTRB(20, 10.0, 20, 10),
+                                  padding: EdgeInsets.fromLTRB(20, 5, 20, 10),
                                   child: Text(
                                     "Visit our website",
                                     style: TextStyle(
@@ -173,14 +178,13 @@ class ProfilePage extends StatelessWidget {
                                     ),
                                   ),
                                 ),
-                                const Padding(
-                                  padding: EdgeInsets.all(10.0),
-                                  child: Text(
-                                    "www.coinkick.com",
-                                    style: TextStyle(
-                                      fontSize: 14,
-                                      color: Colors.white60,
-                                    ),
+                                Padding(
+                                  padding: const EdgeInsets.all(2.0),
+                                  child: OutlinedButton(
+                                    onPressed: () {
+                                      _launchUrl("https://coinkick.app/");
+                                    },
+                                    child: const Text("Visit Website"),
                                   ),
                                 ),
                               ],
@@ -212,24 +216,23 @@ class ProfilePage extends StatelessWidget {
                                       MediaQuery.of(context).size.height * 0.03,
                                 ),
                                 const Padding(
-                                  padding:
-                                      EdgeInsets.fromLTRB(20, 10.0, 20, 10),
+                                  padding: EdgeInsets.fromLTRB(20, 0, 20, 10),
                                   child: Text(
-                                    "        Support       ",
+                                    "Privacy Policy",
                                     style: TextStyle(
                                       fontSize: 18,
                                       color: Colors.white70,
                                     ),
                                   ),
                                 ),
-                                const Padding(
-                                  padding: EdgeInsets.all(10.0),
-                                  child: Text(
-                                    "  Drop a mail today  ",
-                                    style: TextStyle(
-                                      fontSize: 14,
-                                      color: Colors.white60,
-                                    ),
+                                Padding(
+                                  padding: const EdgeInsets.all(2.0),
+                                  child: OutlinedButton(
+                                    onPressed: () {
+                                      _launchUrl(
+                                          "https://coinkick.app/privacypolicy/");
+                                    },
+                                    child: const Text("Visit T&S"),
                                   ),
                                 ),
                               ],
@@ -242,14 +245,14 @@ class ProfilePage extends StatelessWidget {
                 ),
                 Card(
                   margin: const EdgeInsets.only(
-                    top: 50,
+                    top: 20,
                   ),
                   child: Padding(
                     padding: const EdgeInsets.fromLTRB(60, 15, 60, 15),
                     child: Column(
                       children: const [
                         Text("To contact us, drop us a mail at"),
-                        Text("support@coinkick.com")
+                        Text("support@coinkick.app")
                       ],
                     ),
                   ),
@@ -287,7 +290,9 @@ class ProfilePage extends StatelessWidget {
         currentIndex: 3,
         onTap: (int index) {
           if (index == 0) {
-            Navigator.of(context).pushNamed("/dashboard");
+            while (Navigator.canPop(context)) {
+              Navigator.pop(context);
+            }
           } else if (index == 1) {
             context
                 .read<TransactionHistoryCubit>()

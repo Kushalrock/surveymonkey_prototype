@@ -126,7 +126,9 @@ class TransactionHistoryScreen extends StatelessWidget {
         currentIndex: 1,
         onTap: (int index) {
           if (index == 0) {
-            Navigator.of(context).pushNamed("/dashboard");
+            while (Navigator.canPop(context)) {
+              Navigator.pop(context);
+            }
           } else if (index == 3) {
             Navigator.of(context).pushNamed("/profile");
           } else if (index == 2) {
