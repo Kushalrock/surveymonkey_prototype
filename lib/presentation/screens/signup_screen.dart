@@ -5,6 +5,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:surveymonkey_prototype/logic/cubit/auth_cubit.dart';
 
 import 'package:email_validator/email_validator.dart';
+import 'package:url_launcher/url_launcher_string.dart';
 
 class SignUpScreen extends StatefulWidget {
   const SignUpScreen({Key? key}) : super(key: key);
@@ -18,6 +19,10 @@ class _SignUpScreenState extends State<SignUpScreen> {
   final _emailController = TextEditingController();
   final _passwordController = TextEditingController();
   bool termsAndConditionsAccepted = false;
+
+  void _launchUrl(String urlStringVal) {
+    launchUrlString(urlStringVal);
+  }
 
   void _authenticateWithEmailAndPassword(context) {
     if (_formKey.currentState!.validate()) {
@@ -138,10 +143,14 @@ class _SignUpScreenState extends State<SignUpScreen> {
                                     SizedBox(
                                       width: MediaQuery.of(context).size.width *
                                           0.6,
-                                      child: const Text(
-                                        "I accept all terms and conditions",
-                                        style: TextStyle(
-                                          fontSize: 16,
+                                      child: TextButton(
+                                        onPressed: () {
+                                          _launchUrl(
+                                            "https://coinkick.app/terms/",
+                                          );
+                                        },
+                                        child: const Text(
+                                          "I accept all Terms & Conditions",
                                         ),
                                       ),
                                     ),
