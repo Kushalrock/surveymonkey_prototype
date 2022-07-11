@@ -127,7 +127,10 @@ class _DashboardState extends State<Dashboard> with IronSourceListener {
     await FlutterPollfish.instance.show();
   }
 
-  void showBrandOffers() {}
+  void showBrandOffers() {
+    Navigator.of(context).pushNamed('/brand-offers');
+  }
+
   @override
   Container GetDashboardCard(
       String headingText, String buttonText, funcOnPressed,
@@ -326,9 +329,9 @@ class _DashboardState extends State<Dashboard> with IronSourceListener {
                         cardColor: Color.fromARGB(255, 14, 36, 51),
                       ),
                       GetDashboardCard(
-                        "Weekly Roulette",
-                        "Try your luck",
-                        showRoulette,
+                        "Brand Offers",
+                        "Exclusive Offers",
+                        showBrandOffers,
                         cardColor: Color.fromARGB(255, 14, 36, 51),
                       )
                     ],
