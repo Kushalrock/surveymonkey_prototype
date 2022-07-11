@@ -21,6 +21,9 @@ class TransactionHistoryRepository {
 
     if (rawTransactionHistory != null) {
       rawTransactionHistory.forEach((key, value) {
+        if (returnList.length >= 100) {
+          return;
+        }
         final DateTime timeStamp =
             DateTime.fromMillisecondsSinceEpoch(int.parse(key));
         returnList.add(TransactionHistoryModel(
