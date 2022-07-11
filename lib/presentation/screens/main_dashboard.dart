@@ -59,14 +59,6 @@ class _DashboardState extends State<Dashboard> with IronSourceListener {
         .setPollfishSurveyCompletedListener(onPollfishSurveyCompleted);
   }
 
-  void showOfferwall() async {
-    if (await IronSource.isOfferwallAvailable()) {
-      IronSource.showOfferwall();
-    } else {
-      print("Offerwall not available");
-    }
-  }
-
   @override
   void onOfferwallAdCredited(OfferwallCredit reward) {
     context
@@ -85,6 +77,13 @@ class _DashboardState extends State<Dashboard> with IronSourceListener {
         rewardVal, "Won $rewardVal coins for completing third party survey.");
   }
 
+  @override
+  void onRewardedVideoAdClosed() {
+    print("onRewardedVideoAdClosed");
+    context.read<AuthCubit>().addCoins(10, "10 coins from rewarded ad");
+    context.read<GetCoinsCubit>().getCoins();
+  }
+
   void showRewardedAd() async {
     if (await IronSource.isRewardedVideoAvailable()) {
       IronSource.showRewardedVideo();
@@ -92,6 +91,14 @@ class _DashboardState extends State<Dashboard> with IronSourceListener {
       print(
         "wfbfbjwfbj",
       );
+    }
+  }
+
+  void showOfferwall() async {
+    if (await IronSource.isOfferwallAvailable()) {
+      IronSource.showOfferwall();
+    } else {
+      print("Offerwall not available");
     }
   }
 
@@ -120,13 +127,8 @@ class _DashboardState extends State<Dashboard> with IronSourceListener {
     await FlutterPollfish.instance.show();
   }
 
+  void showBrandOffers() {}
   @override
-  void onRewardedVideoAdClosed() {
-    print("onRewardedVideoAdClosed");
-    context.read<AuthCubit>().addCoins(10, "10 coins from rewarded ad");
-    context.read<GetCoinsCubit>().getCoins();
-  }
-
   Container GetDashboardCard(
       String headingText, String buttonText, funcOnPressed,
       {Color cardColor = const Color.fromARGB(255, 149, 83, 87)}) {
@@ -173,8 +175,6 @@ class _DashboardState extends State<Dashboard> with IronSourceListener {
 
   @override
   Widget build(BuildContext context) {
-    // Getting the user from the FirebaseAuth Instance
-
     return Scaffold(
       appBar: AppBar(
         title: const Text('CoinKick'),
