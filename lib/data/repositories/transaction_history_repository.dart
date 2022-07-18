@@ -24,8 +24,7 @@ class TransactionHistoryRepository {
         if (returnList.length >= 100) {
           return;
         }
-        final DateTime timeStamp =
-            DateTime.fromMillisecondsSinceEpoch(int.parse(key));
+        final DateTime timeStamp = DateTime.parse(key.toString());
         returnList.add(TransactionHistoryModel(
             DateFormat.yMMMd().add_jm().format(timeStamp).toString(), value));
       });

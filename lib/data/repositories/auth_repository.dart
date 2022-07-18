@@ -93,8 +93,7 @@ class AuthRepository {
     FirebaseFirestore.instance
         .collection('/transaction-history')
         .doc(FirebaseAuth.instance.currentUser?.email)
-        .set({DateTime.now().millisecondsSinceEpoch.toString(): purposeText},
-            SetOptions(merge: true));
+        .set({DateTime.now().toString(): purposeText}, SetOptions(merge: true));
   }
 
   Future<void> subtractCoins(int coins, String purposeText) async {
@@ -118,8 +117,7 @@ class AuthRepository {
     FirebaseFirestore.instance
         .collection('/transaction-history')
         .doc(FirebaseAuth.instance.currentUser?.email)
-        .set({DateTime.now().millisecondsSinceEpoch.toString(): purposeText},
-            SetOptions(merge: true));
+        .set({DateTime.now().toString(): purposeText}, SetOptions(merge: true));
   }
 
   Future<void> forgotPassword(String email) async {

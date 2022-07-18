@@ -3,14 +3,15 @@ class QuestionModel {
   final String questionText;
   final String questionType;
   final List<String>? options;
+  final String questionPurposeText;
 
   QuestionModel(this.locationInDatabase, this.questionText, this.questionType,
-      this.options);
+      this.options, this.questionPurposeText);
 }
 
 class AnswerModel {
-  final String questionLocation;
+  final String questionInfo;
   final String answer;
 
-  AnswerModel(this.questionLocation, this.answer);
+  AnswerModel(this.questionInfo, this.answer);
 }

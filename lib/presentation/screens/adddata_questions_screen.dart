@@ -20,13 +20,17 @@ class _QuestionsScreenState extends State<QuestionsScreen> {
   List<AnswerModel> finalList = [];
 
   void updateQuestionAndSubmitAnswers(
-      {String questionGroup = "question-group-1-1"}) {
+      {String questionGroup = "profiling-questions-1"}) {
     setState(() {
       currentQuestion += 1;
     });
     if (currentQuestion > 4) {
-      context.read<QuestionCubit>().sendAnswersBack(finalList);
-      context.read<AuthCubit>().addCoins(10, "Questions for survey");
+      context
+          .read<QuestionCubit>()
+          .sendAnswersBack(finalList, profileQuestionGroup: questionGroup);
+      context
+          .read<AuthCubit>()
+          .addCoins(10, "10 coins for answering CoinKick Surveys");
       context.read<GetCoinsCubit>().getCoins();
       Navigator.pop(context);
     }
@@ -53,14 +57,16 @@ class _QuestionsScreenState extends State<QuestionsScreen> {
               child: BlocListener<QuestionCubit, QuestionState>(
                 listener: (context, state) {
                   if (state is QuestionGetError) {
-                    if (state.error == "Limit Reached") {
+                    if (state.error.toString() ==
+                        "Exception: Exception: Limit Reached") {
                       ScaffoldMessenger.of(context).showSnackBar(
                           const SnackBar(content: Text("Come back Tomorrow!")));
-                    } else if (state.error == "NoMore") {
+                    } else if (state.error == "Exception: Execption: NoMore") {
                       ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
                           content:
                               Text("We are trying to add more questions")));
                     } else {
+                      print(state.error);
                       ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
                           content:
                               Text("Some error occured. Try after some time")));
@@ -112,11 +118,14 @@ class _QuestionsScreenState extends State<QuestionsScreen> {
                                       options: state
                                           .questions[currentQuestion].options,
                                       finalAnswerModel: finalList,
-                                      questionLoc: state
+                                      questionInfo: state
                                           .questions[currentQuestion]
-                                          .locationInDatabase,
+                                          .questionPurposeText,
                                       updateQuestion:
                                           updateQuestionAndSubmitAnswers,
+                                      lastQuestionGroup: state
+                                          .questions[4].locationInDatabase
+                                          .split("/")[1],
                                       questionType: state
                                           .questions[currentQuestion]
                                           .questionType,
@@ -128,10 +137,13 @@ class _QuestionsScreenState extends State<QuestionsScreen> {
                                           state.questions[4].options?.length,
                                       options: state.questions[4].options,
                                       finalAnswerModel: finalList,
-                                      questionLoc:
-                                          state.questions[4].locationInDatabase,
+                                      questionInfo: state
+                                          .questions[4].questionPurposeText,
                                       updateQuestion:
                                           updateQuestionAndSubmitAnswers,
+                                      lastQuestionGroup: state
+                                          .questions[4].locationInDatabase
+                                          .split("/")[1],
                                       questionType:
                                           state.questions[4].questionType),
                             ),

@@ -6,19 +6,21 @@ class QuestionLayout extends StatefulWidget {
   final int? numberOfOptions;
   final List<String>? options;
   final List<AnswerModel> finalAnswerModel;
-  final String questionLoc;
+  final String questionInfo;
   final updateQuestion;
   final String questionType;
-  const QuestionLayout(
-      {Key? key,
-      required this.questionText,
-      required this.numberOfOptions,
-      required this.options,
-      required this.finalAnswerModel,
-      required this.questionLoc,
-      this.updateQuestion,
-      this.questionType = "options"})
-      : super(key: key);
+  final String lastQuestionGroup;
+  const QuestionLayout({
+    Key? key,
+    required this.questionText,
+    required this.numberOfOptions,
+    required this.options,
+    required this.finalAnswerModel,
+    required this.questionInfo,
+    this.updateQuestion,
+    required this.lastQuestionGroup,
+    this.questionType = "options",
+  }) : super(key: key);
 
   @override
   State<QuestionLayout> createState() => _QuestionLayoutState();
@@ -28,7 +30,7 @@ class _QuestionLayoutState extends State<QuestionLayout> {
   void addDataToAnswerList(String questionLoc, String answer) {
     print(answer + "The Answer");
     widget.finalAnswerModel.add(AnswerModel(questionLoc, answer));
-    widget.updateQuestion();
+    widget.updateQuestion(questionGroup: widget.lastQuestionGroup);
   }
 
   final TextEditingController inputField = TextEditingController();
@@ -39,9 +41,16 @@ class _QuestionLayoutState extends State<QuestionLayout> {
       return Column(
         children: [
           DropdownButton(
+              style: TextStyle(color: Colors.black),
+              icon: Icon(Icons.arrow_downward_outlined),
+              elevation: 20,
+              dropdownColor: Colors.white,
               items: widget.options
                   ?.map((e) => DropdownMenuItem(
-                        child: Text(e),
+                        child: Text(
+                          e,
+                          style: TextStyle(color: Colors.grey),
+                        ),
                         value: e,
                       ))
                   .toList(),
@@ -52,7 +61,7 @@ class _QuestionLayoutState extends State<QuestionLayout> {
               }),
           OutlinedButton(
             onPressed: () {
-              addDataToAnswerList(widget.questionLoc, dropDownVal);
+              addDataToAnswerList(widget.questionInfo, dropDownVal);
             },
             child: const Text("Next Question"),
           ),
@@ -97,7 +106,7 @@ class _QuestionLayoutState extends State<QuestionLayout> {
                             child: OutlinedButton(
                               onPressed: () {
                                 addDataToAnswerList(
-                                    widget.questionLoc, widget.options![0]);
+                                    widget.questionInfo, widget.options![0]);
                               },
                               child: Text(widget.options![0]),
                             ),
@@ -110,7 +119,7 @@ class _QuestionLayoutState extends State<QuestionLayout> {
                             child: OutlinedButton(
                               onPressed: () {
                                 addDataToAnswerList(
-                                    widget.questionLoc, widget.options![1]);
+                                    widget.questionInfo, widget.options![1]);
                               },
                               child: Text(
                                 widget.options![1],
@@ -126,7 +135,7 @@ class _QuestionLayoutState extends State<QuestionLayout> {
                               child: OutlinedButton(
                                 onPressed: () {
                                   addDataToAnswerList(
-                                      widget.questionLoc, widget.options![2]);
+                                      widget.questionInfo, widget.options![2]);
                                 },
                                 child: Text(
                                   widget.options![2],
@@ -141,7 +150,7 @@ class _QuestionLayoutState extends State<QuestionLayout> {
                                       MediaQuery.of(context).size.width * 0.3,
                                   child: OutlinedButton(
                                     onPressed: () {
-                                      addDataToAnswerList(widget.questionLoc,
+                                      addDataToAnswerList(widget.questionInfo,
                                           widget.options![2]);
                                     },
                                     child: Text(widget.options![2]),
@@ -156,7 +165,7 @@ class _QuestionLayoutState extends State<QuestionLayout> {
                                       MediaQuery.of(context).size.width * 0.3,
                                   child: OutlinedButton(
                                     onPressed: () {
-                                      addDataToAnswerList(widget.questionLoc,
+                                      addDataToAnswerList(widget.questionInfo,
                                           widget.options![3]);
                                     },
                                     child: Text(widget.options![3]),
@@ -174,7 +183,7 @@ class _QuestionLayoutState extends State<QuestionLayout> {
                         child: OutlinedButton(
                           onPressed: () {
                             addDataToAnswerList(
-                                widget.questionLoc, widget.options![0]);
+                                widget.questionInfo, widget.options![0]);
                           },
                           child: Text(widget.options![0]),
                         ),
@@ -187,7 +196,7 @@ class _QuestionLayoutState extends State<QuestionLayout> {
                         child: OutlinedButton(
                           onPressed: () {
                             addDataToAnswerList(
-                                widget.questionLoc, widget.options![1]);
+                                widget.questionInfo, widget.options![1]);
                           },
                           child: Text(widget.options![1]),
                         ),
@@ -210,7 +219,7 @@ class _QuestionLayoutState extends State<QuestionLayout> {
                 ),
                 OutlinedButton(
                   onPressed: () {
-                    addDataToAnswerList(widget.questionLoc, inputField.text);
+                    addDataToAnswerList(widget.questionInfo, inputField.text);
                   },
                   child: const Text("Next Question"),
                 ),

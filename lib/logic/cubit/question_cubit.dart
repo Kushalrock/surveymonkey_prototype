@@ -20,10 +20,8 @@ class QuestionCubit extends Cubit<QuestionState> {
   }
 
   Future<void> sendAnswersBack(List<AnswerModel> answerModel,
-      {String questionGroup = "question-group-1-1",
-      String profileQuestionGroup = "profiling-questions-1"}) async {
+      {String profileQuestionGroup = "profiling-questions-1"}) async {
     await questionRepository.sendAnswersBackToServer(answerModel,
-        questionGroup: questionGroup,
         profileQuestionGroup: profileQuestionGroup);
   }
 
