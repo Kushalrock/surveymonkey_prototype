@@ -31,8 +31,6 @@ class _RouletteScreenState extends State<RouletteScreen> {
     int rotationTurns = Random().nextInt(5);
     double numberOfTurns = rotationDegrees * rotationTurns;
 
-    print(
-        "Degrees ${rotationDegrees * 360} numberOfTurns $rotationTurns fractionDegrees $rotationDegrees");
     setState(() => turns = numberOfTurns);
   }
 
@@ -64,7 +62,7 @@ class _RouletteScreenState extends State<RouletteScreen> {
         .read<AuthCubit>()
         .addCoins(int.parse(color), "Won $color coins in roulette");
     await context.read<GetCoinsCubit>().getCoins();
-    print(color);
+
     Navigator.of(context).pop();
   }
 

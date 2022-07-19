@@ -142,12 +142,11 @@ class _SignInScreenState extends State<SignInScreen> {
                       onPressed: () {
                         if (cardIndex >= lastIndex) {
                           hideOverlay();
-                          print("Yes");
                         } else {
                           setState(() {
                             cardIndex += 1;
                           });
-                          print(cardIndex);
+
                           hideOverlay();
                           overlayEntry = OverlayEntry(
                             builder: (context) {

@@ -24,7 +24,7 @@ class GetCoinsCubit extends Cubit<GetCoinsState> {
     try {
       await getCoinsRepository.makeACashoutRequest(cashoutRequestModel);
     } on Exception catch (e) {
-      throw (e);
+      throw (e.toString());
     }
   }
 }

@@ -66,7 +66,6 @@ class _QuestionsScreenState extends State<QuestionsScreen> {
                           content:
                               Text("We are trying to add more questions")));
                     } else {
-                      print(state.error);
                       ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
                           content:
                               Text("Some error occured. Try after some time")));

@@ -54,9 +54,8 @@ class ProfilePage extends StatelessWidget {
                 ),
                 Text(
                   FirebaseAuth.instance.currentUser!.displayName
-                              .toString()
-                              .length >
-                          0
+                          .toString()
+                          .isNotEmpty
                       ? FirebaseAuth.instance.currentUser!.displayName
                           .toString()
                       : "",

@@ -29,9 +29,7 @@ class TransactionHistoryRepository {
             DateFormat.yMMMd().add_jm().format(timeStamp).toString(), value));
       });
     }
-    for (var item in returnList) {
-      print(item.transactionText);
-    }
+
     return returnList;
   }
 }

@@ -28,8 +28,6 @@ class _SignUpScreenState extends State<SignUpScreen> {
     if (_formKey.currentState!.validate()) {
       BlocProvider.of<AuthCubit>(context)
           .signUpRequested(_emailController.text, _passwordController.text);
-    } else {
-      print("Error");
     }
   }
 

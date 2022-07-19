@@ -159,7 +159,7 @@ class _UpdateDataState extends State<UpdateData> {
                         ),
                       ),
                       TextButton.icon(
-                        icon: FaIcon(Icons.send_outlined),
+                        icon: const FaIcon(Icons.send_outlined),
                         onPressed: () {
                           !_formKey.currentState!.validate()
                               ? ScaffoldMessenger.of(context).showSnackBar(

@@ -131,8 +131,7 @@ class _DashboardState extends State<Dashboard> with IronSourceListener {
     Navigator.of(context).pushNamed('/brand-offers');
   }
 
-  @override
-  Container GetDashboardCard(
+  Container getDashboardCard(
       String headingText, String buttonText, funcOnPressed,
       {Color cardColor = const Color.fromARGB(255, 149, 83, 87)}) {
     return Container(
@@ -158,7 +157,7 @@ class _DashboardState extends State<Dashboard> with IronSourceListener {
               style: ElevatedButton.styleFrom(
                 shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(20),
-                  side: BorderSide(color: Colors.blue),
+                  side: const BorderSide(color: Colors.blue),
                 ),
                 primary: const Color.fromARGB(255, 174, 198, 207),
               ),
@@ -265,7 +264,7 @@ class _DashboardState extends State<Dashboard> with IronSourceListener {
                   ),
                   SizedBox(height: MediaQuery.of(context).size.width * .05),
                   Padding(
-                    padding: EdgeInsets.only(left: 15, bottom: 10),
+                    padding: const EdgeInsets.only(left: 15, bottom: 10),
                     child: Align(
                       alignment: Alignment.centerLeft,
                       child: Container(
@@ -304,17 +303,17 @@ class _DashboardState extends State<Dashboard> with IronSourceListener {
                     ),
                     child: Row(
                       children: [
-                        GetDashboardCard(
+                        getDashboardCard(
                           "CoinKick Surveys",
                           "Add Data",
                           showSurvey,
-                          cardColor: Color.fromARGB(255, 14, 36, 51),
+                          cardColor: const Color.fromARGB(255, 14, 36, 51),
                         ),
-                        GetDashboardCard(
+                        getDashboardCard(
                           "Play Games",
                           "Earn Coin",
                           showOfferwall,
-                          cardColor: Color.fromARGB(255, 14, 36, 51),
+                          cardColor: const Color.fromARGB(255, 14, 36, 51),
                         )
                       ],
                       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -322,17 +321,17 @@ class _DashboardState extends State<Dashboard> with IronSourceListener {
                   ),
                   Row(
                     children: [
-                      GetDashboardCard(
+                      getDashboardCard(
                         "Third-Party Surveys",
                         "Earn Coin",
                         showPollfish,
-                        cardColor: Color.fromARGB(255, 14, 36, 51),
+                        cardColor: const Color.fromARGB(255, 14, 36, 51),
                       ),
-                      GetDashboardCard(
+                      getDashboardCard(
                         "Brand Offers",
                         "Exclusive Offers",
                         showBrandOffers,
-                        cardColor: Color.fromARGB(255, 14, 36, 51),
+                        cardColor: const Color.fromARGB(255, 14, 36, 51),
                       )
                     ],
                     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -341,17 +340,17 @@ class _DashboardState extends State<Dashboard> with IronSourceListener {
                     padding: const EdgeInsets.all(10.0),
                     child: Row(
                       children: [
-                        GetDashboardCard(
+                        getDashboardCard(
                           "Rewarded Ads",
                           "Play Video",
                           showRewardedAd,
-                          cardColor: Color.fromARGB(255, 14, 36, 51),
+                          cardColor: const Color.fromARGB(255, 14, 36, 51),
                         ),
-                        GetDashboardCard(
+                        getDashboardCard(
                           "Roulette",
                           "Try your luck",
                           showRoulette,
-                          cardColor: Color.fromARGB(255, 14, 36, 51),
+                          cardColor: const Color.fromARGB(255, 14, 36, 51),
                         )
                       ],
                       mainAxisAlignment: MainAxisAlignment.spaceEvenly,

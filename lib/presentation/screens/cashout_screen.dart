@@ -6,7 +6,6 @@ import 'package:surveymonkey_prototype/data/models/cashout_request_model.dart';
 import 'package:surveymonkey_prototype/logic/cubit/auth_cubit.dart';
 
 import '../../logic/cubit/get_coins_cubit.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 import '../../logic/cubit/transaction_history_cubit.dart';
 
@@ -113,7 +112,7 @@ class _CashoutScreenState extends State<CashoutScreen> {
                     children: [
                       Container(
                         decoration: BoxDecoration(
-                          color: Color.fromARGB(255, 14, 36, 51),
+                          color: const Color.fromARGB(255, 14, 36, 51),
                           borderRadius: const BorderRadius.all(
                             Radius.circular(15),
                           ),
@@ -173,7 +172,7 @@ class _CashoutScreenState extends State<CashoutScreen> {
                                   }
                                 : null,
                             child: Card(
-                              color: Color.fromARGB(255, 14, 36, 51),
+                              color: const Color.fromARGB(255, 14, 36, 51),
                               shape: RoundedRectangleBorder(
                                   borderRadius: BorderRadius.circular(10)),
                               child: Padding(
@@ -219,7 +218,7 @@ class _CashoutScreenState extends State<CashoutScreen> {
                                   }
                                 : null,
                             child: Card(
-                              color: Color.fromARGB(255, 14, 36, 51),
+                              color: const Color.fromARGB(255, 14, 36, 51),
                               shape: RoundedRectangleBorder(
                                   borderRadius: BorderRadius.circular(10)),
                               child: Padding(
@@ -280,7 +279,7 @@ class _CashoutScreenState extends State<CashoutScreen> {
                                   }
                                 : null,
                             child: Card(
-                              color: Color.fromARGB(255, 14, 36, 51),
+                              color: const Color.fromARGB(255, 14, 36, 51),
                               shape: RoundedRectangleBorder(
                                   borderRadius: BorderRadius.circular(10)),
                               child: Padding(
@@ -326,7 +325,7 @@ class _CashoutScreenState extends State<CashoutScreen> {
                                   }
                                 : null,
                             child: Card(
-                              color: Color.fromARGB(255, 14, 36, 51),
+                              color: const Color.fromARGB(255, 14, 36, 51),
                               shape: RoundedRectangleBorder(
                                   borderRadius: BorderRadius.circular(10)),
                               child: Padding(
@@ -379,7 +378,7 @@ class _CashoutScreenState extends State<CashoutScreen> {
                             child: Card(
                               shape: RoundedRectangleBorder(
                                   borderRadius: BorderRadius.circular(10)),
-                              color: Color.fromARGB(255, 14, 36, 51),
+                              color: const Color.fromARGB(255, 14, 36, 51),
                               child: Padding(
                                 padding: const EdgeInsets.all(8.0),
                                 child: Row(

@@ -48,9 +48,6 @@ class AuthCubit extends Cubit<AuthState> {
   @override
   void onChange(Change<AuthState> change) {
     super.onChange(change);
-    print(change.toString());
-    print(change.currentState.toString());
-    print(change.nextState.toString());
   }
 
   Future<void> addCoins(int coins, String purposeText) async {

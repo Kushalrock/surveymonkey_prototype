@@ -8,7 +8,6 @@ class TransactionHistoryAPI {
     final returnList = await transactionHistory
         .doc(FirebaseAuth.instance.currentUser?.email)
         .get();
-    print(returnList.data());
     return returnList.data();
   }
 }

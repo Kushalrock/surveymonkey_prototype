@@ -48,7 +48,7 @@ class QuestionAPI {
     final returnList =
         await questionCollection.startAfterDocument(lastDocRef).limit(5).get();
     final allData = returnList.docs.map((e) => e.data()).toList();
-    print(allData);
+
     return allData;
   }
 

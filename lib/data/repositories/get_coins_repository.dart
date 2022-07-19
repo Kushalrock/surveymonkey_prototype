@@ -12,7 +12,6 @@ class GetCoinsRepository {
         .then((value) {
       if (value.exists) {
         if (value.data()!["coins"] != null) {
-          print(int.parse(value.data()!["coins"].toString()));
           coinsToReturn = int.parse(value.data()!["coins"].toString());
         }
       }

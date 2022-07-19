@@ -28,7 +28,6 @@ class QuestionLayout extends StatefulWidget {
 
 class _QuestionLayoutState extends State<QuestionLayout> {
   void addDataToAnswerList(String questionLoc, String answer) {
-    print(answer + "The Answer");
     widget.finalAnswerModel.add(AnswerModel(questionLoc, answer));
     widget.updateQuestion(questionGroup: widget.lastQuestionGroup);
   }
@@ -41,15 +40,15 @@ class _QuestionLayoutState extends State<QuestionLayout> {
       return Column(
         children: [
           DropdownButton(
-              style: TextStyle(color: Colors.black),
-              icon: Icon(Icons.arrow_downward_outlined),
+              style: const TextStyle(color: Colors.black),
+              icon: const Icon(Icons.arrow_downward_outlined),
               elevation: 20,
               dropdownColor: Colors.white,
               items: widget.options
                   ?.map((e) => DropdownMenuItem(
                         child: Text(
                           e,
-                          style: TextStyle(color: Colors.grey),
+                          style: const TextStyle(color: Colors.grey),
                         ),
                         value: e,
                       ))
