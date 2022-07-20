@@ -132,45 +132,43 @@ class _DashboardState extends State<Dashboard> with IronSourceListener {
   }
 
   Container getDashboardCard(
-      String headingText, String buttonText, funcOnPressed,
-      {Color cardColor = const Color.fromARGB(255, 149, 83, 87)}) {
+    Image image,
+    String buttonText,
+    funcOnPressed,
+  ) {
     return Container(
-      height: 100,
+      height: 170,
       width: MediaQuery.of(context).size.width * 0.45,
       child: Center(
         child: Column(
           children: [
             Padding(
               padding: const EdgeInsets.all(8.0),
-              child: Text(
-                headingText,
-                style: const TextStyle(
-                  fontSize: 18,
-                ),
-              ),
+              child: image,
             ),
             ElevatedButton(
               onPressed: () {
                 funcOnPressed();
               },
-              child: Text(buttonText),
+              child: Text(
+                buttonText,
+                style: const TextStyle(color: Colors.white),
+              ),
               style: ElevatedButton.styleFrom(
                 shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(20),
-                  side: const BorderSide(color: Colors.blue),
                 ),
-                primary: const Color.fromARGB(255, 174, 198, 207),
+                primary: const Color.fromARGB(255, 64, 64, 64),
               ),
             ),
           ],
         ),
       ),
-      decoration: BoxDecoration(
-        borderRadius: const BorderRadius.all(
+      decoration: const BoxDecoration(
+        borderRadius: BorderRadius.all(
           Radius.circular(15),
         ),
-        border: Border.all(color: Colors.white),
-        color: cardColor,
+        color: Color.fromARGB(255, 40, 40, 40),
       ),
     );
   }
@@ -179,18 +177,16 @@ class _DashboardState extends State<Dashboard> with IronSourceListener {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('CoinKick'),
+        title: const Text(
+          'Dashboard',
+          style: TextStyle(
+            fontWeight: FontWeight.bold,
+          ),
+        ),
         elevation: 0,
         flexibleSpace: Container(
           decoration: const BoxDecoration(
-            gradient: LinearGradient(
-              begin: FractionalOffset(0.0, 0.0),
-              end: FractionalOffset(1.0, 0.0),
-              colors: <Color>[
-                Color.fromARGB(255, 9, 32, 63),
-                Color.fromARGB(255, 83, 120, 149)
-              ],
-            ),
+            color: Color.fromARGB(255, 18, 18, 18),
           ),
         ),
       ),
@@ -207,90 +203,112 @@ class _DashboardState extends State<Dashboard> with IronSourceListener {
           }
         },
         child: Container(
-          decoration: const BoxDecoration(
-            gradient: LinearGradient(
-              colors: [
-                Color.fromARGB(255, 9, 32, 63),
-                Color.fromARGB(255, 83, 120, 149),
-              ],
-              begin: FractionalOffset(0.0, 0.0),
-              end: FractionalOffset(1.0, 0.0),
-            ),
-          ),
+          decoration:
+              const BoxDecoration(color: Color.fromARGB(255, 18, 18, 18)),
           child: Align(
             alignment: Alignment.topLeft,
             child: SingleChildScrollView(
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  Padding(
-                    padding: const EdgeInsets.fromLTRB(8, 0, 8, 0),
-                    child: Align(
-                      alignment: Alignment.centerLeft,
-                      child: BlocBuilder<GetCoinsCubit, GetCoinsState>(
-                          builder: (context, state) {
-                        if (state is CoinsLoading) {
-                          return const Text(
-                            "NaN",
-                            style: TextStyle(
-                              fontSize: 20,
-                            ),
-                          );
-                        } else if (state is CoinsFetched) {
-                          return Padding(
-                            padding: const EdgeInsets.only(top: 20.0, left: 20),
-                            child: Text(
-                              "${state.userCoins} Coins",
-                              style: const TextStyle(
-                                fontSize: 20,
-                              ),
-                            ),
-                          );
-                        }
-                        return const Text(
-                          "Error",
-                          style: TextStyle(
-                            fontSize: 20,
-                          ),
-                        );
-                      }),
-                    ),
-                  ),
-                  const Padding(
-                    padding: EdgeInsets.only(left: 20, right: 20),
-                    child: Divider(
-                      color: Colors.white70,
-                    ),
-                  ),
                   SizedBox(height: MediaQuery.of(context).size.width * .05),
                   Padding(
-                    padding: const EdgeInsets.only(left: 15, bottom: 10),
+                    padding: const EdgeInsets.only(left: 15),
                     child: Align(
                       alignment: Alignment.centerLeft,
                       child: Container(
                         width: MediaQuery.of(context).size.width * 0.93,
                         height: MediaQuery.of(context).size.height * 0.15,
-                        decoration: BoxDecoration(
-                          color: const Color.fromARGB(255, 14, 36, 51),
-                          border: Border.all(color: Colors.white),
-                          borderRadius: const BorderRadius.all(
+                        decoration: const BoxDecoration(
+                          color: Color.fromARGB(255, 18, 18, 18),
+                          borderRadius: BorderRadius.all(
                             Radius.circular(15),
                           ),
                         ),
+                        alignment: Alignment.centerLeft,
                         child: Column(
-                          mainAxisAlignment: MainAxisAlignment.center,
+                          crossAxisAlignment: CrossAxisAlignment.start,
                           children: const [
                             Text(
-                              "Welcome, Michael",
+                              "Hello,",
                               style: TextStyle(
-                                fontSize: 20,
+                                fontSize: 42,
+                                fontWeight: FontWeight.bold,
                               ),
                             ),
                             Text(
-                              "Login Streak: 1 day",
+                              "Michael 👋",
                               style: TextStyle(
-                                fontSize: 18,
+                                fontSize: 42,
+                                fontWeight: FontWeight.bold,
                               ),
+                            ),
+                          ],
+                        ),
+                      ),
+                    ),
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.all(10.0),
+                    child: Container(
+                      decoration: const BoxDecoration(
+                        color: Color.fromARGB(255, 40, 40, 40),
+                        borderRadius: BorderRadius.all(
+                          Radius.circular(15),
+                        ),
+                      ),
+                      child: Padding(
+                        padding: const EdgeInsets.all(10.0),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              mainAxisAlignment: MainAxisAlignment.start,
+                              children: [
+                                const Text(
+                                  "You have got",
+                                  style: TextStyle(
+                                    fontSize: 30,
+                                    fontWeight: FontWeight.bold,
+                                  ),
+                                ),
+                                BlocBuilder<GetCoinsCubit, GetCoinsState>(
+                                    builder: (context, state) {
+                                  if (state is CoinsLoading) {
+                                    return const Text(
+                                      "NaN",
+                                      style: TextStyle(
+                                        fontSize: 25,
+                                      ),
+                                    );
+                                  } else if (state is CoinsFetched) {
+                                    return Padding(
+                                      padding: const EdgeInsets.only(
+                                        top: 10,
+                                      ),
+                                      child: Text(
+                                        "${state.userCoins} Coins",
+                                        style: const TextStyle(
+                                          fontSize: 25,
+                                          fontWeight: FontWeight.bold,
+                                        ),
+                                      ),
+                                    );
+                                  }
+                                  return const Text(
+                                    "Error",
+                                    style: TextStyle(
+                                      fontSize: 25,
+                                    ),
+                                  );
+                                }),
+                              ],
+                            ),
+                            Image.asset(
+                              "assets/sign_in_screen_3.png",
+                              width: 110,
+                              height: 110,
                             ),
                           ],
                         ),
@@ -304,16 +322,22 @@ class _DashboardState extends State<Dashboard> with IronSourceListener {
                     child: Row(
                       children: [
                         getDashboardCard(
-                          "CoinKick Surveys",
+                          Image.asset(
+                            "assets/survey_2.png",
+                            width: 100,
+                            height: 100,
+                          ),
                           "Add Data",
                           showSurvey,
-                          cardColor: const Color.fromARGB(255, 14, 36, 51),
                         ),
                         getDashboardCard(
-                          "Play Games",
-                          "Earn Coin",
+                          Image.asset(
+                            "assets/play_games.png",
+                            width: 100,
+                            height: 100,
+                          ),
+                          "Play games",
                           showOfferwall,
-                          cardColor: const Color.fromARGB(255, 14, 36, 51),
                         )
                       ],
                       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -322,16 +346,22 @@ class _DashboardState extends State<Dashboard> with IronSourceListener {
                   Row(
                     children: [
                       getDashboardCard(
-                        "Third-Party Surveys",
-                        "Earn Coin",
+                        Image.asset(
+                          "assets/survey_1.png",
+                          width: 100,
+                          height: 100,
+                        ),
+                        "Answer Surveys",
                         showPollfish,
-                        cardColor: const Color.fromARGB(255, 14, 36, 51),
                       ),
                       getDashboardCard(
-                        "Brand Offers",
+                        Image.asset(
+                          "assets/brand.png",
+                          width: 100,
+                          height: 100,
+                        ),
                         "Exclusive Offers",
                         showBrandOffers,
-                        cardColor: const Color.fromARGB(255, 14, 36, 51),
                       )
                     ],
                     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -341,16 +371,22 @@ class _DashboardState extends State<Dashboard> with IronSourceListener {
                     child: Row(
                       children: [
                         getDashboardCard(
-                          "Rewarded Ads",
+                          Image.asset(
+                            "assets/rewards.png",
+                            width: 100,
+                            height: 100,
+                          ),
                           "Play Video",
                           showRewardedAd,
-                          cardColor: const Color.fromARGB(255, 14, 36, 51),
                         ),
                         getDashboardCard(
-                          "Roulette",
+                          Image.asset(
+                            "assets/roulette_wheel.png",
+                            width: 100,
+                            height: 100,
+                          ),
                           "Try your luck",
                           showRoulette,
-                          cardColor: const Color.fromARGB(255, 14, 36, 51),
                         )
                       ],
                       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -363,26 +399,40 @@ class _DashboardState extends State<Dashboard> with IronSourceListener {
         ),
       ),
       bottomNavigationBar: BottomNavigationBar(
+        showSelectedLabels: false,
+        showUnselectedLabels: false,
         items: const <BottomNavigationBarItem>[
           BottomNavigationBarItem(
-            icon: Icon(Icons.home),
-            label: "Home",
-            backgroundColor: Colors.white70,
+            icon: Icon(
+              Icons.home,
+              color: Colors.white70,
+            ),
+            label: "",
+            backgroundColor: Color.fromARGB(255, 18, 18, 18),
           ),
           BottomNavigationBarItem(
-            icon: Icon(Icons.account_balance_sharp),
-            label: "Transactions",
+            icon: Icon(
+              Icons.account_balance_sharp,
+              color: Colors.white70,
+            ),
+            label: "",
             backgroundColor: Colors.green,
           ),
           BottomNavigationBarItem(
-            icon: Icon(Icons.account_balance_wallet_sharp),
+            icon: Icon(
+              Icons.account_balance_wallet_sharp,
+              color: Colors.white70,
+            ),
+            label: "",
             backgroundColor: Colors.purple,
-            label: "Cashout",
           ),
           BottomNavigationBarItem(
-            icon: Icon(Icons.account_circle_outlined),
+            icon: Icon(
+              Icons.account_circle_outlined,
+              color: Colors.white70,
+            ),
+            label: "",
             backgroundColor: Colors.purple,
-            label: "Profile",
           ),
         ],
         onTap: (int index) {

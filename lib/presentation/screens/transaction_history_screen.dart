@@ -12,7 +12,7 @@ class TransactionHistoryScreen extends StatelessWidget {
     for (var item in transactionModelList) {
       returnList.add(Card(
         elevation: 90,
-        color: const Color.fromARGB(255, 14, 36, 51),
+        color: const Color.fromARGB(255, 40, 40, 40),
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
         child: Column(children: [
           Padding(
@@ -51,27 +51,13 @@ class TransactionHistoryScreen extends StatelessWidget {
         elevation: 0,
         flexibleSpace: Container(
           decoration: const BoxDecoration(
-            gradient: LinearGradient(
-              begin: FractionalOffset(0.0, 0.0),
-              end: FractionalOffset(1.0, 0.0),
-              colors: <Color>[
-                Color.fromARGB(255, 9, 32, 63),
-                Color.fromARGB(255, 83, 120, 149)
-              ],
-            ),
+            color: Color.fromARGB(255, 18, 18, 18),
           ),
         ),
       ),
       body: Container(
         decoration: const BoxDecoration(
-          gradient: LinearGradient(
-            colors: [
-              Color.fromARGB(255, 9, 32, 63),
-              Color.fromARGB(255, 83, 120, 149),
-            ],
-            begin: FractionalOffset(0.0, 0.0),
-            end: FractionalOffset(1.0, 0.0),
-          ),
+          color: Color.fromARGB(255, 18, 18, 18),
         ),
         child: BlocListener<TransactionHistoryCubit, TransactionHistoryState>(
           listener: (context, state) {
@@ -101,26 +87,40 @@ class TransactionHistoryScreen extends StatelessWidget {
         ),
       ),
       bottomNavigationBar: BottomNavigationBar(
+        showSelectedLabels: false,
+        showUnselectedLabels: false,
         items: const <BottomNavigationBarItem>[
           BottomNavigationBarItem(
-            icon: Icon(Icons.home),
-            label: "Home",
-            backgroundColor: Colors.white70,
+            icon: Icon(
+              Icons.home,
+              color: Colors.white70,
+            ),
+            label: "",
+            backgroundColor: Color.fromARGB(255, 18, 18, 18),
           ),
           BottomNavigationBarItem(
-            icon: Icon(Icons.account_balance_sharp),
-            label: "Transactions",
-            backgroundColor: Colors.white70,
+            icon: Icon(
+              Icons.account_balance_sharp,
+              color: Colors.white70,
+            ),
+            label: "",
+            backgroundColor: Color.fromARGB(255, 18, 18, 18),
           ),
           BottomNavigationBarItem(
-            icon: Icon(Icons.account_balance_wallet_sharp),
-            backgroundColor: Colors.white70,
-            label: "Cashout",
+            icon: Icon(
+              Icons.account_balance_wallet_sharp,
+              color: Colors.white70,
+            ),
+            label: "",
+            backgroundColor: Color.fromARGB(255, 18, 18, 18),
           ),
           BottomNavigationBarItem(
-            icon: Icon(Icons.account_circle_outlined),
-            backgroundColor: Colors.white70,
-            label: "Profile",
+            icon: Icon(
+              Icons.account_circle_outlined,
+              color: Colors.white70,
+            ),
+            label: "",
+            backgroundColor: Color.fromARGB(255, 18, 18, 18),
           ),
         ],
         currentIndex: 1,

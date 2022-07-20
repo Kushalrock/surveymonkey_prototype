@@ -81,27 +81,13 @@ class _CashoutScreenState extends State<CashoutScreen> {
         elevation: 0,
         flexibleSpace: Container(
           decoration: const BoxDecoration(
-            gradient: LinearGradient(
-              begin: FractionalOffset(0.0, 0.0),
-              end: FractionalOffset(1.0, 0.0),
-              colors: <Color>[
-                Color.fromARGB(255, 9, 32, 63),
-                Color.fromARGB(255, 83, 120, 149)
-              ],
-            ),
+            color: Color.fromARGB(255, 18, 18, 18),
           ),
         ),
       ),
       body: Container(
         decoration: const BoxDecoration(
-          gradient: LinearGradient(
-            colors: [
-              Color.fromARGB(255, 9, 32, 63),
-              Color.fromARGB(255, 83, 120, 149),
-            ],
-            begin: FractionalOffset(0.0, 0.0),
-            end: FractionalOffset(1.0, 0.0),
-          ),
+          color: Color.fromARGB(255, 18, 18, 18),
         ),
         child: Center(
           child: SingleChildScrollView(
@@ -110,54 +96,70 @@ class _CashoutScreenState extends State<CashoutScreen> {
                 if (state is CoinsFetched) {
                   return Column(
                     children: [
-                      Container(
-                        decoration: BoxDecoration(
-                          color: const Color.fromARGB(255, 14, 36, 51),
-                          borderRadius: const BorderRadius.all(
-                            Radius.circular(15),
+                      Padding(
+                        padding: const EdgeInsets.all(10.0),
+                        child: Container(
+                          decoration: const BoxDecoration(
+                            color: Color.fromARGB(255, 40, 40, 40),
+                            borderRadius: BorderRadius.all(
+                              Radius.circular(15),
+                            ),
                           ),
-                          border: Border.all(color: Colors.white),
-                        ),
-                        width: MediaQuery.of(context).size.width * 0.93,
-                        height: MediaQuery.of(context).size.height * 0.2,
-                        child: Column(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            BlocBuilder<GetCoinsCubit, GetCoinsState>(
-                              builder: (context, state) {
-                                if (state is CoinsLoading) {
-                                  return const Text(
-                                    "NaN",
-                                    style: TextStyle(
-                                      fontSize: 20,
+                          child: Padding(
+                            padding: const EdgeInsets.all(10.0),
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  mainAxisAlignment: MainAxisAlignment.start,
+                                  children: [
+                                    const Text(
+                                      "You have got",
+                                      style: TextStyle(
+                                        fontSize: 30,
+                                        fontWeight: FontWeight.bold,
+                                      ),
                                     ),
-                                  );
-                                } else if (state is CoinsFetched) {
-                                  return Text(
-                                    "${state.userCoins} coins",
-                                    style: const TextStyle(
-                                      fontSize: 20,
-                                    ),
-                                  );
-                                }
-                                return const Text(
-                                  "Error",
-                                  style: TextStyle(
-                                    fontSize: 20,
-                                  ),
-                                );
-                              },
-                            )
-                          ],
-                        ),
-                      ),
-                      const Padding(
-                        padding: EdgeInsets.all(8.0),
-                        child: Align(
-                          alignment: Alignment.centerLeft,
-                          child: Text(
-                            "Paypal Cards",
-                            style: TextStyle(fontSize: 18),
+                                    BlocBuilder<GetCoinsCubit, GetCoinsState>(
+                                        builder: (context, state) {
+                                      if (state is CoinsLoading) {
+                                        return const Text(
+                                          "NaN",
+                                          style: TextStyle(
+                                            fontSize: 25,
+                                          ),
+                                        );
+                                      } else if (state is CoinsFetched) {
+                                        return Padding(
+                                          padding: const EdgeInsets.only(
+                                            top: 10,
+                                          ),
+                                          child: Text(
+                                            "${state.userCoins} Coins",
+                                            style: const TextStyle(
+                                              fontSize: 25,
+                                              fontWeight: FontWeight.bold,
+                                            ),
+                                          ),
+                                        );
+                                      }
+                                      return const Text(
+                                        "Error",
+                                        style: TextStyle(
+                                          fontSize: 25,
+                                        ),
+                                      );
+                                    }),
+                                  ],
+                                ),
+                                Image.asset(
+                                  "assets/sign_in_screen_3.png",
+                                  width: 110,
+                                  height: 110,
+                                ),
+                              ],
+                            ),
                           ),
                         ),
                       ),
@@ -172,7 +174,7 @@ class _CashoutScreenState extends State<CashoutScreen> {
                                   }
                                 : null,
                             child: Card(
-                              color: const Color.fromARGB(255, 14, 36, 51),
+                              color: const Color.fromARGB(255, 40, 40, 40),
                               shape: RoundedRectangleBorder(
                                   borderRadius: BorderRadius.circular(10)),
                               child: Padding(
@@ -218,7 +220,7 @@ class _CashoutScreenState extends State<CashoutScreen> {
                                   }
                                 : null,
                             child: Card(
-                              color: const Color.fromARGB(255, 14, 36, 51),
+                              color: const Color.fromARGB(255, 40, 40, 40),
                               shape: RoundedRectangleBorder(
                                   borderRadius: BorderRadius.circular(10)),
                               child: Padding(
@@ -258,16 +260,6 @@ class _CashoutScreenState extends State<CashoutScreen> {
                           ),
                         ],
                       ),
-                      const Padding(
-                        padding: EdgeInsets.all(8.0),
-                        child: Align(
-                          alignment: Alignment.centerLeft,
-                          child: Text(
-                            "Charity Cards",
-                            style: TextStyle(fontSize: 18),
-                          ),
-                        ),
-                      ),
                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                         children: [
@@ -279,7 +271,7 @@ class _CashoutScreenState extends State<CashoutScreen> {
                                   }
                                 : null,
                             child: Card(
-                              color: const Color.fromARGB(255, 14, 36, 51),
+                              color: const Color.fromARGB(255, 40, 40, 40),
                               shape: RoundedRectangleBorder(
                                   borderRadius: BorderRadius.circular(10)),
                               child: Padding(
@@ -325,7 +317,7 @@ class _CashoutScreenState extends State<CashoutScreen> {
                                   }
                                 : null,
                             child: Card(
-                              color: const Color.fromARGB(255, 14, 36, 51),
+                              color: const Color.fromARGB(255, 40, 40, 40),
                               shape: RoundedRectangleBorder(
                                   borderRadius: BorderRadius.circular(10)),
                               child: Padding(
@@ -378,7 +370,7 @@ class _CashoutScreenState extends State<CashoutScreen> {
                             child: Card(
                               shape: RoundedRectangleBorder(
                                   borderRadius: BorderRadius.circular(10)),
-                              color: const Color.fromARGB(255, 14, 36, 51),
+                              color: const Color.fromARGB(255, 40, 40, 40),
                               child: Padding(
                                 padding: const EdgeInsets.all(8.0),
                                 child: Row(
@@ -414,6 +406,52 @@ class _CashoutScreenState extends State<CashoutScreen> {
                               ),
                             ),
                           ),
+                          GestureDetector(
+                            onTap: state.userCoins >= 11500
+                                ? () {
+                                    showPaypalAddressBox(
+                                        context, 11500, "charity");
+                                  }
+                                : null,
+                            child: Card(
+                              shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(10)),
+                              color: const Color.fromARGB(255, 40, 40, 40),
+                              child: Padding(
+                                padding: const EdgeInsets.all(8.0),
+                                child: Row(
+                                  children: [
+                                    Image.asset(
+                                      'assets/charity_4.png',
+                                      width: 80,
+                                      height: 80,
+                                    ),
+                                    const SizedBox(
+                                      width: 1,
+                                    ),
+                                    Column(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.center,
+                                      children: const [
+                                        Text(
+                                          "11500 coins",
+                                          style: TextStyle(
+                                            fontSize: 18,
+                                          ),
+                                        ),
+                                        Text(
+                                          "\$12",
+                                          style: TextStyle(
+                                            fontSize: 16,
+                                          ),
+                                        ),
+                                      ],
+                                    )
+                                  ],
+                                ),
+                              ),
+                            ),
+                          ),
                         ],
                       ),
                     ],
@@ -428,26 +466,40 @@ class _CashoutScreenState extends State<CashoutScreen> {
         ),
       ),
       bottomNavigationBar: BottomNavigationBar(
+        showSelectedLabels: false,
+        showUnselectedLabels: false,
         items: const <BottomNavigationBarItem>[
           BottomNavigationBarItem(
-            icon: Icon(Icons.home),
-            label: "Home",
-            backgroundColor: Colors.white70,
+            icon: Icon(
+              Icons.home,
+              color: Colors.white70,
+            ),
+            label: "",
+            backgroundColor: Color.fromARGB(255, 18, 18, 18),
           ),
           BottomNavigationBarItem(
-            icon: Icon(Icons.account_balance_sharp),
-            label: "Transactions",
-            backgroundColor: Colors.white70,
+            icon: Icon(
+              Icons.account_balance_sharp,
+              color: Colors.white70,
+            ),
+            label: "",
+            backgroundColor: Color.fromARGB(255, 18, 18, 18),
           ),
           BottomNavigationBarItem(
-            icon: Icon(Icons.account_balance_wallet_sharp),
-            backgroundColor: Colors.white70,
-            label: "Cashout",
+            icon: Icon(
+              Icons.account_balance_wallet_sharp,
+              color: Colors.white70,
+            ),
+            label: "",
+            backgroundColor: Color.fromARGB(255, 18, 18, 18),
           ),
           BottomNavigationBarItem(
-            icon: Icon(Icons.account_circle_outlined),
-            backgroundColor: Colors.white70,
-            label: "Profile",
+            icon: Icon(
+              Icons.account_circle_outlined,
+              color: Colors.white70,
+            ),
+            label: "",
+            backgroundColor: Color.fromARGB(255, 18, 18, 18),
           ),
         ],
         currentIndex: 2,

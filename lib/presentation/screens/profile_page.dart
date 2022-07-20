@@ -22,27 +22,13 @@ class ProfilePage extends StatelessWidget {
         elevation: 0,
         flexibleSpace: Container(
           decoration: const BoxDecoration(
-            gradient: LinearGradient(
-              begin: FractionalOffset(0.0, 0.0),
-              end: FractionalOffset(1.0, 0.0),
-              colors: <Color>[
-                Color.fromARGB(255, 9, 32, 63),
-                Color.fromARGB(255, 83, 120, 149)
-              ],
-            ),
+            color: Color.fromARGB(255, 18, 18, 18),
           ),
         ),
       ),
       body: Container(
         decoration: const BoxDecoration(
-          gradient: LinearGradient(
-            colors: [
-              Color.fromARGB(255, 9, 32, 63),
-              Color.fromARGB(255, 83, 120, 149)
-            ],
-            begin: FractionalOffset(0.0, 0.0),
-            end: FractionalOffset(1.0, 0.0),
-          ),
+          color: Color.fromARGB(255, 18, 18, 18),
         ),
         child: Center(
           child: SingleChildScrollView(
@@ -95,7 +81,10 @@ class ProfilePage extends StatelessWidget {
                             },
                             icon: const Icon(Icons.assessment_outlined),
                           ),
-                          const Text("Change Name"),
+                          const Text(
+                            "Change Name",
+                            style: TextStyle(color: Colors.white70),
+                          ),
                         ],
                       ),
                     ),
@@ -121,7 +110,10 @@ class ProfilePage extends StatelessWidget {
                             icon: const Icon(Icons.password_outlined),
                             tooltip: "Change Password",
                           ),
-                          const Text("Change Password"),
+                          const Text(
+                            "Change Password",
+                            style: TextStyle(color: Colors.white70),
+                          ),
                         ],
                       ),
                     ),
@@ -133,7 +125,10 @@ class ProfilePage extends StatelessWidget {
                             icon: const Icon(Icons.delete_forever_outlined),
                             tooltip: "Delete Account",
                           ),
-                          const Text("Delete Account"),
+                          const Text(
+                            "Delete Account",
+                            style: TextStyle(color: Colors.white70),
+                          ),
                         ],
                       ),
                     ),
@@ -250,12 +245,18 @@ class ProfilePage extends StatelessWidget {
                     padding: const EdgeInsets.fromLTRB(60, 15, 60, 15),
                     child: Column(
                       children: const [
-                        Text("To contact us, drop us a mail at"),
-                        Text("support@coinkick.app")
+                        Text(
+                          "To contact us, drop us a mail at",
+                          style: TextStyle(color: Colors.white70),
+                        ),
+                        Text(
+                          "support@coinkick.app",
+                          style: TextStyle(color: Colors.white70),
+                        )
                       ],
                     ),
                   ),
-                  color: const Color.fromARGB(255, 2, 24, 35),
+                  color: const Color.fromARGB(255, 40, 40, 40),
                   elevation: 10,
                 )
               ],
@@ -264,26 +265,40 @@ class ProfilePage extends StatelessWidget {
         ),
       ),
       bottomNavigationBar: BottomNavigationBar(
+        showSelectedLabels: false,
+        showUnselectedLabels: false,
         items: const <BottomNavigationBarItem>[
           BottomNavigationBarItem(
-            icon: Icon(Icons.home),
-            label: "Home",
-            backgroundColor: Colors.white70,
+            icon: Icon(
+              Icons.home,
+              color: Colors.white70,
+            ),
+            label: "",
+            backgroundColor: Color.fromARGB(255, 18, 18, 18),
           ),
           BottomNavigationBarItem(
-            icon: Icon(Icons.account_balance_sharp),
-            label: "Transactions",
-            backgroundColor: Colors.white70,
+            icon: Icon(
+              Icons.account_balance_sharp,
+              color: Colors.white70,
+            ),
+            label: "",
+            backgroundColor: Color.fromARGB(255, 18, 18, 18),
           ),
           BottomNavigationBarItem(
-            icon: Icon(Icons.account_balance_wallet_sharp),
-            backgroundColor: Colors.white70,
-            label: "Cashout",
+            icon: Icon(
+              Icons.account_balance_wallet_sharp,
+              color: Colors.white70,
+            ),
+            label: "",
+            backgroundColor: Color.fromARGB(255, 18, 18, 18),
           ),
           BottomNavigationBarItem(
-            icon: Icon(Icons.account_circle_outlined),
-            backgroundColor: Colors.white70,
-            label: "Profile",
+            icon: Icon(
+              Icons.account_circle_outlined,
+              color: Colors.white70,
+            ),
+            label: "",
+            backgroundColor: Color.fromARGB(255, 18, 18, 18),
           ),
         ],
         currentIndex: 3,

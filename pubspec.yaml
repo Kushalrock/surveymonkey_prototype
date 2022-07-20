@@ -77,9 +77,15 @@ flutter:
       - assets/charity_1.png
       - assets/charity_2.png
       - assets/charity_3.png
+      - assets/charity_4.png
       - assets/sign_in_screen_1.png
       - assets/sign_in_screen_2.png
       - assets/sign_in_screen_3.png
+      - assets/survey_1.png
+      - assets/survey_2.png
+      - assets/rewards.png
+      - assets/brand.png
+      - assets/play_games.png
 
   # To add assets to your application, add an assets section, like this:
   # assets:
