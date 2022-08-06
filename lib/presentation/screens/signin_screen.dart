@@ -88,14 +88,7 @@ class _SignInScreenState extends State<SignInScreen> {
           width: MediaQuery.of(context).size.width * 0.88,
           height: MediaQuery.of(context).size.height * 0.47,
           decoration: const BoxDecoration(
-              gradient: LinearGradient(
-                colors: [
-                  Color.fromARGB(255, 163, 189, 237),
-                  Color.fromARGB(255, 105, 145, 199)
-                ],
-                begin: FractionalOffset(1.0, 0.0),
-                end: FractionalOffset(0.0, 0.0),
-              ),
+              color: Color.fromARGB(255, 64, 64, 64),
               borderRadius: BorderRadius.all(Radius.circular(20))),
           child: Column(
             children: [
@@ -207,14 +200,7 @@ class _SignInScreenState extends State<SignInScreen> {
             if (state is UnAuthenticated) {
               return Container(
                 decoration: const BoxDecoration(
-                  gradient: LinearGradient(
-                    colors: [
-                      Color.fromARGB(255, 9, 32, 63),
-                      Color.fromARGB(255, 83, 120, 149),
-                    ],
-                    begin: FractionalOffset(0.0, 0.0),
-                    end: FractionalOffset(1.0, 0.0),
-                  ),
+                  color: Color.fromARGB(255, 18, 18, 18),
                 ),
                 child: Center(
                     child: Padding(
@@ -290,7 +276,8 @@ class _SignInScreenState extends State<SignInScreen> {
                                           context);
                                     },
                                     style: ElevatedButton.styleFrom(
-                                        primary: Colors.black12),
+                                      primary: Colors.black12,
+                                    ),
                                     child: const Padding(
                                       padding:
                                           EdgeInsets.only(top: 12, bottom: 12),
@@ -301,16 +288,14 @@ class _SignInScreenState extends State<SignInScreen> {
                                     ),
                                   ),
                                 ),
-                                Container(
-                                  child: TextButton(
-                                    onPressed: () {
-                                      _forgotPassword(
-                                          context, _emailController.text);
-                                    },
-                                    child: const Text(
-                                      "Forgot your password?",
-                                      style: TextStyle(color: Colors.white60),
-                                    ),
+                                TextButton(
+                                  onPressed: () {
+                                    _forgotPassword(
+                                        context, _emailController.text);
+                                  },
+                                  child: const Text(
+                                    "Forgot your password?",
+                                    style: TextStyle(color: Colors.white60),
                                   ),
                                 ),
                                 Row(

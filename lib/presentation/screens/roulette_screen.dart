@@ -57,10 +57,11 @@ class _RouletteScreenState extends State<RouletteScreen> {
         return;
       }
     });
+    int coinsWon = int.parse(color);
     await context.read<QuestionCubit>().rouletteTimeSubmit();
     await context
         .read<AuthCubit>()
-        .addCoins(int.parse(color), "Won $color coins in roulette");
+        .addCoins(coinsWon, "Won $color coins in roulette");
     await context.read<GetCoinsCubit>().getCoins();
 
     Navigator.of(context).pop();
@@ -74,32 +75,28 @@ class _RouletteScreenState extends State<RouletteScreen> {
         elevation: 0,
         flexibleSpace: Container(
           decoration: const BoxDecoration(
-            gradient: LinearGradient(
-              begin: FractionalOffset(0.0, 0.0),
-              end: FractionalOffset(1.0, 0.0),
-              colors: <Color>[
-                Color.fromARGB(255, 9, 32, 63),
-                Color.fromARGB(255, 83, 120, 149)
-              ],
-            ),
+            color: Color.fromARGB(255, 18, 18, 18),
           ),
         ),
       ),
       body: Container(
         decoration: const BoxDecoration(
-          gradient: LinearGradient(
-            colors: [
-              Color.fromARGB(255, 9, 32, 63),
-              Color.fromARGB(255, 83, 120, 149),
-            ],
-            begin: FractionalOffset(0.0, 0.0),
-            end: FractionalOffset(1.0, 0.0),
-          ),
+          color: Color.fromARGB(255, 18, 18, 18),
         ),
         child: Center(
           child: SingleChildScrollView(
             child: Column(
               children: [
+                const Padding(
+                  padding: EdgeInsets.all(15.0),
+                  child: Text(
+                    "Earn Coins Daily",
+                    style: TextStyle(
+                      fontSize: 40,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                ),
                 Stack(
                   alignment: Alignment.center,
                   children: [
@@ -112,9 +109,24 @@ class _RouletteScreenState extends State<RouletteScreen> {
                     Image.asset('assets/roulette_pointer.png'),
                   ],
                 ),
+                const Padding(
+                  padding: EdgeInsets.all(5.0),
+                  child: Text(
+                    "Try your luck",
+                    style: TextStyle(
+                      fontSize: 30,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                ),
                 ElevatedButton(
                   onPressed: _changeRotation,
-                  child: const Text('Rotate Logo'),
+                  child: const Text(
+                    'Spin the wheel',
+                    style: TextStyle(color: Colors.white),
+                  ),
+                  style: ElevatedButton.styleFrom(
+                      primary: Color.fromARGB(31, 99, 99, 99)),
                 ),
               ],
             ),

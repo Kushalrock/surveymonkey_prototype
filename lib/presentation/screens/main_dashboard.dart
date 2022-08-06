@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_ironsource_x/ironsource.dart';
 import 'package:flutter_ironsource_x/models.dart';
 import 'package:flutter_pollfish/flutter_pollfish.dart';
+import 'package:in_app_update/in_app_update.dart';
 import 'package:surveymonkey_prototype/logic/cubit/get_coins_cubit.dart';
 import 'package:surveymonkey_prototype/logic/cubit/question_cubit.dart';
 import 'package:surveymonkey_prototype/logic/cubit/transaction_history_cubit.dart';
@@ -19,13 +20,33 @@ class Dashboard extends StatefulWidget {
 
 class _DashboardState extends State<Dashboard> with IronSourceListener {
   bool offerWallAvailable = false;
+  AppUpdateInfo? _updateInfo;
+
+  Future<void> checkForUpdate() async {
+    InAppUpdate.checkForUpdate().then((info) {
+      setState(() {
+        _updateInfo = info;
+      });
+    }).catchError((e) {
+      print(e.toString());
+    });
+  }
+
   @override
   void initState() {
     super.initState();
     initIronSource();
     initPollfish();
+    checkForUpdate();
     WidgetsBinding.instance
         ?.addPostFrameCallback((_) => context.read<GetCoinsCubit>().getCoins());
+    WidgetsBinding.instance?.addPostFrameCallback((_) =>
+        _updateInfo?.updateAvailability == UpdateAvailability.updateAvailable
+            ? () {
+                InAppUpdate.performImmediateUpdate()
+                    .catchError((e) => print(e.toString()));
+              }
+            : print("No updates Available"));
   }
 
   @override

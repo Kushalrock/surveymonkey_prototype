@@ -11,27 +11,13 @@ class BrandOffersScreen extends StatelessWidget {
         elevation: 0,
         flexibleSpace: Container(
           decoration: const BoxDecoration(
-            gradient: LinearGradient(
-              begin: FractionalOffset(0.0, 0.0),
-              end: FractionalOffset(1.0, 0.0),
-              colors: <Color>[
-                Color.fromARGB(255, 9, 32, 63),
-                Color.fromARGB(255, 83, 120, 149)
-              ],
-            ),
+            color: Color.fromARGB(255, 18, 18, 18),
           ),
         ),
       ),
       body: Container(
         decoration: const BoxDecoration(
-          gradient: LinearGradient(
-            colors: [
-              Color.fromARGB(255, 9, 32, 63),
-              Color.fromARGB(255, 83, 120, 149),
-            ],
-            begin: FractionalOffset(0.0, 0.0),
-            end: FractionalOffset(1.0, 0.0),
-          ),
+          color: Color.fromARGB(255, 18, 18, 18),
         ),
         padding: MediaQuery.of(context).padding,
         child: Center(
@@ -40,8 +26,9 @@ class BrandOffersScreen extends StatelessWidget {
               width: MediaQuery.of(context).size.width * 0.75,
               height: MediaQuery.of(context).size.height * 0.75,
               decoration: const BoxDecoration(
-                  borderRadius: BorderRadius.all(Radius.circular(20)),
-                  color: Colors.white),
+                borderRadius: BorderRadius.all(Radius.circular(20)),
+                color: const Color.fromARGB(255, 64, 64, 64),
+              ),
               child: Padding(
                 padding: const EdgeInsets.all(20.0),
                 child: Column(
@@ -52,7 +39,7 @@ class BrandOffersScreen extends StatelessWidget {
                       style: TextStyle(
                         fontSize: 30,
                         fontWeight: FontWeight.bold,
-                        color: Colors.black,
+                        color: Colors.white,
                       ),
                     ),
                     Image.asset(
@@ -67,7 +54,7 @@ class BrandOffersScreen extends StatelessWidget {
                           style: TextStyle(
                             fontSize: 19,
                             fontWeight: FontWeight.bold,
-                            color: Colors.black,
+                            color: Colors.white,
                           ),
                         ),
                         Text(
@@ -83,9 +70,12 @@ class BrandOffersScreen extends StatelessWidget {
                       onPressed: () {
                         Navigator.of(context).pop();
                       },
-                      child: Text("Go to Main Dashboard"),
+                      child: Text(
+                        "Go to Main Dashboard",
+                        style: TextStyle(color: Colors.white),
+                      ),
                       style: ElevatedButton.styleFrom(
-                        primary: Color.fromARGB(255, 0, 145, 255),
+                        primary: Color.fromARGB(255, 0, 0, 0),
                       ),
                     ),
                   ],

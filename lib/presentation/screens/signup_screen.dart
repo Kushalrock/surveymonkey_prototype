@@ -52,14 +52,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
             if (state is UnAuthenticated) {
               return Container(
                 decoration: const BoxDecoration(
-                  gradient: LinearGradient(
-                    colors: [
-                      Color.fromARGB(255, 9, 32, 63),
-                      Color.fromARGB(255, 83, 120, 149),
-                    ],
-                    begin: FractionalOffset(0.0, 0.0),
-                    end: FractionalOffset(1.0, 0.0),
-                  ),
+                  color: Color.fromARGB(255, 18, 18, 18),
                 ),
                 child: Center(
                     child: Padding(

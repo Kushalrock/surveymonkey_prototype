@@ -42,14 +42,7 @@ class _QuestionsScreenState extends State<QuestionsScreen> {
         appBar: null,
         body: Container(
           decoration: const BoxDecoration(
-            gradient: LinearGradient(
-              colors: [
-                Color.fromARGB(255, 9, 32, 63),
-                Color.fromARGB(255, 83, 120, 149),
-              ],
-              begin: FractionalOffset(0.0, 0.0),
-              end: FractionalOffset(1.0, 0.0),
-            ),
+            color: Color.fromARGB(255, 18, 18, 18),
           ),
           padding: MediaQuery.of(context).padding,
           child: Center(
@@ -85,7 +78,7 @@ class _QuestionsScreenState extends State<QuestionsScreen> {
                         height: MediaQuery.of(context).size.height * 0.8,
                         decoration: const BoxDecoration(
                             borderRadius: BorderRadius.all(Radius.circular(20)),
-                            color: Colors.white),
+                            color: Color.fromARGB(255, 64, 64, 64)),
                         child: Column(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
@@ -97,7 +90,7 @@ class _QuestionsScreenState extends State<QuestionsScreen> {
                               decorator: const DotsDecorator(
                                 color: Color.fromARGB(
                                     255, 101, 101, 101), // Inactive color
-                                activeColor: Colors.lightBlue,
+                                activeColor: Colors.black,
                                 spacing: EdgeInsets.all(20.0),
                               ),
                             ),

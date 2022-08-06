@@ -33,7 +33,7 @@ class _QuestionLayoutState extends State<QuestionLayout> {
   }
 
   final TextEditingController inputField = TextEditingController();
-  String dropDownVal = "--";
+  String dropDownVal = "Select";
 
   Widget getDropDownWidget() {
     if (widget.questionType == "dropdown") {
@@ -48,7 +48,7 @@ class _QuestionLayoutState extends State<QuestionLayout> {
                   ?.map((e) => DropdownMenuItem(
                         child: Text(
                           e,
-                          style: const TextStyle(color: Colors.grey),
+                          style: const TextStyle(color: Colors.black),
                         ),
                         value: e,
                       ))
@@ -60,7 +60,9 @@ class _QuestionLayoutState extends State<QuestionLayout> {
               }),
           OutlinedButton(
             onPressed: () {
-              addDataToAnswerList(widget.questionInfo, dropDownVal);
+              dropDownVal == "Select One"
+                  ? null
+                  : addDataToAnswerList(widget.questionInfo, dropDownVal);
             },
             child: const Text("Next Question"),
           ),

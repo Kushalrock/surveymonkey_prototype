@@ -29,6 +29,7 @@ class AuthRepository {
           .signInWithEmailAndPassword(email: email, password: password);
       if (FirebaseAuth.instance.currentUser != null) {
         if (!FirebaseAuth.instance.currentUser!.emailVerified) {
+          await signOut();
           throw Exception('Email not verified');
         }
       }
@@ -80,7 +81,9 @@ class AuthRepository {
         .get()
         .then((value) {
       if (value.exists) {
-        previousCoins = value.data()!["coins"];
+        if (value.data()!["coins"] != null) {
+          previousCoins = value.data()!["coins"];
+        }
       } else {
         value.data()?.update("coins", (value) => value = 0, ifAbsent: () => 0);
         previousCoins = 0;
