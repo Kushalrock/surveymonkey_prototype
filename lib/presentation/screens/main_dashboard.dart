@@ -3,12 +3,16 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_ironsource_x/ironsource.dart';
 import 'package:flutter_ironsource_x/models.dart';
+import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:flutter_pollfish/flutter_pollfish.dart';
 import 'package:in_app_update/in_app_update.dart';
 import 'package:surveymonkey_prototype/logic/cubit/get_coins_cubit.dart';
 import 'package:surveymonkey_prototype/logic/cubit/question_cubit.dart';
 import 'package:surveymonkey_prototype/logic/cubit/transaction_history_cubit.dart';
 import 'package:surveymonkey_prototype/presentation/screens/Signin_screen.dart';
+import 'package:timezone/timezone.dart' as tz;
+import 'package:timezone/data/latest.dart' as tz;
+import 'package:flutter_native_timezone/flutter_native_timezone.dart';
 
 import '../../logic/cubit/auth_cubit.dart';
 
@@ -19,7 +23,8 @@ class Dashboard extends StatefulWidget {
   State<Dashboard> createState() => _DashboardState();
 }
 
-class _DashboardState extends State<Dashboard> with IronSourceListener {
+class _DashboardState extends State<Dashboard>
+    with IronSourceListener, WidgetsBindingObserver {
   bool offerWallAvailable = false;
   AppUpdateInfo? _updateInfo;
 
@@ -39,6 +44,7 @@ class _DashboardState extends State<Dashboard> with IronSourceListener {
     initIronSource();
     initPollfish();
     checkForUpdate();
+    initialize();
     WidgetsBinding.instance
         ?.addPostFrameCallback((_) => context.read<GetCoinsCubit>().getCoins());
     WidgetsBinding.instance?.addPostFrameCallback((_) =>
@@ -151,6 +157,68 @@ class _DashboardState extends State<Dashboard> with IronSourceListener {
 
   void showBrandOffers() {
     Navigator.of(context).pushNamed('/brand-offers');
+  }
+
+  final FlutterLocalNotificationsPlugin _flutterLocalNotificationsPlugin =
+      FlutterLocalNotificationsPlugin();
+  Future<void> initialize() async {
+    FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin =
+        FlutterLocalNotificationsPlugin();
+
+    AndroidInitializationSettings androidInitializationSettings =
+        const AndroidInitializationSettings('@mipmap/ic_launcher');
+
+    IOSInitializationSettings iosInitializationSettings =
+        const IOSInitializationSettings();
+
+    final InitializationSettings initializationSettings =
+        InitializationSettings(
+            android: androidInitializationSettings,
+            iOS: iosInitializationSettings);
+
+    await flutterLocalNotificationsPlugin.initialize(initializationSettings);
+  }
+
+  Future<void> scheduledNotification(
+    int id,
+    String notifTitle,
+    int days,
+    int hours,
+    int minutes,
+  ) async {
+    tz.initializeTimeZones();
+    String dtz = await FlutterNativeTimezone.getLocalTimezone();
+    if (dtz == "Asia/Calcutta") {
+      dtz = "Asia/Kolkata";
+    }
+    final localTimeZone = tz.getLocation(dtz);
+    tz.setLocalLocation(localTimeZone);
+
+    await _flutterLocalNotificationsPlugin.zonedSchedule(
+      id,
+      'Coikick',
+      notifTitle,
+      tz.TZDateTime.now(tz.local).add(
+        Duration(
+          hours: hours,
+          minutes: minutes,
+          days: days,
+        ),
+      ),
+      const NotificationDetails(
+          android:
+              AndroidNotificationDetails('scheduledNotif', 'scheduledNotif')),
+      uiLocalNotificationDateInterpretation:
+          UILocalNotificationDateInterpretation.absoluteTime,
+      androidAllowWhileIdle: true,
+    );
+  }
+
+  @override
+  void didChangeAppLifecycleState(AppLifecycleState state) {
+    if (state == AppLifecycleState.detached) {
+      scheduledNotification(0, "Come back! We miss you", 1, 0, 0);
+    }
   }
 
   Container getDashboardCard(
