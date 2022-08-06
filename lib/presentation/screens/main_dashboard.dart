@@ -1,3 +1,4 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_ironsource_x/ironsource.dart';
@@ -249,8 +250,8 @@ class _DashboardState extends State<Dashboard> with IronSourceListener {
                         alignment: Alignment.centerLeft,
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
-                          children: const [
-                            Text(
+                          children: [
+                            const Text(
                               "Hello,",
                               style: TextStyle(
                                 fontSize: 42,
@@ -258,8 +259,13 @@ class _DashboardState extends State<Dashboard> with IronSourceListener {
                               ),
                             ),
                             Text(
-                              "Michael 👋",
-                              style: TextStyle(
+                              FirebaseAuth.instance.currentUser!.displayName ==
+                                          null ||
+                                      FirebaseAuth.instance.currentUser!
+                                          .displayName!.isEmpty
+                                  ? "User 👋"
+                                  : "${FirebaseAuth.instance.currentUser!.displayName} 👋",
+                              style: const TextStyle(
                                 fontSize: 42,
                                 fontWeight: FontWeight.bold,
                               ),
