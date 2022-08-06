@@ -136,6 +136,8 @@ class _UpdateDataState extends State<UpdateData> {
                           padding: const EdgeInsets.all(10.0),
                           child: TextFormField(
                             controller: controllerForField,
+                            maxLength:
+                                widget.typeOfData == "Display Name" ? 8 : null,
                             decoration: const InputDecoration(
                                 border: OutlineInputBorder()),
                             validator: (value) {
