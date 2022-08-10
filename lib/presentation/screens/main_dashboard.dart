@@ -177,6 +177,7 @@ class _DashboardState extends State<Dashboard>
             iOS: iosInitializationSettings);
 
     await flutterLocalNotificationsPlugin.initialize(initializationSettings);
+    await flutterLocalNotificationsPlugin.cancelAll();
   }
 
   Future<void> scheduledNotification(
